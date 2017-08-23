@@ -1,3 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="title_size">26sp</dimen>
+    <dimen name="form_top_padding">20sp</dimen>
 </resources>
