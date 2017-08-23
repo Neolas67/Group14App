@@ -10,4 +10,7 @@
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="welcome_please_register">Welcome! Please Register</string>
+    <string name="welcome_please_login">Welcome! Please Login</string>
+    <string name="login">Login</string>
+    <string name="action_exit">Exit</string>
 </resources>

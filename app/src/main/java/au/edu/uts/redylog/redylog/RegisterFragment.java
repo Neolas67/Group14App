@@ -13,16 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import au.edu.uts.redylog.redylog.DataManagers.UserManager;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Models.User;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RegisterFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private EditText _etFirstName;
@@ -37,19 +30,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegisterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RegisterFragment newInstance(String param1, String param2) {
+    public static RegisterFragment newInstance() {
         RegisterFragment fragment = new RegisterFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -63,18 +45,17 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        _etFirstName = view.findViewById(R.id.etFirstName);
-        _etSurname = view.findViewById(R.id.etSurname);
-        _etEmail = view.findViewById(R.id.etEmail);
-        _etPassword = view.findViewById(R.id.etPassword);
-        _btnRegister = view.findViewById(R.id.btnRegister);
+        _etFirstName = view.findViewById(R.id.et_register_firstname);
+        _etSurname = view.findViewById(R.id.et_register_surname);
+        _etEmail = view.findViewById(R.id.et_register_email);
+        _etPassword = view.findViewById(R.id.et_register_password);
+        _btnRegister = view.findViewById(R.id.btn_register_confirm);
 
         _btnRegister.setOnClickListener(this);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -87,8 +68,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            /*throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");*/
         }
     }
 
@@ -101,15 +82,29 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view == _btnRegister) {
-            if (TextUtils.isEmpty(_etFirstName.getText())) {
-                displayInvalidTextToast(getString(R.string.first_name));
-            } else if (TextUtils.isEmpty(_etSurname.getText())) {
-                displayInvalidTextToast(getString(R.string.surname));
-            } else if (TextUtils.isEmpty(_etEmail.getText())) {
-                displayInvalidTextToast(getString(R.string.email));
-            } else if (TextUtils.isEmpty(_etPassword.getText())) {
-                displayInvalidTextToast(getString(R.string.password));
-            } else {
+            boolean hasError = false;
+
+            if (!HelperMethods.validName(_etFirstName.getText().toString())) {
+                _etFirstName.setError("Please enter a valid first name.");
+                hasError = true;
+            }
+
+            if (!HelperMethods.validName(_etSurname.getText().toString())) {
+                _etSurname.setError("Please enter a valid surname.");
+                hasError = true;
+            }
+
+            if (!HelperMethods.validEmail(_etEmail.getText().toString())) {
+                _etEmail.setError("Please enter a valid email.");
+                hasError = true;
+            }
+
+            if (!HelperMethods.validPassword(_etPassword.getText().toString())) {
+                _etPassword.setError("Please enter a valid password.");
+                hasError = true;
+            }
+
+            if (!hasError){
                 User user = new User(
                         _etFirstName.getText().toString(),
                         _etSurname.getText().toString(),
@@ -117,16 +112,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         _etPassword.getText().toString()
                 );
                 UserManager.getInstance().addUser(user);
+                Toast.makeText(getContext(), "Registration successful.", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    private void displayInvalidTextToast(String missingValue) {
-        Toast.makeText(
-                getContext(),
-                "Please ensure you have entered a valid " + missingValue,
-                Toast.LENGTH_SHORT
-        ).show();
     }
 
     /**

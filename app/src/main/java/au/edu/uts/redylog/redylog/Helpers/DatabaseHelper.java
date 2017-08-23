@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.widget.ThemedSpinnerAdapter;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,8 +152,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Journal> getAllJournals() {
-        List<Journal> journalList = new ArrayList<>();
+        return getFilteredJournals(null);
+    }
+
+    public List<Journal> getFilteredJournals(String query) {
         String selectQuery = "SELECT * FROM " + TABLE_JOURNALS;
+        if (!TextUtils.isEmpty(query)) {
+            selectQuery += " WHERE " + JOURNAL_TITLE + " LIKE '%" + query + "%'";
+        }
+
+        List<Journal> journalList = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -208,8 +217,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Entry> getAllEntries() {
-        List<Entry> entryList = new ArrayList<>();
+        return getFilteredEntries(null);
+    }
+
+    public List<Entry> getFilteredEntries(String query) {
         String selectQuery = "SELECT * FROM " + TABLE_ENTRIES;
+        if (!TextUtils.isEmpty(query)) {
+            selectQuery += " WHERE " + ENTRY_CONTENTS + " LIKE '%" + query + "%'";
+        }
+
+        List<Entry> entryList = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(selectQuery, null);

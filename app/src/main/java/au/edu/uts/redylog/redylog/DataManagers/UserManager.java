@@ -37,6 +37,16 @@ public class UserManager {
         _users.add(user);
     }
 
+    public boolean login(String password) {
+        for (User user : _users) {
+            if (user.get_password().equals(password)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public boolean userExists() {
         return _users.size() > 0;
     }
