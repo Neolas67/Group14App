@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import au.edu.uts.redylog.redylog.DataManagers.UserManager;
+import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
+import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
@@ -47,12 +49,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -75,24 +71,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         if (view == _btnLogin) {
             if (UserManager.getInstance().login(_etPassword.getText().toString())) {
                 Toast.makeText(getContext(), "Login successful.", Toast.LENGTH_SHORT).show();
+
+                if (mListener != null) {
+                    mListener.onFragmentMessage(FragmentEnum.LoginFragment, null);
+                }
+
             } else {
                 Toast.makeText(getContext(), "Login failed.", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

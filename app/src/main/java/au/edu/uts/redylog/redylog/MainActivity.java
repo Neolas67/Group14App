@@ -1,6 +1,5 @@
 package au.edu.uts.redylog.redylog;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,10 +12,14 @@ import android.view.MenuItem;
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DataManagers.UserManager;
+import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
+import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
+import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 
-public class MainActivity extends AppCompatActivity implements RegisterFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
     private FragmentManager _fragmentManager;
+    private Fragment _activeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +33,31 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         JournalManager.init(getApplicationContext());
         EntryManager.init(getApplicationContext());
 
-        displayFragment();
+        if (UserManager.getInstance().userExists()) {
+            displayFragment(FragmentEnum.LoginFragment);
+        } else {
+            displayFragment(FragmentEnum.RegisterFragment);
+        }
     }
 
-    private void displayFragment() {
-        Fragment fragment;
-
-        if (!UserManager.getInstance().userExists()) {
-            fragment = new RegisterFragment();
-        } else {
-            fragment = new LoginFragment();
-        }
+    private void displayFragment(FragmentEnum fragmentEnum) {
 
         FragmentTransaction fragmentTransaction = _fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.ll_fragment_holder, fragment);
+        if (_activeFragment != null) {fragmentTransaction.remove(_activeFragment);}
+
+        switch (fragmentEnum) {
+            case RegisterFragment:
+                _activeFragment = new RegisterFragment();
+                break;
+            case LoginFragment:
+                _activeFragment = new LoginFragment();
+                break;
+            case JournalFragment:
+                _activeFragment = new JournalFragment();
+                break;
+        }
+
+        fragmentTransaction.add(R.id.ll_fragment_holder, _activeFragment);
         fragmentTransaction.commit();
     }
 
@@ -65,13 +79,26 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         if (id == R.id.action_exit) {
             this.finishAffinity();
             return true;
+        } else if (id == R.id.action_clear) {
+            DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+            databaseHelper.clearData();
+            this.finishAffinity();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onFragmentMessage(FragmentEnum fragmentEnum, Object data) {
+        switch(fragmentEnum) {
+            case RegisterFragment:
+                displayFragment(FragmentEnum.JournalFragment);
+                break;
+            case LoginFragment:
+                displayFragment(FragmentEnum.JournalFragment);
+                break;
+            case JournalFragment:
+                break;
+        }
     }
 }

@@ -249,4 +249,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return entryList;
     }
+
+    public void clearData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        onUpgrade(db, 0, 0);
+    }
 }
