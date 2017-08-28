@@ -1,7 +1,6 @@
-package au.edu.uts.redylog.redylog;
+package au.edu.uts.redylog.redylog.Fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.User;
+import au.edu.uts.redylog.redylog.R;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
 

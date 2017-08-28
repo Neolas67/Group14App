@@ -30,12 +30,20 @@ public class JournalManager {
 
     public JournalManager() {
         _db = new DatabaseHelper(_context);
-        _journals = _db.getAllJournals();
     }
 
     public void addJournal(Journal journal) {
         _db.addJournal(journal);
         _journals.add(journal);
+    }
+
+    public List<Journal> get_journals() {
+        if (_journals == null) {
+            User user = UserManager.getInstance().get_currentUser();
+            _journals = _db.getAllJournals(user.get_userId());
+        }
+
+        return _journals;
     }
 
 }

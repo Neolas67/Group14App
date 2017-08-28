@@ -151,12 +151,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Journal> getAllJournals() {
-        return getFilteredJournals(null);
+    public List<Journal> getAllJournals(long userId) {
+        return getFilteredJournals(userId, null);
     }
 
-    public List<Journal> getFilteredJournals(String query) {
-        String selectQuery = "SELECT * FROM " + TABLE_JOURNALS;
+    public List<Journal> getFilteredJournals(long userId, String query) {
+        String selectQuery = "SELECT * FROM " + TABLE_JOURNALS + " WHERE "
+                + JOURNAL_USERID + " = " + Long.toString(userId);
+
         if (!TextUtils.isEmpty(query)) {
             selectQuery += " WHERE " + JOURNAL_TITLE + " LIKE '%" + query + "%'";
         }

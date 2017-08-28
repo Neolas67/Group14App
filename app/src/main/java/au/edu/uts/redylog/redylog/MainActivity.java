@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DataManagers.UserManager;
+import au.edu.uts.redylog.redylog.Fragments.JournalFragment;
+import au.edu.uts.redylog.redylog.Fragments.LoginFragment;
+import au.edu.uts.redylog.redylog.Fragments.RegisterFragment;
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
@@ -70,12 +73,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_exit) {
             this.finishAffinity();
             return true;

@@ -2,6 +2,10 @@ package au.edu.uts.redylog.redylog.Models;
 
 import java.util.Date;
 
+import au.edu.uts.redylog.redylog.DataManagers.UserManager;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
+import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
+
 /**
  * Created by Hayden on 23-Aug-17.
  */
@@ -24,12 +28,13 @@ public class Journal {
         this._status = _status;
     }
 
-    public Journal(long _userId, String _title, Date _startDate, Date _endDate, int _status) {
-        this._userId = _userId;
+    public Journal(String _title) {
+        User user = UserManager.getInstance().get_currentUser();
+        this._userId = user.get_userId();
         this._title = _title;
-        this._startDate = _startDate;
-        this._endDate = _endDate;
-        this._status = _status;
+        this._startDate = new Date();
+        this._endDate = null;
+        this._status = StatusEnum.Open.ordinal();
     }
 
     public long get_journalId() {

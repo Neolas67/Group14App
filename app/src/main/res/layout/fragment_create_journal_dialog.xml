@@ -2,33 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.LoginFragment">
-
+    tools:context=".DialogFragments.CreateJournalDialogFragment">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_please_login"
+            android:text="@string/create_journal"
             android:textSize="@dimen/title_size"
+            android:gravity="center"
             android:textAlignment="center"/>
 
         <EditText
-            android:id="@+id/et_login_Password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/btn_login_confirm"
+            android:id="@+id/et_create_journal_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/form_top_padding"
-            android:text="@string/login" />
+            android:hint="@string/title"/>
 
     </LinearLayout>
 

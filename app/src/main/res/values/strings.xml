@@ -15,4 +15,7 @@
     <string name="action_exit">Exit</string>
     <string name="login_fragment">LoginFragment</string>
     <string name="register_fragment">RegisterFragment</string>
+    <string name="action_add_journal">Add Journal</string>
+    <string name="create_journal">Create Journal</string>
+    <string name="title">Title</string>
 </resources>

@@ -21,6 +21,7 @@ public class UserManager {
     List<User> _users;
     DatabaseHelper _db;
     private static Context _context;
+    private User _currentUser;
 
     public static void init(Context context){
         _context = context;
@@ -40,6 +41,7 @@ public class UserManager {
     public boolean login(String password) {
         for (User user : _users) {
             if (user.get_password().equals(password)) {
+                _currentUser = user;
                 return true;
             }
         }
@@ -49,6 +51,10 @@ public class UserManager {
 
     public boolean userExists() {
         return _users.size() > 0;
+    }
+
+    public User get_currentUser() {
+        return _currentUser;
     }
 
 }
