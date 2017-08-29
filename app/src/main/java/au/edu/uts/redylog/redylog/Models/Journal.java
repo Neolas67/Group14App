@@ -15,26 +15,29 @@ public class Journal {
     long _journalId;
     long _userId;
     String _title;
+    String _description;
     Date _startDate;
     Date _endDate;
-    int _status;
+    StatusEnum _status;
 
-    public Journal(long _journalId, long _userId, String _title, Date _startDate, Date _endDate, int _status) {
+    public Journal(long _journalId, long _userId, String _title, String _description, Date _startDate, Date _endDate, StatusEnum _status) {
         this._journalId = _journalId;
         this._userId = _userId;
         this._title = _title;
+        this._description = _description;
         this._startDate = _startDate;
         this._endDate = _endDate;
         this._status = _status;
     }
 
-    public Journal(String _title) {
+    public Journal(String _title, String _description) {
         User user = UserManager.getInstance().get_currentUser();
         this._userId = user.get_userId();
         this._title = _title;
+        this._description = _description;
         this._startDate = new Date();
         this._endDate = null;
-        this._status = StatusEnum.Open.ordinal();
+        this._status = StatusEnum.Open;
     }
 
     public long get_journalId() {
@@ -61,6 +64,14 @@ public class Journal {
         this._title = _title;
     }
 
+    public String get_description() {
+        return _description;
+    }
+
+    public void set_description(String _description) {
+        this._description = _description;
+    }
+
     public Date get_startDate() {
         return _startDate;
     }
@@ -77,11 +88,11 @@ public class Journal {
         this._endDate = _endDate;
     }
 
-    public int get_status() {
+    public StatusEnum get_status() {
         return _status;
     }
 
-    public void set_status(int _status) {
+    public void set_status(StatusEnum _status) {
         this._status = _status;
     }
 }

@@ -2,6 +2,7 @@ package au.edu.uts.redylog.redylog.Helpers;
 
 import android.text.TextUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -31,5 +32,10 @@ public class HelperMethods {
     public static boolean validPassword(String password) {
         /*return password.matches("\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$\"");*/
         return !TextUtils.isEmpty(password);
+    }
+
+    public static String formatDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return sdf.format(date);
     }
 }
