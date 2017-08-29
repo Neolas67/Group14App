@@ -17,7 +17,6 @@ import au.edu.uts.redylog.redylog.DialogFragments.CreateJournalDialogFragment;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.JournalRecyclerViewAdapter;
-import au.edu.uts.redylog.redylog.dummy.DummyContent;
 
 public class JournalFragment extends Fragment {
 
@@ -48,7 +47,7 @@ public class JournalFragment extends Fragment {
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.list);
-        recyclerView.setAdapter(new JournalRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        recyclerView.setAdapter(new JournalRecyclerViewAdapter(mListener));
 
         return view;
     }

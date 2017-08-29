@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Fragments.JournalFragment.OnListFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Models.Journal;
@@ -18,8 +19,8 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
     private final List<Journal> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public JournalRecyclerViewAdapter(List<Journal> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    public JournalRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+        mValues = JournalManager.getInstance().get_journals();
         mListener = listener;
     }
 

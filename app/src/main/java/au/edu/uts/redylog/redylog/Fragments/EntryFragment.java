@@ -18,7 +18,6 @@ import au.edu.uts.redylog.redylog.DialogFragments.CreateEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.EntryRecyclerViewAdapter;
-import au.edu.uts.redylog.redylog.dummy.DummyContent;
 
 /**
  * Created by neola on 29-Aug-17.
@@ -56,7 +55,7 @@ public class EntryFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new EntryRecyclerViewAdapter(DummyContent.ENTRY_ITEMS, mListener));
+            recyclerView.setAdapter(new EntryRecyclerViewAdapter(EntryManager.getInstance().get_entries(), mListener));
         }
         return view;
     }
