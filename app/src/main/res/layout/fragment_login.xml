@@ -6,25 +6,29 @@
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/welcome_please_login"
-            android:textSize="@dimen/title_size"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
         <EditText
             android:id="@+id/et_login_Password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:textAlignment="center"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btn_login_confirm"
+            style="@style/AppTheme.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/form_top_padding"
