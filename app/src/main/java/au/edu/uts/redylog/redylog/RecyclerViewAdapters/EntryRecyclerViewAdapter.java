@@ -9,20 +9,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Fragments.EntryFragment;
-import au.edu.uts.redylog.redylog.Fragments.JournalFragment;
 import au.edu.uts.redylog.redylog.Models.Entry;
-import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
 /**
  * Created by neola on 29-Aug-17.
  */
 
-public class MyEntryRecyclerViewAdapter extends RecyclerView.Adapter<MyEntryRecyclerViewAdapter.ViewHolder> {
+public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.ViewHolder> {
     private final List<Entry> mValues;
     private final EntryFragment.OnListFragmentInteractionListener mListener;
 
-    public MyEntryRecyclerViewAdapter(List<Entry> items, EntryFragment.OnListFragmentInteractionListener listener) {
+    public EntryRecyclerViewAdapter(List<Entry> items, EntryFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

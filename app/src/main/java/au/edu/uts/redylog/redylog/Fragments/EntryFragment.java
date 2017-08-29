@@ -17,7 +17,7 @@ import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.R;
-import au.edu.uts.redylog.redylog.RecyclerViewAdapters.MyEntryRecyclerViewAdapter;
+import au.edu.uts.redylog.redylog.RecyclerViewAdapters.EntryRecyclerViewAdapter;
 import au.edu.uts.redylog.redylog.dummy.DummyContent;
 
 /**
@@ -56,7 +56,7 @@ public class EntryFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyEntryRecyclerViewAdapter(DummyContent.ENTRY_ITEMS, mListener));
+            recyclerView.setAdapter(new EntryRecyclerViewAdapter(DummyContent.ENTRY_ITEMS, mListener));
         }
         return view;
     }
