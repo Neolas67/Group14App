@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DataManagers.UserManager;
+import au.edu.uts.redylog.redylog.Fragments.EntryFragment;
 import au.edu.uts.redylog.redylog.Fragments.JournalFragment;
 import au.edu.uts.redylog.redylog.Fragments.LoginFragment;
 import au.edu.uts.redylog.redylog.Fragments.RegisterFragment;
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 break;
             case JournalFragment:
                 _activeFragment = new JournalFragment();
+                break;
+            case EntryFragment:
+                _activeFragment = new EntryFragment();
                 break;
         }
 

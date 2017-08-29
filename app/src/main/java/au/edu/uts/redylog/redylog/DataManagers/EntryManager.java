@@ -38,4 +38,12 @@ public class EntryManager {
         _entries.add(entry);
     }
 
+    public List<Entry> get_entries() {
+        if (_entries == null) {
+            User user = UserManager.getInstance().get_currentUser();
+            _entries = _db.getAllEntries();
+        }
+        return _entries;
+    }
+
 }
