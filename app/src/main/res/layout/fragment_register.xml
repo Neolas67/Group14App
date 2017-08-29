@@ -54,10 +54,11 @@
 
         <Button
             android:id="@+id/btn_register_confirm"
+            style="@style/AppTheme.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/form_top_padding"
-            android:text="@string/register"/>
+            android:text="@string/register" />
 
     </LinearLayout>
 </FrameLayout>
