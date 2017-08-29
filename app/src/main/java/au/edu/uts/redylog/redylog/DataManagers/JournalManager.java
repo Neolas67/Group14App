@@ -22,6 +22,7 @@ public class JournalManager {
     List<Journal> _journals;
     DatabaseHelper _db;
     static Context _context;
+    private Journal _currentJournal;
 
     public static void init(Context context){
         _context = context;
@@ -44,6 +45,18 @@ public class JournalManager {
         }
 
         return _journals;
+    }
+
+    public void get_journal(long journal_id){
+        for(Journal journal: _journals){
+            if(journal.get_journalId()==journal_id){
+                _currentJournal=journal;
+            }
+        }
+    }
+
+    public Journal get_currentJournal(){
+        return _currentJournal;
     }
 
 }

@@ -2,6 +2,9 @@ package au.edu.uts.redylog.redylog.Models;
 
 import java.util.Date;
 
+import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
+import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
+
 /**
  * Created by Hayden on 23-Aug-17.
  */
@@ -40,6 +43,18 @@ public class Entry {
         this._latitude = _latitude;
         this._longitude = _longitude;
     }
+
+    public Entry( String _title, String _contents) {
+        Journal journal= JournalManager.getInstance().get_currentJournal();
+        this._journalId=journal.get_journalId();
+        this._title = _title;
+        this._createdDate = new Date();
+        this._contents = _contents;
+        this._status = StatusEnum.Open.ordinal();
+        this._latitude = 0;
+        this._longitude = 0;
+    }
+
 
     public long get_entryId() {
         return _entryId;
