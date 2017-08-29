@@ -106,7 +106,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         _etEmail.getText().toString(),
                         _etPassword.getText().toString()
                 );
-                UserManager.getInstance().addUser(user);
+                UserManager.getInstance().register(user);
                 Toast.makeText(getContext(), "Registration successful.", Toast.LENGTH_SHORT).show();
 
                 if (mListener != null) {

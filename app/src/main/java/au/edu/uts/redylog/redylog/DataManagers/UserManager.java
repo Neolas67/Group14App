@@ -38,6 +38,11 @@ public class UserManager {
         _users.add(user);
     }
 
+    public void register(User user) {
+        addUser(user);
+        _currentUser = user;
+    }
+
     public boolean login(String password) {
         for (User user : _users) {
             if (user.get_password().equals(password)) {

@@ -10,4 +10,4 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="au.edu.uts.redylog.redylog.Fragments.JournalFragment"
-    tools:listitem="@layout/fragment_journal" />
+    tools:listitem="@layout/item_journal" />

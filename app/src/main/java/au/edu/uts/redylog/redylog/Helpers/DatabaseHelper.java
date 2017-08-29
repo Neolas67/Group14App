@@ -21,7 +21,7 @@ import au.edu.uts.redylog.redylog.Models.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "redyLog";
 
     // Table Definitions
@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String JOURNAL_ID = "journalid";
     private static final String JOURNAL_USERID = "userid";
     private static final String JOURNAL_TITLE = "title";
+    private static final String JOURNAL_DESCRIPTION = "description";
     private static final String JOURNAL_STARTDATE = "startdate";
     private static final String JOURNAL_ENDDATE = "enddate";
     private static final String JOURNAL_STATUS = "status";
@@ -129,9 +130,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + JOURNAL_ID + " INTEGER PRIMARY KEY, "
                 + JOURNAL_USERID + " INTEGER, "
                 + JOURNAL_TITLE + " TEXT, "
+                + JOURNAL_DESCRIPTION + " TEXT, "
                 + JOURNAL_STARTDATE + " NUMERIC, "
                 + JOURNAL_ENDDATE + " NUMERIC, "
-                + JOURNAL_STATUS + " INTEGER"
+                + JOURNAL_STATUS + " TEXT"
                 + ")";
         sqLiteDatabase.execSQL(CREATE_JOURNAL_TABLE);
     }
@@ -142,11 +144,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values.put(JOURNAL_USERID, journal.get_userId());
         values.put(JOURNAL_TITLE, journal.get_title());
+        values.put(JOURNAL_DESCRIPTION, journal.get_description());
         values.put(JOURNAL_STARTDATE, HelperMethods.dateToLong(journal.get_startDate()));
         values.put(JOURNAL_ENDDATE, HelperMethods.dateToLong(journal.get_endDate()));
-        values.put(JOURNAL_STATUS, journal.get_status());
+        values.put(JOURNAL_STATUS, journal.get_status().toString());
 
-        long newId = db.insert(TABLE_USERS, null, values);
+        long newId = db.insert(TABLE_JOURNALS, null, values);
         journal.set_journalId(newId);
         db.close();
     }
@@ -156,11 +159,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Journal> getFilteredJournals(long userId, String query) {
-        String selectQuery = "SELECT * FROM " + TABLE_JOURNALS + " WHERE "
-                + JOURNAL_USERID + " = " + Long.toString(userId);
+        String selectQuery = "SELECT * FROM " + TABLE_JOURNALS
+                + " WHERE " + JOURNAL_USERID + " = " + Long.toString(userId);
 
         if (!TextUtils.isEmpty(query)) {
-            selectQuery += " WHERE " + JOURNAL_TITLE + " LIKE '%" + query + "%'";
+            selectQuery += " AND " + JOURNAL_TITLE + " LIKE '%" + query + "%'";
         }
 
         List<Journal> journalList = new ArrayList<>();
@@ -173,9 +176,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getLong(0),
                         cursor.getLong(1),
                         cursor.getString(2),
-                        HelperMethods.longToDate(cursor.getLong(3)),
+                        cursor.getString(3),
                         HelperMethods.longToDate(cursor.getLong(4)),
-                        cursor.getInt(5)
+                        HelperMethods.longToDate(cursor.getLong(5)),
+                        StatusEnum.valueOf(cursor.getString(6))
                 );
                 journalList.add(journal);
             } while (cursor.moveToNext());

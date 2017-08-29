@@ -7,14 +7,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
-import au.edu.uts.redylog.redylog.DataManagers.UserManager;
-import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
-import au.edu.uts.redylog.redylog.MainActivity;
 import au.edu.uts.redylog.redylog.Models.Journal;
-import au.edu.uts.redylog.redylog.Models.User;
 import au.edu.uts.redylog.redylog.R;
 
 public class CreateJournalDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
@@ -40,8 +35,10 @@ public class CreateJournalDialogFragment extends DialogFragment implements Dialo
 
     public void onClick(DialogInterface dialog, int whichButton) {
         EditText etTitle = ((AlertDialog) dialog).findViewById(R.id.et_create_journal_title);
-        Journal journal = new Journal(etTitle.getText().toString());
+        EditText etDescription = ((AlertDialog) dialog).findViewById(R.id.et_create_journal_description);
 
+
+        Journal journal = new Journal(etTitle.getText().toString(), etDescription.getText().toString());
         JournalManager.getInstance().addJournal(journal);
     }
 
