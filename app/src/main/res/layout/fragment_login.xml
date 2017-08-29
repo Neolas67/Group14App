@@ -16,8 +16,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/form_top_padding"
             android:text="@string/welcome"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+            android:textAppearance="@style/TextAppearance.Headline" />
 
         <EditText
             android:id="@+id/et_login_Password"
