@@ -20,7 +20,6 @@ import au.edu.uts.redylog.redylog.dummy.DummyContent;
 
 public class JournalFragment extends Fragment {
 
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
     public JournalFragment() {
@@ -31,8 +30,6 @@ public class JournalFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        mColumnCount = JournalManager.getInstance().get_journals().size();
     }
 
     @Override
@@ -40,9 +37,7 @@ public class JournalFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setAdapter(new JournalRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
