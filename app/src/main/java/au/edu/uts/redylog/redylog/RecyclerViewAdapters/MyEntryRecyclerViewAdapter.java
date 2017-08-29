@@ -30,7 +30,7 @@ public class MyEntryRecyclerViewAdapter extends RecyclerView.Adapter<MyEntryRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_journal, parent, false);
+                .inflate(R.layout.fragment_entry, parent, false);
         return new ViewHolder(view);
     }
 
