@@ -25,4 +25,5 @@
     <string name="action_search_entries">Search Entries</string>
     <string name="create_entry">Create Entry</string>
     <string name="content">Content</string>
+    <string name="no_journals_exist">No journals exist yet!</string>
 </resources>

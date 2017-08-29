@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateJournalDialogFragment;
@@ -21,6 +22,7 @@ import au.edu.uts.redylog.redylog.dummy.DummyContent;
 public class JournalFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
+    private TextView _tvError;
 
     public JournalFragment() {
 
@@ -37,10 +39,17 @@ public class JournalFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal_list, container, false);
 
-        if (view instanceof RecyclerView) {
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setAdapter(new JournalRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        _tvError = view.findViewById(R.id.tv_journal_error);
+
+        if (JournalManager.getInstance().get_journals().size() > 0) {
+            _tvError.setVisibility(View.INVISIBLE);
+        } else {
+            _tvError.setVisibility(View.VISIBLE);
         }
+
+        RecyclerView recyclerView = view.findViewById(R.id.list);
+        recyclerView.setAdapter(new JournalRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
         return view;
     }
 
