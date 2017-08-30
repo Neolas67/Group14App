@@ -12,22 +12,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/create_entry"
-            android:textSize="@dimen/title_size"
             android:gravity="center"
-            android:textAlignment="center"/>
+            android:text="@string/create_entry"
+            android:textAlignment="center"
+            android:textSize="@dimen/title_size" />
 
         <EditText
             android:id="@+id/et_create_entry_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/title"/>
+            android:hint="@string/title" />
 
         <EditText
             android:id="@+id/et_create_entry_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/content"/>
+            android:hint="@string/content" />
 
     </LinearLayout>
 
