@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import au.edu.uts.redylog.redylog.Models.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "redyLog";
 
     // Table Definitions
@@ -52,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String ENTRY_CREATEDDATE = "createddate";
     private static final String ENTRY_CONTENTS = "contents";
     private static final String ENTRY_STATUS = "status";
-    private static final String ENTRY_ORIGINALID = "originalentryid";
+    private static final String ENTRY_NEWID = "newentryid";
     private static final String ENTRY_LATITUDE = "latitude";
     private static final String ENTRY_LONGITUDE = "longitude";
 
@@ -197,7 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ENTRY_CREATEDDATE + " NUMERIC, "
                 + ENTRY_CONTENTS + " TEXT, "
                 + ENTRY_STATUS + " INTEGER, "
-                + ENTRY_ORIGINALID + " INTEGER, "
+                + ENTRY_NEWID + " INTEGER, "
                 + ENTRY_LATITUDE + " NUMERIC, "
                 + ENTRY_LONGITUDE + " NUMERIC"
                 + ")";
@@ -213,7 +212,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ENTRY_CREATEDDATE, HelperMethods.dateToLong(entry.get_createdDate()));
         values.put(ENTRY_CONTENTS, entry.get_contents());
         values.put(ENTRY_STATUS, entry.get_status());
-        values.put(ENTRY_ORIGINALID, entry.get_originalEntryId());
+        values.put(ENTRY_NEWID, entry.get_newEntryId());
         values.put(ENTRY_LATITUDE, entry.get_latitude());
         values.put(ENTRY_LONGITUDE, entry.get_longitude());
 

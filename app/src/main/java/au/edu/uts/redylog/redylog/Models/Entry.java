@@ -17,29 +17,29 @@ public class Entry {
     Date _createdDate;
     String _contents;
     int _status;
-    long _originalEntryId;
+    long _newEntryId;
     double _latitude;
     double _longitude;
 
-    public Entry(long _entryId, long _journalId, String _title, Date _createdDate, String _contents, int _status, long _originalEntryId, double _latitude, double _longitude) {
+    public Entry(long _entryId, long _journalId, String _title, Date _createdDate, String _contents, int _status, long _newEntryId, double _latitude, double _longitude) {
         this._entryId = _entryId;
         this._journalId = _journalId;
         this._title = _title;
         this._createdDate = _createdDate;
         this._contents = _contents;
         this._status = _status;
-        this._originalEntryId = _originalEntryId;
+        this._newEntryId = _newEntryId;
         this._latitude = _latitude;
         this._longitude = _longitude;
     }
 
-    public Entry(long _journalId, String _title, Date _createdDate, String _contents, int _status, long _originalEntryId, double _latitude, double _longitude) {
+    public Entry(long _journalId, String _title, Date _createdDate, String _contents, int _status, long _newEntryId, double _latitude, double _longitude) {
         this._journalId = _journalId;
         this._title = _title;
         this._createdDate = _createdDate;
         this._contents = _contents;
         this._status = _status;
-        this._originalEntryId = _originalEntryId;
+        this._newEntryId = _newEntryId;
         this._latitude = _latitude;
         this._longitude = _longitude;
     }
@@ -104,12 +104,12 @@ public class Entry {
         this._status = _status;
     }
 
-    public long get_originalEntryId() {
-        return _originalEntryId;
+    public long get_newEntryId() {
+        return _newEntryId;
     }
 
-    public void set_originalEntryId(long _originalEntryId) {
-        this._originalEntryId = _originalEntryId;
+    public void set_newEntryId(long _newEntryId) {
+        this._newEntryId = _newEntryId;
     }
 
     public double get_latitude() {
