@@ -77,6 +77,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 }
 
             } else {
+                _etPassword.setError("Password incorrect.");
                 Toast.makeText(getContext(), "Login failed.", Toast.LENGTH_SHORT).show();
             }
         }
