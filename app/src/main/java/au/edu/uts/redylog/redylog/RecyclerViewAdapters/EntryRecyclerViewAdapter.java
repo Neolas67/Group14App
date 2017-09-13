@@ -8,13 +8,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
-import au.edu.uts.redylog.redylog.Fragments.EntryFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
-import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.ViewHolder> {
@@ -44,7 +41,7 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onFragmentMessage(FragmentEnum.EntryFragment, holder.mItem);
+                    mListener.displayFragment(FragmentEnum.EntryFragment, holder.mItem);
                 }
             }
         });

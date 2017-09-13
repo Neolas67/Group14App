@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     private FragmentManager _fragmentManager;
     private Fragment _activeFragment;
 
+    private Toolbar _toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        _toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(_toolbar);
 
         _fragmentManager = getSupportFragmentManager();
         UserManager.init(getApplicationContext());
@@ -40,41 +42,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         EntryManager.init(getApplicationContext());
 
         if (UserManager.getInstance().userExists()) {
-            displayFragment(FragmentEnum.LoginFragment);
+            displayFragment(FragmentEnum.LoginFragment, null);
         } else {
-            displayFragment(FragmentEnum.RegisterFragment);
+            displayFragment(FragmentEnum.RegisterFragment, null);
         }
-    }
-
-    private void displayFragment(FragmentEnum fragmentEnum) {
-        displayFragment(fragmentEnum, null);
-    }
-
-    private void displayFragment(FragmentEnum fragmentEnum, Object data) {
-
-        FragmentTransaction fragmentTransaction = _fragmentManager.beginTransaction();
-        if (_activeFragment != null) {fragmentTransaction.remove(_activeFragment);}
-        Bundle args = new Bundle();
-
-        switch (fragmentEnum) {
-            case RegisterFragment:
-                _activeFragment = new RegisterFragment();
-                break;
-            case LoginFragment:
-                _activeFragment = new LoginFragment();
-                break;
-            case JournalFragment:
-                _activeFragment = new JournalFragment();
-                break;
-            case EntryFragment:
-                _activeFragment = new EntryFragment();
-                args.putSerializable(getString(R.string.bundle_journal_key), (Journal)data);
-                break;
-        }
-
-        _activeFragment.setArguments(args);
-        fragmentTransaction.add(R.id.ll_fragment_holder, _activeFragment);
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -101,17 +72,34 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     }
 
     @Override
-    public void onFragmentMessage(FragmentEnum fragmentEnum, Object data) {
-        switch(fragmentEnum) {
+    public void displayFragment(FragmentEnum fragmentEnum, Object data) {
+        FragmentTransaction fragmentTransaction = _fragmentManager.beginTransaction();
+        if (_activeFragment != null) {fragmentTransaction.remove(_activeFragment);}
+        Bundle args = new Bundle();
+
+        switch (fragmentEnum) {
             case RegisterFragment:
-                displayFragment(FragmentEnum.JournalFragment);
+                _activeFragment = new RegisterFragment();
                 break;
             case LoginFragment:
-                displayFragment(FragmentEnum.JournalFragment);
+                _activeFragment = new LoginFragment();
                 break;
             case JournalFragment:
-                displayFragment(FragmentEnum.EntryFragment, data);
+                _activeFragment = new JournalFragment();
+                _toolbar.setTitle(R.string.title_journals);
+                break;
+            case EntryFragment:
+                _activeFragment = new EntryFragment();
+
+                Journal journal = (Journal)data;
+                _toolbar.setTitle(journal.get_title());
+                args.putSerializable(getString(R.string.bundle_journal_key), (Journal)data);
+
                 break;
         }
+
+        _activeFragment.setArguments(args);
+        fragmentTransaction.add(R.id.ll_fragment_holder, _activeFragment);
+        fragmentTransaction.commit();
     }
 }

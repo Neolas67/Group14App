@@ -73,7 +73,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(), "Login successful.", Toast.LENGTH_SHORT).show();
 
                 if (mListener != null) {
-                    mListener.onFragmentMessage(FragmentEnum.LoginFragment, null);
+                    mListener.displayFragment(FragmentEnum.JournalFragment, null);
                 }
 
             } else {

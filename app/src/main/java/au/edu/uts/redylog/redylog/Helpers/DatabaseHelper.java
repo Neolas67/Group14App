@@ -197,6 +197,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return journalList;
     }
 
+    public void updateJournalStatus(Journal journal) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(JOURNAL_STATUS, journal.get_status().toString());
+
+        db.update(
+                TABLE_JOURNALS,
+                values,
+                JOURNAL_ID + " = " + journal.get_journalId()
+                , null);
+    }
+
     // Entry Queries
     private void createEntryTable(SQLiteDatabase sqLiteDatabase) {
         String CREATE_ENTRY_TABLE = "CREATE TABLE " + TABLE_ENTRIES + "("

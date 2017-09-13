@@ -45,7 +45,7 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onFragmentMessage(FragmentEnum.JournalFragment, holder.mItem);
+                    mListener.displayFragment(FragmentEnum.EntryFragment, holder.mItem);
                 }
             }
         });

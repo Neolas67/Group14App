@@ -8,7 +8,6 @@ import android.support.v4.app.DialogFragment;
 import android.widget.EditText;
 
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
-import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
