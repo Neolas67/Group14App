@@ -6,7 +6,7 @@
     <android.support.v7.widget.RecyclerView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/list"
+        android:id="@+id/rv_journals"
         android:name="au.edu.uts.redylog.redylog.JournalFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

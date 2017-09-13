@@ -2,6 +2,8 @@ package au.edu.uts.redylog.redylog.DataManagers;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
@@ -22,7 +24,6 @@ public class JournalManager {
     List<Journal> _journals;
     DatabaseHelper _db;
     static Context _context;
-    private Journal _currentJournal;
 
     public static void init(Context context){
         _context = context;
@@ -31,6 +32,7 @@ public class JournalManager {
 
     public JournalManager() {
         _db = new DatabaseHelper(_context);
+        _journals = new ArrayList<>();
     }
 
     public void addJournal(Journal journal) {
@@ -39,24 +41,12 @@ public class JournalManager {
     }
 
     public List<Journal> get_journals() {
-        if (_journals == null) {
+        if (_journals.size() == 0) {
             User user = UserManager.getInstance().get_currentUser();
-            _journals = _db.getAllJournals(user.get_userId());
+            _journals.addAll(_db.getAllJournals(user.get_userId()));
         }
 
         return _journals;
-    }
-
-    public void get_journal(long journal_id){
-        for(Journal journal: _journals){
-            if(journal.get_journalId()==journal_id){
-                _currentJournal=journal;
-            }
-        }
-    }
-
-    public Journal get_currentJournal(){
-        return _currentJournal;
     }
 
 }

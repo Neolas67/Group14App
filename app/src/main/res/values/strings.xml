@@ -27,4 +27,6 @@
     <string name="content">Content</string>
     <string name="no_journals_exist">No journals exist yet!</string>
     <string name="journal_created_successfully">Journal created successfully!</string>
+    <string name="bundle_journal_key">Journal</string>
+    <string name="no_entries_exist_yet">No entries exist yet!</string>
 </resources>

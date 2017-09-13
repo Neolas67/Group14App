@@ -19,6 +19,8 @@ import au.edu.uts.redylog.redylog.Fragments.RegisterFragment;
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Models.Entry;
+import au.edu.uts.redylog.redylog.Models.Journal;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
@@ -45,9 +47,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     }
 
     private void displayFragment(FragmentEnum fragmentEnum) {
+        displayFragment(fragmentEnum, null);
+    }
+
+    private void displayFragment(FragmentEnum fragmentEnum, Object data) {
 
         FragmentTransaction fragmentTransaction = _fragmentManager.beginTransaction();
         if (_activeFragment != null) {fragmentTransaction.remove(_activeFragment);}
+        Bundle args = new Bundle();
 
         switch (fragmentEnum) {
             case RegisterFragment:
@@ -61,9 +68,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 break;
             case EntryFragment:
                 _activeFragment = new EntryFragment();
+                args.putSerializable(getString(R.string.bundle_journal_key), (Journal)data);
                 break;
         }
 
+        _activeFragment.setArguments(args);
         fragmentTransaction.add(R.id.ll_fragment_holder, _activeFragment);
         fragmentTransaction.commit();
     }
@@ -101,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 displayFragment(FragmentEnum.JournalFragment);
                 break;
             case JournalFragment:
+                displayFragment(FragmentEnum.EntryFragment, data);
                 break;
         }
     }

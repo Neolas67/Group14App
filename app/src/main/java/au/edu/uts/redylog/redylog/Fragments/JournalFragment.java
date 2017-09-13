@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateJournalDialogFragment;
-import au.edu.uts.redylog.redylog.Models.Journal;
+import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.JournalRecyclerViewAdapter;
 
 public class JournalFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
     private TextView _tvError;
 
     public JournalFragment() {
@@ -46,7 +46,7 @@ public class JournalFragment extends Fragment {
             _tvError.setVisibility(View.VISIBLE);
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.list);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_journals);
         recyclerView.setAdapter(new JournalRecyclerViewAdapter(mListener));
 
         return view;
@@ -56,10 +56,10 @@ public class JournalFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
-            //throw new RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener");
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -92,18 +92,4 @@ public class JournalFragment extends Fragment {
         dialogFragment.show(getFragmentManager(), "dialog");
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Journal journal);
-    }
 }

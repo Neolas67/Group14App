@@ -8,20 +8,23 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.Fragments.EntryFragment;
+import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
+import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
+import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
-/**
- * Created by neola on 29-Aug-17.
- */
-
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.ViewHolder> {
-    private final List<Entry> mValues;
-    private final EntryFragment.OnListFragmentInteractionListener mListener;
 
-    public EntryRecyclerViewAdapter(List<Entry> items, EntryFragment.OnListFragmentInteractionListener listener) {
-        mValues = items;
+    private final List<Entry> mValues;
+    private Journal _currentJournal;
+    private final OnFragmentInteractionListener mListener;
+
+    public EntryRecyclerViewAdapter(OnFragmentInteractionListener listener, Journal journal) {
+        _currentJournal = journal;
+        mValues = EntryManager.getInstance().get_entries(journal);
         mListener = listener;
     }
 
@@ -30,6 +33,22 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_entry, parent, false);
         return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        holder.mItem = mValues.get(position);
+        holder.mIdView.setText(Long.toString(mValues.get(position).get_entryId()));
+        holder.mDateView.setText((CharSequence) mValues.get(position).get_createdDate());
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    mListener.onFragmentMessage(FragmentEnum.EntryFragment, holder.mItem);
+                }
+            }
+        });
     }
 
     @Override
@@ -49,29 +68,8 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
             mIdView = view.findViewById(R.id.entry_title);
             mDateView = view.findViewById(R.id.entry_date);
         }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mDateView.getText() + "'";
-        }
     }
 
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(Long.toString(mValues.get(position).get_entryId()));
-        holder.mDateView.setText((CharSequence) mValues.get(position).get_createdDate());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    //mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
-    }
 }
 

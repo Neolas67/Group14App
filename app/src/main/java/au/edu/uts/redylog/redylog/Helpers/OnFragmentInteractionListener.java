@@ -5,5 +5,5 @@ package au.edu.uts.redylog.redylog.Helpers;
  */
 
 public interface OnFragmentInteractionListener {
-    public void onFragmentMessage(FragmentEnum fragmentEnum, Object data);
+    void onFragmentMessage(FragmentEnum fragmentEnum, Object data);
 }

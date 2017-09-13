@@ -9,17 +9,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
-import au.edu.uts.redylog.redylog.Fragments.JournalFragment.OnListFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
+import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
 public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecyclerViewAdapter.ViewHolder> {
 
     private final List<Journal> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final OnFragmentInteractionListener mListener;
 
-    public JournalRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+    public JournalRecyclerViewAdapter(OnFragmentInteractionListener listener) {
         mValues = JournalManager.getInstance().get_journals();
         mListener = listener;
     }
@@ -44,9 +45,7 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    //mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onFragmentMessage(FragmentEnum.JournalFragment, holder.mItem);
                 }
             }
         });
