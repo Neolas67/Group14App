@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
+import au.edu.uts.redylog.redylog.Fragments.JournalFragment;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
@@ -41,6 +42,8 @@ public class CreateJournalDialogFragment extends DialogFragment implements Dialo
         Journal journal = new Journal(etTitle.getText().toString(), etDescription.getText().toString());
         JournalManager.getInstance().addJournal(journal);
         Toast.makeText(getContext(), R.string.journal_created_successfully, Toast.LENGTH_SHORT).show();
+        JournalFragment prevFragment = (JournalFragment) getTargetFragment();
+        prevFragment.updateList();
     }
 
 }

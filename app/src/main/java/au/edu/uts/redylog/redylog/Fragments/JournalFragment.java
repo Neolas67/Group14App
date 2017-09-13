@@ -3,6 +3,8 @@ package au.edu.uts.redylog.redylog.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -13,9 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateJournalDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.JournalRecyclerViewAdapter;
 
@@ -24,6 +30,8 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
     private SearchView _svJournals;
+    private RecyclerView mRecyclerView;
+    private List<Journal> journals = new ArrayList<>();
     private JournalRecyclerViewAdapter _adapter;
 
     public JournalFragment() {
@@ -51,9 +59,13 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
             _tvError.setVisibility(View.VISIBLE);
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_journals);
-        _adapter = new JournalRecyclerViewAdapter(mListener);
-        recyclerView.setAdapter(_adapter);
+        mRecyclerView = view.findViewById(R.id.rv_journals);
+        journals.addAll(JournalManager.getInstance().get_journals());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        _adapter = new JournalRecyclerViewAdapter(mListener,journals);
+        mRecyclerView.setAdapter(_adapter);
 
         return view;
     }
@@ -74,6 +86,11 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
         }
     }
 
+    public void updateList(){
+        journals.clear();
+        journals.addAll(JournalManager.getInstance().get_journals());
+        _adapter.notifyDataSetChanged();
+    }
     @Override
     public void onDetach() {
         super.onDetach();
@@ -100,6 +117,7 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
 
     private void displayAddJournalDialog() {
         CreateJournalDialogFragment dialogFragment = new CreateJournalDialogFragment();
+        dialogFragment.setTargetFragment(this,1);
         dialogFragment.show(getFragmentManager(), "dialog");
     }
 
@@ -110,7 +128,7 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        _adapter.updateEntries(newText);
+        _adapter.updateJournals(newText);
         return false;
     }
 }

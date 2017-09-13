@@ -8,20 +8,30 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
+import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.ViewHolder> {
 
     private final List<Entry> mValues;
     private final OnFragmentInteractionListener mListener;
+    private Journal _currentJournal;
 
-    public EntryRecyclerViewAdapter(OnFragmentInteractionListener listener, List<Entry> entries) {
-        mValues = entries;
+    public EntryRecyclerViewAdapter(OnFragmentInteractionListener listener, Journal journal) {
+        _currentJournal = journal;
+        mValues = EntryManager.getInstance().get_entries(journal);
         mListener = listener;
+    }
+
+    public void updateEntries(String query) {
+        mValues.clear();
+        mValues.addAll(EntryManager.getInstance().get_entries(_currentJournal, query));
+        notifyDataSetChanged();
     }
 
     @Override

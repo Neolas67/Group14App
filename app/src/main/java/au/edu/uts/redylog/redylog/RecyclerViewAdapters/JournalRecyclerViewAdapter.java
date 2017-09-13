@@ -21,12 +21,12 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
     private final List<Journal> mValues;
     private final OnFragmentInteractionListener mListener;
 
-    public JournalRecyclerViewAdapter(OnFragmentInteractionListener listener) {
-        mValues = JournalManager.getInstance().get_journals();
+    public JournalRecyclerViewAdapter(OnFragmentInteractionListener listener,List<Journal> values) {
+        mValues = values;
         mListener = listener;
     }
 
-    public void updateEntries(String query) {
+    public void updateJournals(String query) {
         mValues.clear();
         mValues.addAll(JournalManager.getInstance().get_journals(query));
         notifyDataSetChanged();
