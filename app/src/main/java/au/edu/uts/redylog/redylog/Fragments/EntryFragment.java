@@ -18,6 +18,7 @@ import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
@@ -27,6 +28,8 @@ public class EntryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
+    private TextView _tvDescription;
+    private TextView _tvDate;
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
 
@@ -46,7 +49,12 @@ public class EntryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_entry_list, container, false);
 
         _tvError = view.findViewById(R.id.tv_entry_error);
+        _tvDescription = view.findViewById(R.id.entry_list_journal_description);
+        _tvDate = view.findViewById(R.id.entry_list_journal_date);
         _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
+
+        _tvDescription.setText(_currentJournal.get_description());
+        _tvDate.setText("created on "+HelperMethods.formatDate(_currentJournal.get_startDate()));
 
         if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
             _tvError.setVisibility(View.INVISIBLE);

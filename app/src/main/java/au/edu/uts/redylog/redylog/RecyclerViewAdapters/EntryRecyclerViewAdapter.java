@@ -34,7 +34,7 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(Long.toString(mValues.get(position).get_entryId()));
+        holder.mIdView.setText(mValues.get(position).get_title());
         holder.mDateView.setText(HelperMethods.formatDate(mValues.get(position).get_createdDate()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
