@@ -128,7 +128,7 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        _adapter.updateEntries(newText);
+        _adapter.updateJournals(newText);
         return false;
     }
 }

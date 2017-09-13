@@ -26,7 +26,7 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
         mListener = listener;
     }
 
-    public void updateEntries(String query) {
+    public void updateJournals(String query) {
         mValues.clear();
         mValues.addAll(JournalManager.getInstance().get_journals(query));
         notifyDataSetChanged();

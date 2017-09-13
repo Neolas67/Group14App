@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,12 +30,13 @@ import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.EntryRecyclerViewAdapter;
 
-public class EntryFragment extends Fragment {
+public class EntryFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
     private RecyclerView mRecyclerView;
     private List<Entry> entries= new ArrayList<>();
+    private SearchView _svEntries;
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
 
@@ -54,6 +56,8 @@ public class EntryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_entry_list, container, false);
 
         _tvError = view.findViewById(R.id.tv_entry_error);
+        _svEntries = view.findViewById(R.id.sv_entries);
+        _svEntries.setOnQueryTextListener(this);
         _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
 
         if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
@@ -64,11 +68,14 @@ public class EntryFragment extends Fragment {
 
         mRecyclerView = view.findViewById(R.id.rv_entries);
         entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
-        _adapter = new EntryRecyclerViewAdapter(mListener, entries);
+        _adapter = new EntryRecyclerViewAdapter(mListener, _currentJournal);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(_adapter);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_entries);
+
+        recyclerView.setAdapter(_adapter);
 
         return view;
     }
@@ -159,5 +166,16 @@ public class EntryFragment extends Fragment {
 
     private void displayDeleteJournal(){
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        _adapter.updateEntries(newText);
+        return false;
     }
 }
