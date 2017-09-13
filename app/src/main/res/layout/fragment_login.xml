@@ -32,7 +32,6 @@
             style="@style/AppTheme.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/form_top_padding"
             android:text="@string/login" />
 
     </LinearLayout>
