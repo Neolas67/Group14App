@@ -46,18 +46,17 @@ public class EntryManager {
 
     public List<Entry> get_entries(Journal journal) {
         if (_entries.size() == 0) {
-            User user = UserManager.getInstance().get_currentUser();
             _entries.addAll(_db.getAllEntries());
         }
 
-        List<Entry> entriesToReturn = new ArrayList<>();
+        List<Entry> filteredList = new ArrayList<>();
 
         for (Entry e: _entries) {
             if (e.get_journalId() == journal.get_journalId())
-                entriesToReturn.add(e);
+                filteredList.add(e);
         }
 
-        return entriesToReturn;
+        return filteredList;
     }
 
 //    public List<History> get_history(Entry entry) {

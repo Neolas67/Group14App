@@ -21,13 +21,19 @@
             android:id="@+id/et_create_entry_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/title" />
+            android:hint="@string/title"
+            android:inputType="text"/>
 
         <EditText
             android:id="@+id/et_create_entry_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/content" />
+            android:hint="@string/content"
+            android:inputType="textMultiLine"
+            android:lines="2"
+            android:minLines="2"
+            android:maxLines="2"
+            android:singleLine="false" />
 
     </LinearLayout>
 

@@ -224,7 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ENTRY_LATITUDE, entry.get_latitude());
         values.put(ENTRY_LONGITUDE, entry.get_longitude());
 
-        long newId = db.insert(TABLE_USERS, null, values);
+        long newId = db.insert(TABLE_ENTRIES, null, values);
         entry.set_entryId(newId);
         db.close();
     }

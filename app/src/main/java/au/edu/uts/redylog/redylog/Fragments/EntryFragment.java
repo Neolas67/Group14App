@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
@@ -25,6 +27,7 @@ public class EntryFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
     private Journal _currentJournal;
+    private EntryRecyclerViewAdapter _adapter;
 
     public EntryFragment() {
 
@@ -51,7 +54,8 @@ public class EntryFragment extends Fragment {
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_entries);
-        recyclerView.setAdapter(new EntryRecyclerViewAdapter(mListener, _currentJournal));
+        _adapter = new EntryRecyclerViewAdapter(mListener, EntryManager.getInstance().get_entries(_currentJournal));
+        recyclerView.setAdapter(_adapter);
 
         return view;
     }

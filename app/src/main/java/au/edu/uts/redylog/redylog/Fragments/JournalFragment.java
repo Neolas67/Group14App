@@ -22,6 +22,7 @@ public class JournalFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
+    private JournalRecyclerViewAdapter _adapter;
 
     public JournalFragment() {
 
@@ -47,11 +48,17 @@ public class JournalFragment extends Fragment {
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_journals);
-        recyclerView.setAdapter(new JournalRecyclerViewAdapter(mListener));
+        _adapter = new JournalRecyclerViewAdapter(mListener);
+        recyclerView.setAdapter(_adapter);
 
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onAttach(Context context) {

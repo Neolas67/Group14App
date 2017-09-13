@@ -11,6 +11,7 @@ import java.util.List;
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.Fragments.EntryFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
@@ -19,12 +20,10 @@ import au.edu.uts.redylog.redylog.R;
 public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.ViewHolder> {
 
     private final List<Entry> mValues;
-    private Journal _currentJournal;
     private final OnFragmentInteractionListener mListener;
 
-    public EntryRecyclerViewAdapter(OnFragmentInteractionListener listener, Journal journal) {
-        _currentJournal = journal;
-        mValues = EntryManager.getInstance().get_entries(journal);
+    public EntryRecyclerViewAdapter(OnFragmentInteractionListener listener, List<Entry> entries) {
+        mValues = entries;
         mListener = listener;
     }
 
@@ -39,7 +38,7 @@ public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecycler
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(Long.toString(mValues.get(position).get_entryId()));
-        holder.mDateView.setText((CharSequence) mValues.get(position).get_createdDate());
+        holder.mDateView.setText(HelperMethods.formatDate(mValues.get(position).get_createdDate()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
