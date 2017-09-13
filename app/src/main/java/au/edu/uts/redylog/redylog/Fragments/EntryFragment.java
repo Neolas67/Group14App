@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +24,11 @@ import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.EntryRecyclerViewAdapter;
 
-public class EntryFragment extends Fragment {
+public class EntryFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
+    private SearchView _svEntries;
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
 
@@ -46,6 +48,8 @@ public class EntryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_entry_list, container, false);
 
         _tvError = view.findViewById(R.id.tv_entry_error);
+        _svEntries = view.findViewById(R.id.sv_entries);
+        _svEntries.setOnQueryTextListener(this);
         _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
 
         if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
@@ -55,7 +59,7 @@ public class EntryFragment extends Fragment {
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.rv_entries);
-        _adapter = new EntryRecyclerViewAdapter(mListener, EntryManager.getInstance().get_entries(_currentJournal));
+        _adapter = new EntryRecyclerViewAdapter(mListener, _currentJournal);
         recyclerView.setAdapter(_adapter);
 
         return view;
@@ -141,5 +145,16 @@ public class EntryFragment extends Fragment {
 
     private void displayDeleteJournal(){
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        _adapter.updateEntries(newText);
+        return false;
     }
 }

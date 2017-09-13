@@ -1,6 +1,7 @@
 package au.edu.uts.redylog.redylog.DataManagers;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,19 +45,32 @@ public class EntryManager {
         _entries.add(entry);
     }
 
-    public List<Entry> get_entries(Journal journal) {
+    public List<Entry> get_entries(Journal journal, String query) {
         if (_entries.size() == 0) {
             _entries.addAll(_db.getAllEntries());
         }
 
         List<Entry> filteredList = new ArrayList<>();
 
-        for (Entry e: _entries) {
-            if (e.get_journalId() == journal.get_journalId())
-                filteredList.add(e);
+        if (TextUtils.isEmpty(query)) {
+            for (Entry e: _entries) {
+                if (e.get_journalId() == journal.get_journalId())
+                    filteredList.add(e);
+            }
+        } else {
+            for (Entry e: _entries) {
+                if (e.get_journalId() == journal.get_journalId() &&
+                        (e.get_title().toLowerCase().contains(query.toLowerCase()) ||
+                                e.get_contents().toLowerCase().contains(query.toLowerCase())))
+                    filteredList.add(e);
+            }
         }
 
         return filteredList;
+    }
+
+    public List<Entry> get_entries(Journal journal) {
+        return get_entries(journal, null);
     }
 
 //    public List<History> get_history(Entry entry) {
