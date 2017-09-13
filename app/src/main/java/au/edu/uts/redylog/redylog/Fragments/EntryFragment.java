@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,11 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.EntryRecyclerViewAdapter;
@@ -27,6 +33,8 @@ public class EntryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
+    private RecyclerView mRecyclerView;
+    private List<Entry> entries= new ArrayList<>();
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
 
@@ -54,9 +62,13 @@ public class EntryFragment extends Fragment {
             _tvError.setVisibility(View.VISIBLE);
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_entries);
-        _adapter = new EntryRecyclerViewAdapter(mListener, EntryManager.getInstance().get_entries(_currentJournal));
-        recyclerView.setAdapter(_adapter);
+        mRecyclerView = view.findViewById(R.id.rv_entries);
+        entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
+        _adapter = new EntryRecyclerViewAdapter(mListener, entries);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(_adapter);
 
         return view;
     }
@@ -113,8 +125,14 @@ public class EntryFragment extends Fragment {
         Bundle args = new Bundle();
         args.putSerializable(getString(R.string.bundle_journal_key), _currentJournal);
         dialogFragment.setArguments(args);
-
+        dialogFragment.setTargetFragment(this,1);
         dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
+    public void updateList(){
+        entries.clear();
+        entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
+        _adapter.notifyDataSetChanged();
     }
 
     private void displaySearchEntryDialog(){
