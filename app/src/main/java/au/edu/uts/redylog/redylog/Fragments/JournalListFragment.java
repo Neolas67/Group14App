@@ -25,16 +25,16 @@ import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.JournalRecyclerViewAdapter;
 
-public class JournalFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class JournalListFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
     private SearchView _svJournals;
     private RecyclerView mRecyclerView;
-    private List<Journal> journals = new ArrayList<>();
+    private List<Journal> _journals = new ArrayList<>();
     private JournalRecyclerViewAdapter _adapter;
 
-    public JournalFragment() {
+    public JournalListFragment() {
 
     }
 
@@ -60,11 +60,10 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
         }
 
         mRecyclerView = view.findViewById(R.id.rv_journals);
-        journals.addAll(JournalManager.getInstance().get_journals());
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        _journals.addAll(JournalManager.getInstance().get_journals());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        _adapter = new JournalRecyclerViewAdapter(mListener,journals);
+        _adapter = new JournalRecyclerViewAdapter(mListener, _journals);
         mRecyclerView.setAdapter(_adapter);
 
         return view;
@@ -87,8 +86,8 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void updateList(){
-        journals.clear();
-        journals.addAll(JournalManager.getInstance().get_journals());
+        _journals.clear();
+        _journals.addAll(JournalManager.getInstance().get_journals());
         _adapter.notifyDataSetChanged();
     }
     @Override
@@ -128,7 +127,8 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        _adapter.updateJournals(newText);
+        _journals.clear();
+        _journals.addAll(JournalManager.getInstance().get_journals(newText));
         return false;
     }
 }

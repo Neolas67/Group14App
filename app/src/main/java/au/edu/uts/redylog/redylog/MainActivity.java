@@ -12,10 +12,11 @@ import android.view.MenuItem;
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DataManagers.UserManager;
-import au.edu.uts.redylog.redylog.Fragments.EntryFragment;
-import au.edu.uts.redylog.redylog.Fragments.JournalFragment;
+import au.edu.uts.redylog.redylog.Fragments.EntryListFragment;
+import au.edu.uts.redylog.redylog.Fragments.JournalListFragment;
 import au.edu.uts.redylog.redylog.Fragments.LoginFragment;
 import au.edu.uts.redylog.redylog.Fragments.RegisterFragment;
+import au.edu.uts.redylog.redylog.Fragments.ViewEntryFragment;
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
@@ -84,18 +85,21 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             case LoginFragment:
                 _activeFragment = new LoginFragment();
                 break;
-            case JournalFragment:
-                _activeFragment = new JournalFragment();
+            case JournalListFragment:
+                _activeFragment = new JournalListFragment();
                 _toolbar.setTitle(R.string.title_journals);
                 break;
-            case EntryFragment:
-                _activeFragment = new EntryFragment();
-
+            case EntryListFragment:
+                _activeFragment = new EntryListFragment();
                 Journal journal = (Journal)data;
                 _toolbar.setTitle(journal.get_title());
-                args.putSerializable(getString(R.string.bundle_journal_key), (Journal)data);
-
+                args.putSerializable(getString(R.string.bundle_journal_key), journal);
                 break;
+            case ViewEntryFragment:
+                _activeFragment = new ViewEntryFragment();
+                Entry entry = (Entry)data;
+                _toolbar.setTitle(entry.get_title());
+                args.putSerializable(getString(R.string.bundle_entry_key), entry);
         }
 
         _activeFragment.setArguments(args);

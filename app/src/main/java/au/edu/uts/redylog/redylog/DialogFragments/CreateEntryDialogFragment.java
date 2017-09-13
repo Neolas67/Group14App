@@ -8,7 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.widget.EditText;
 
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
-import au.edu.uts.redylog.redylog.Fragments.EntryFragment;
+import au.edu.uts.redylog.redylog.Fragments.EntryListFragment;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
@@ -20,7 +20,7 @@ import au.edu.uts.redylog.redylog.R;
 public class CreateEntryDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
     private Journal _currentJournal;
-    private EntryFragment prevFragment;
+    private EntryListFragment prevFragment;
 
     public CreateEntryDialogFragment() {
 
@@ -52,7 +52,7 @@ public class CreateEntryDialogFragment extends DialogFragment implements DialogI
                 _currentJournal.get_journalId());
 
         EntryManager.getInstance().addEntry(entry);
-        prevFragment = (EntryFragment) getTargetFragment();
+        prevFragment = (EntryListFragment) getTargetFragment();
         prevFragment.updateList();
     }
 }
