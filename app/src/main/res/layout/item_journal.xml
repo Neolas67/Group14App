@@ -30,14 +30,7 @@
                     android:layout_marginBottom="@dimen/text_margin"
                     android:textAppearance="?attr/textAppearanceSearchResultTitle" />
 
-                <TextView
-                    android:text="@string/description"
-                    android:id="@+id/item_journal_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/text_margin"
-                    android:layout_marginBottom="@dimen/text_margin"
-                    android:textAppearance="?attr/textAppearanceSearchResultSubtitle" />
+
 
             </LinearLayout>
 
