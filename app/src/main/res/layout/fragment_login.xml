@@ -14,7 +14,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/form_top_padding"
             android:text="@string/welcome"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
@@ -23,6 +22,7 @@
             android:id="@+id/et_login_Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/form_top_padding"
             android:hint="@string/password"
             android:textAlignment="center"
             android:inputType="textPassword" />

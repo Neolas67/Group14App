@@ -44,7 +44,6 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
         holder.mItem = mValues.get(position);
 
         holder.mTitle.setText(mValues.get(position).get_title());
-        holder.mDescription.setText(mValues.get(position).get_description());
         holder.mStartDate.setText(HelperMethods.formatDate(mValues.get(position).get_startDate()));
         holder.mStatus.setText(mValues.get(position).get_status().toString());
 
@@ -66,7 +65,6 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mTitle;
-        public final TextView mDescription;
         public final TextView mStartDate;
         public final TextView mStatus;
         public Journal mItem;
@@ -75,7 +73,6 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
             super(view);
             mView = view;
             mTitle = view.findViewById(R.id.item_journal_title);
-            mDescription = view.findViewById(R.id.item_journal_description);
             mStartDate = view.findViewById(R.id.item_journal_start_date);
             mStatus = view.findViewById(R.id.item_journal_status);
         }

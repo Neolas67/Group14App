@@ -25,10 +25,12 @@
     <string name="action_search_entries">Search Entries</string>
     <string name="create_entry">Create Entry</string>
     <string name="content">Content</string>
-    <string name="no_journals_exist">No journals exist yet!</string>
+    <string name="no_journals_exist">You have no journals. </string>
     <string name="journal_created_successfully">Journal created successfully!</string>
+    <string name="status">Status</string>
+    <string name="created_date">Created Date</string>
     <string name="bundle_journal_key">Journal</string>
-    <string name="no_entries_exist_yet">No entries exist yet!</string>
     <string name="dialog_close_journal_prompt">Once a journal is closed, it cannot be edited. Are you sure you want to close this journal?</string>
     <string name="title_journals">Journals</string>
+    <string name="no_entries_exist_yet">No entries in this journal. </string>
 </resources>

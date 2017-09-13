@@ -3,4 +3,5 @@
     <dimen name="title_size">26sp</dimen>
     <dimen name="form_top_padding">20sp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="error_size">20sp</dimen>
 </resources>

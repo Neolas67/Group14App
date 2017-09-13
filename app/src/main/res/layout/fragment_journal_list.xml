@@ -16,8 +16,6 @@
         android:layout_below="@id/sv_journals"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="au.edu.uts.redylog.redylog.Fragments.JournalFragment"
         tools:listitem="@layout/item_journal" />
@@ -31,7 +29,7 @@
         android:gravity="center"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-        android:textSize="20dp"
+        android:textSize="@dimen/error_size"
         android:visibility="invisible"/>
 
 </RelativeLayout>
