@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Models.Journal;
@@ -37,9 +38,9 @@ public class CreateJournalDialogFragment extends DialogFragment implements Dialo
         EditText etTitle = ((AlertDialog) dialog).findViewById(R.id.et_create_journal_title);
         EditText etDescription = ((AlertDialog) dialog).findViewById(R.id.et_create_journal_description);
 
-
         Journal journal = new Journal(etTitle.getText().toString(), etDescription.getText().toString());
         JournalManager.getInstance().addJournal(journal);
+        Toast.makeText(getContext(), R.string.journal_created_successfully, Toast.LENGTH_SHORT).show();
     }
 
 }

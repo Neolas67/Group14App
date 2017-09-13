@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="au.edu.uts.redylog.redylog.JournalFragment"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="au.edu.uts.redylog.redylog.Fragments.JournalFragment"
-    tools:listitem="@layout/item_journal" />
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rv_journals"
+        android:name="au.edu.uts.redylog.redylog.JournalFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="au.edu.uts.redylog.redylog.Fragments.JournalFragment"
+        tools:listitem="@layout/item_journal" />
+
+    <TextView
+        android:id="@+id/tv_journal_error"
+        android:layout_centerInParent="true"
+        android:text="@string/no_journals_exist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+        android:textSize="20dp"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

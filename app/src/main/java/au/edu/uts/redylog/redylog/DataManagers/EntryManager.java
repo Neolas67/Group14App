@@ -2,10 +2,14 @@ package au.edu.uts.redylog.redylog.DataManagers;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
 import au.edu.uts.redylog.redylog.Models.Entry;
+import au.edu.uts.redylog.redylog.Models.History;
+import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.Models.User;
 
 /**
@@ -20,6 +24,7 @@ public class EntryManager {
     }
 
     List<Entry> _entries;
+    List<History> _history;
     DatabaseHelper _db;
     static Context _context;
 
@@ -30,7 +35,8 @@ public class EntryManager {
 
     public EntryManager() {
         _db = new DatabaseHelper(_context);
-        _entries = _db.getAllEntries();
+        _entries = new ArrayList<>();
+        _history = new ArrayList<>();
     }
 
     public void addEntry(Entry entry) {
@@ -38,12 +44,23 @@ public class EntryManager {
         _entries.add(entry);
     }
 
-    public List<Entry> get_entries() {
-        if (_entries == null) {
-            User user = UserManager.getInstance().get_currentUser();
-            _entries = _db.getAllEntries();
+    public List<Entry> get_entries(Journal journal) {
+        if (_entries.size() == 0) {
+            _entries.addAll(_db.getAllEntries());
         }
-        return _entries;
+
+        List<Entry> filteredList = new ArrayList<>();
+
+        for (Entry e: _entries) {
+            if (e.get_journalId() == journal.get_journalId())
+                filteredList.add(e);
+        }
+
+        return filteredList;
     }
+
+//    public List<History> get_history(Entry entry) {
+//
+//    }
 
 }

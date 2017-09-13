@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.List;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.Models.User;
+import au.edu.uts.redylog.redylog.Models.History;
 
 /**
  * Created by Hayden on 23-Aug-17.
@@ -21,13 +21,14 @@ import au.edu.uts.redylog.redylog.Models.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "redyLog";
 
     // Table Definitions
     private static final String TABLE_USERS = "users";
     private static final String TABLE_JOURNALS = "journals";
     private static final String TABLE_ENTRIES = "entries";
+    private static final String TABLE_HISTORY = "history";
 
     // User Table - Column Definitions
     private static final String USER_ID = "userid";
@@ -52,9 +53,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String ENTRY_CREATEDDATE = "createddate";
     private static final String ENTRY_CONTENTS = "contents";
     private static final String ENTRY_STATUS = "status";
-    private static final String ENTRY_ORIGINALID = "originalentryid";
     private static final String ENTRY_LATITUDE = "latitude";
     private static final String ENTRY_LONGITUDE = "longitude";
+
+    // History Table - Column Definitions
+    private static final String HISTORY_ID = "historyid";
+    private static final String HISTORY_ENTRYID = "entryid";
+    private static final String HISTORY_TITLE = "title";
+    private static final String HISTORY_CONTENT = "contents";
+    private static final String HISTORY_CHANGEDDATE = "changeddate";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -65,6 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         createUserTable(sqLiteDatabase);
         createJournalTable(sqLiteDatabase);
         createEntryTable(sqLiteDatabase);
+        createHistoryTable(sqLiteDatabase);
     }
 
     @Override
@@ -72,6 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_JOURNALS);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_ENTRIES);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
 
         onCreate(sqLiteDatabase);
     }
@@ -197,7 +206,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ENTRY_CREATEDDATE + " NUMERIC, "
                 + ENTRY_CONTENTS + " TEXT, "
                 + ENTRY_STATUS + " INTEGER, "
-                + ENTRY_ORIGINALID + " INTEGER, "
                 + ENTRY_LATITUDE + " NUMERIC, "
                 + ENTRY_LONGITUDE + " NUMERIC"
                 + ")";
@@ -213,11 +221,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ENTRY_CREATEDDATE, HelperMethods.dateToLong(entry.get_createdDate()));
         values.put(ENTRY_CONTENTS, entry.get_contents());
         values.put(ENTRY_STATUS, entry.get_status());
-        values.put(ENTRY_ORIGINALID, entry.get_originalEntryId());
         values.put(ENTRY_LATITUDE, entry.get_latitude());
         values.put(ENTRY_LONGITUDE, entry.get_longitude());
 
-        long newId = db.insert(TABLE_USERS, null, values);
+        long newId = db.insert(TABLE_ENTRIES, null, values);
         entry.set_entryId(newId);
         db.close();
     }
@@ -245,15 +252,63 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         HelperMethods.longToDate(cursor.getLong(3)),
                         cursor.getString(4),
                         cursor.getInt(5),
-                        cursor.getLong(6),
-                        cursor.getDouble(7),
-                        cursor.getDouble(8)
+                        cursor.getDouble(6),
+                        cursor.getDouble(7)
                 );
                 entryList.add(entry);
             } while (cursor.moveToNext());
         }
 
         return entryList;
+    }
+
+    // History Queries
+    private void createHistoryTable(SQLiteDatabase sqLiteDatabase) {
+        String CREATE_JOURNAL_TABLE = "CREATE TABLE " + TABLE_HISTORY + "("
+                + HISTORY_ID + " INTEGER PRIMARY KEY, "
+                + HISTORY_ENTRYID + " INTEGER, "
+                + HISTORY_TITLE + " TEXT, "
+                + HISTORY_CONTENT + " TEXT, "
+                + HISTORY_CHANGEDDATE + " NUMERIC "
+                + ")";
+        sqLiteDatabase.execSQL(CREATE_JOURNAL_TABLE);
+    }
+
+    public void addHistory(History history) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(HISTORY_ENTRYID, history.get_entryId());
+        values.put(HISTORY_TITLE, history.get_title());
+        values.put(HISTORY_CONTENT, history.get_content());
+        values.put(HISTORY_CHANGEDDATE, HelperMethods.dateToLong(history.get_changedDate()));
+
+        long newId = db.insert(TABLE_HISTORY, null, values);
+        history.set_historyId(newId);
+        db.close();
+    }
+
+    public List<History> getHistory(Entry entry) {
+        String selectQuery = "SELECT * FROM " + TABLE_HISTORY + " WHERE " + HISTORY_ENTRYID + " = " + entry.get_entryId();
+
+        List<History> historyList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                History history = new History(
+                        cursor.getLong(0),
+                        cursor.getLong(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        HelperMethods.longToDate(cursor.getLong(4))
+                );
+                historyList.add(history);
+            } while (cursor.moveToNext());
+        }
+
+        return historyList;
     }
 
     public void clearData() {

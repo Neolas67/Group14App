@@ -10,6 +10,7 @@ import android.widget.EditText;
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Models.Entry;
+import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
 /**
@@ -17,9 +18,13 @@ import au.edu.uts.redylog.redylog.R;
  */
 
 public class CreateEntryDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
+
+    private Journal _currentJournal;
+
     public CreateEntryDialogFragment() {
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +32,8 @@ public class CreateEntryDialogFragment extends DialogFragment implements DialogI
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
+
         return new AlertDialog.Builder(getActivity())
                 .setView(getActivity().getLayoutInflater().inflate(R.layout.fragment_create_entry_dialog, null))
                 .setPositiveButton(android.R.string.ok, this)
@@ -37,8 +44,12 @@ public class CreateEntryDialogFragment extends DialogFragment implements DialogI
     public void onClick(DialogInterface dialog, int whichButton) {
         EditText etTitle = ((AlertDialog) dialog).findViewById(R.id.et_create_entry_title);
         EditText etContent = ((AlertDialog) dialog).findViewById(R.id.et_create_entry_content);
-        Entry entry = new Entry(etTitle.getText().toString(),etContent.getText().toString());
-        entry.set_journalId(JournalManager.getInstance().get_currentJournal().get_journalId());
+
+        Entry entry = new Entry(
+                etTitle.getText().toString(),
+                etContent.getText().toString(),
+                _currentJournal.get_journalId());
+
         EntryManager.getInstance().addEntry(entry);
     }
 }

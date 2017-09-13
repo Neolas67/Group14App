@@ -10,17 +10,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateJournalDialogFragment;
-import au.edu.uts.redylog.redylog.Models.Journal;
+import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.JournalRecyclerViewAdapter;
-import au.edu.uts.redylog.redylog.dummy.DummyContent;
 
 public class JournalFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
+    private TextView _tvError;
+    private JournalRecyclerViewAdapter _adapter;
 
     public JournalFragment() {
 
@@ -37,21 +39,34 @@ public class JournalFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal_list, container, false);
 
-        if (view instanceof RecyclerView) {
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setAdapter(new JournalRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        _tvError = view.findViewById(R.id.tv_journal_error);
+
+        if (JournalManager.getInstance().get_journals().size() > 0) {
+            _tvError.setVisibility(View.INVISIBLE);
+        } else {
+            _tvError.setVisibility(View.VISIBLE);
         }
+
+        RecyclerView recyclerView = view.findViewById(R.id.rv_journals);
+        _adapter = new JournalRecyclerViewAdapter(mListener);
+        recyclerView.setAdapter(_adapter);
+
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
-            //throw new RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener");
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -84,18 +99,4 @@ public class JournalFragment extends Fragment {
         dialogFragment.show(getFragmentManager(), "dialog");
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Journal journal);
-    }
 }

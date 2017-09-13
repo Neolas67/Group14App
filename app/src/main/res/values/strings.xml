@@ -19,4 +19,14 @@
     <string name="create_journal">Create Journal</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="action_view_journal">View Journal Details</string>
+    <string name="action_close_journal">Close Journal</string>
+    <string name="action_delete_journal">Delete Journal</string>
+    <string name="action_search_entries">Search Entries</string>
+    <string name="create_entry">Create Entry</string>
+    <string name="content">Content</string>
+    <string name="no_journals_exist">No journals exist yet!</string>
+    <string name="journal_created_successfully">Journal created successfully!</string>
+    <string name="bundle_journal_key">Journal</string>
+    <string name="no_entries_exist_yet">No entries exist yet!</string>
 </resources>

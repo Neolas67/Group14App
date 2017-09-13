@@ -8,44 +8,43 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
+import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
+import au.edu.uts.redylog.redylog.Fragments.EntryFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
-public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecyclerViewAdapter.ViewHolder> {
+public class EntryRecyclerViewAdapter extends RecyclerView.Adapter<EntryRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Journal> mValues;
+    private final List<Entry> mValues;
     private final OnFragmentInteractionListener mListener;
 
-    public JournalRecyclerViewAdapter(OnFragmentInteractionListener listener) {
-        mValues = JournalManager.getInstance().get_journals();
+    public EntryRecyclerViewAdapter(OnFragmentInteractionListener listener, List<Entry> entries) {
+        mValues = entries;
         mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_journal, parent, false);
+                .inflate(R.layout.fragment_entry, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-
-        holder.mTitle.setText(mValues.get(position).get_title());
-        holder.mDescription.setText(mValues.get(position).get_description());
-        holder.mStartDate.setText(HelperMethods.formatDate(mValues.get(position).get_startDate()));
-        holder.mStatus.setText(mValues.get(position).get_status().toString());
+        holder.mIdView.setText(Long.toString(mValues.get(position).get_entryId()));
+        holder.mDateView.setText(HelperMethods.formatDate(mValues.get(position).get_createdDate()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onFragmentMessage(FragmentEnum.JournalFragment, holder.mItem);
+                    mListener.onFragmentMessage(FragmentEnum.EntryFragment, holder.mItem);
                 }
             }
         });
@@ -58,19 +57,18 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mTitle;
-        public final TextView mDescription;
-        public final TextView mStartDate;
-        public final TextView mStatus;
-        public Journal mItem;
+        public final TextView mIdView;
+        public final TextView mDateView;
+        public Entry mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mTitle = view.findViewById(R.id.item_journal_title);
-            mDescription = view.findViewById(R.id.item_journal_description);
-            mStartDate = view.findViewById(R.id.item_journal_start_date);
-            mStatus = view.findViewById(R.id.item_journal_status);
+            mIdView = view.findViewById(R.id.entry_title);
+            mDateView = view.findViewById(R.id.entry_date);
         }
     }
+
+
 }
+
