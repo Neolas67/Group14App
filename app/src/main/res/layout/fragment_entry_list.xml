@@ -14,7 +14,7 @@
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="au.edu.uts.redylog.redylog.Fragments.EntryFragment"
-        tools:listitem="@layout/fragment_entry" />
+        tools:listitem="@layout/item_entry" />
 
     <TextView
         android:id="@+id/tv_entry_error"

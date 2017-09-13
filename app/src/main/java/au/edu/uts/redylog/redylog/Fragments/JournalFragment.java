@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,10 +19,11 @@ import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.JournalRecyclerViewAdapter;
 
-public class JournalFragment extends Fragment {
+public class JournalFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
+    private SearchView _svJournals;
     private JournalRecyclerViewAdapter _adapter;
 
     public JournalFragment() {
@@ -40,6 +42,8 @@ public class JournalFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_journal_list, container, false);
 
         _tvError = view.findViewById(R.id.tv_journal_error);
+        _svJournals = view.findViewById(R.id.sv_journals);
+        _svJournals.setOnQueryTextListener(this);
 
         if (JournalManager.getInstance().get_journals().size() > 0) {
             _tvError.setVisibility(View.INVISIBLE);
@@ -99,4 +103,14 @@ public class JournalFragment extends Fragment {
         dialogFragment.show(getFragmentManager(), "dialog");
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        _adapter.updateEntries(newText);
+        return false;
+    }
 }

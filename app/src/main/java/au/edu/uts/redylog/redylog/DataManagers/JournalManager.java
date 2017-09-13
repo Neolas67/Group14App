@@ -1,7 +1,9 @@
 package au.edu.uts.redylog.redylog.DataManagers;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,13 +42,29 @@ public class JournalManager {
         _journals.add(journal);
     }
 
-    public List<Journal> get_journals() {
+    public List<Journal> get_journals(String query) {
         if (_journals.size() == 0) {
             User user = UserManager.getInstance().get_currentUser();
             _journals.addAll(_db.getAllJournals(user.get_userId()));
         }
 
-        return _journals;
+        List<Journal> filteredList = new ArrayList<>();
+
+        if (TextUtils.isEmpty(query)) {
+            filteredList.addAll(_journals);
+        } else {
+            for (Journal j : _journals) {
+                if (j.get_title().toLowerCase().contains(query.toLowerCase()) ||
+                        j.get_description().toLowerCase().contains(query.toLowerCase()))
+                    filteredList.add(j);
+            }
+        }
+
+        return filteredList;
+    }
+
+    public List<Journal> get_journals() {
+        return get_journals(null);
     }
 
     public void closeJournal(Journal journal) {
