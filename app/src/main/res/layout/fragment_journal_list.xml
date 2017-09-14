@@ -25,8 +25,6 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/rv_journals"
             android:name="au.edu.uts.redylog.redylog.JournalFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
             tools:context="au.edu.uts.redylog.redylog.Fragments.JournalListFragment"
             tools:listitem="@layout/item_journal"

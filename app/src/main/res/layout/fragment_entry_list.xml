@@ -42,11 +42,10 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/rv_entries"
             android:name="au.edu.uts.redylog.redylog.EntryFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
             tools:context="au.edu.uts.redylog.redylog.Fragments.EntryListFragment"
-            tools:listitem="@layout/item_entry" />
+            tools:listitem="@layout/item_entry"
+            style="@style/AppTheme.RecycleViewContainer" />
 
     </LinearLayout>
 
