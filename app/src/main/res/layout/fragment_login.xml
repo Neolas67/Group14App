@@ -15,8 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/welcome"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+            style="@style/TextAppearance.Headline"/>
 
         <EditText
             android:id="@+id/et_login_Password"
@@ -24,15 +23,16 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/form_top_padding"
             android:hint="@string/password"
+            android:maxLength="@string/password_max_length"
             android:textAlignment="center"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btn_login_confirm"
-            style="@style/AppTheme.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login" />
+            android:text="@string/login"
+            style="@style/AppTheme.NormalButton" />
 
     </LinearLayout>
 

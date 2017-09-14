@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimaryHightlight</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -18,12 +18,23 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.NormalButton" parent="@android:style/Widget.Material.Button">
+        <item name="android:textColor">@color/colorPrimaryHightlight</item>
+        <item name="android:backgroundTint">@color/colorWhite</item>
+    </style>
+
     <style name="AppTheme.PrimaryButton" parent="@android:style/Widget.Material.Button">
-        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Widget.Button.Inverse</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.SecondaryButton" parent="@style/AppTheme.PrimaryButton">
+        <item name="android:backgroundTint">@color/colorSecondary</item>
     </style>
 
     <style name="TextAppearance.Headline" parent="@style/TextAppearance.AppCompat.Display3">
         <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
     </style>
 
 </resources>
