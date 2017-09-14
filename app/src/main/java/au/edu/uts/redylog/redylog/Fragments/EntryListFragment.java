@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,23 +17,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.EntryRecyclerViewAdapter;
 
-public class EntryFragment extends Fragment {
+public class EntryListFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
+    private TextView _tvDescription;
+    private TextView _tvDate;
+    private RecyclerView mRecyclerView;
+    private List<Entry> _entries = new ArrayList<>();
+    private SearchView _svEntries;
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
 
-    public EntryFragment() {
+    public EntryListFragment() {
 
     }
 
@@ -44,21 +57,44 @@ public class EntryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_entry_list, container, false);
-
-        _tvError = view.findViewById(R.id.tv_entry_error);
         _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
+        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
 
+        setupReferences(view);
+        setupView();
+        setupRecyclerView(view);
+
+        return view;
+    }
+
+    private void setupReferences(View view) {
+        _tvError = view.findViewById(R.id.tv_entry_error);
+        _tvDescription = view.findViewById(R.id.entry_list_journal_description);
+        _tvDate = view.findViewById(R.id.entry_list_journal_date);
+        _svEntries = view.findViewById(R.id.sv_entries);
+        _svEntries.setOnQueryTextListener(this);
+    }
+
+    private void setupView() {
         if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
             _tvError.setVisibility(View.INVISIBLE);
         } else {
             _tvError.setVisibility(View.VISIBLE);
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_entries);
-        _adapter = new EntryRecyclerViewAdapter(mListener, EntryManager.getInstance().get_entries(_currentJournal));
-        recyclerView.setAdapter(_adapter);
+        _tvDescription.setText(_currentJournal.get_description());
+        _tvDate.setText(getString(R.string.created_on) + HelperMethods.formatDate(_currentJournal.get_startDate()));
+    }
 
-        return view;
+    private void setupRecyclerView(View view) {
+        mRecyclerView = view.findViewById(R.id.rv_entries);
+        _adapter = new EntryRecyclerViewAdapter(mListener, _entries);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(_adapter);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_entries);
+
+        recyclerView.setAdapter(_adapter);
     }
 
     @Override
@@ -80,7 +116,7 @@ public class EntryFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        getActivity().getMenuInflater().inflate(R.menu.entry_menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.entry_list_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -113,8 +149,14 @@ public class EntryFragment extends Fragment {
         Bundle args = new Bundle();
         args.putSerializable(getString(R.string.bundle_journal_key), _currentJournal);
         dialogFragment.setArguments(args);
-
+        dialogFragment.setTargetFragment(this,1);
         dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
+    public void updateList(){
+        _entries.clear();
+        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
+        _adapter.notifyDataSetChanged();
     }
 
     private void displaySearchEntryDialog(){
@@ -131,7 +173,7 @@ public class EntryFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         JournalManager.getInstance().closeJournal(_currentJournal);
-                        mListener.displayFragment(FragmentEnum.JournalFragment, null);
+                        mListener.displayFragment(FragmentEnum.JournalListFragment, null);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
@@ -141,5 +183,18 @@ public class EntryFragment extends Fragment {
 
     private void displayDeleteJournal(){
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        _entries.clear();
+        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal, newText));
+        _adapter.notifyDataSetChanged();
+        return false;
     }
 }
