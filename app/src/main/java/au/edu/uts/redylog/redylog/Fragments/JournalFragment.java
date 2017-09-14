@@ -52,20 +52,13 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
         _tvError = view.findViewById(R.id.tv_journal_error);
         _svJournals = view.findViewById(R.id.sv_journals);
         _svJournals.setOnQueryTextListener(this);
-
-        if (JournalManager.getInstance().get_journals().size() > 0) {
-            _tvError.setVisibility(View.INVISIBLE);
-        } else {
-            _tvError.setVisibility(View.VISIBLE);
-        }
-
         mRecyclerView = view.findViewById(R.id.rv_journals);
-        journals.addAll(JournalManager.getInstance().get_journals());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         _adapter = new JournalRecyclerViewAdapter(mListener,journals);
         mRecyclerView.setAdapter(_adapter);
+        updateList();
 
         return view;
     }
@@ -88,6 +81,11 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
 
     public void updateList(){
         journals.clear();
+        if (JournalManager.getInstance().get_journals().size() > 0) {
+            _tvError.setVisibility(View.INVISIBLE);
+        } else {
+            _tvError.setVisibility(View.VISIBLE);
+        }
         journals.addAll(JournalManager.getInstance().get_journals());
         _adapter.notifyDataSetChanged();
     }
