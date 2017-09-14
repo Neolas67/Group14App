@@ -3,8 +3,10 @@
     <color name="colorPrimary">#546e7a</color>
     <color name="colorPrimaryLight">#819ca9</color>
     <color name="colorPrimaryDark">#29434e</color>
+    <color name="colorPrimaryHightlight">#4db6ac</color>
     <color name="colorSecondary">#bf360c</color>
     <color name="colorSecondaryLight">#f9683a</color>
     <color name="colorSecondaryDark">#870000</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
 </resources>

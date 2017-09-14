@@ -92,19 +92,20 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
         _adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
-        }
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            if (context instanceof OnFragmentInteractionListener) {
+                mListener = (OnFragmentInteractionListener) context;
+            } else {
+                throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+            }
     }
 
     public void updateList(){
         _journals.clear();
         _journals.addAll(JournalManager.getInstance().get_journals());
+        setupModel();
         _adapter.notifyDataSetChanged();
     }
     @Override
