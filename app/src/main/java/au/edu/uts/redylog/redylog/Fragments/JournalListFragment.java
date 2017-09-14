@@ -105,6 +105,7 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
     public void updateList(){
         _journals.clear();
         _journals.addAll(JournalManager.getInstance().get_journals());
+        setupModel();
         _adapter.notifyDataSetChanged();
     }
     @Override

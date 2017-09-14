@@ -31,7 +31,6 @@
                     android:textAppearance="?attr/textAppearanceSearchResultTitle" />
 
 
-
             </LinearLayout>
 
             <LinearLayout

@@ -10,54 +10,55 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-<!--        <TextView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_please_register"
-            android:textSize="@dimen/title_size"
-            android:textAlignment="center"/>-->
+            android:text="@string/welcome"
+            style="@style/TextAppearance.Headline"/>
 
         <EditText
             android:id="@+id/et_register_firstname"
             android:inputType="textPersonName"
+            android:hint="@string/first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/first_name"
+            android:paddingTop="@dimen/form_top_padding"
             android:textAlignment="center"/>
 
         <EditText
             android:id="@+id/et_register_surname"
             android:inputType="textPersonName"
+            android:hint="@string/surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/form_top_padding"
-            android:hint="@string/surname"
             android:textAlignment="center"/>
 
         <EditText
             android:id="@+id/et_register_email"
             android:inputType="textEmailAddress"
+            android:hint="@string/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/form_top_padding"
-            android:hint="@string/email"
             android:textAlignment="center"/>
 
         <EditText
             android:id="@+id/et_register_password"
             android:inputType="textPassword"
+            android:hint="@string/password"
+            android:maxLength="@string/password_max_length"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/form_top_padding"
-            android:hint="@string/password"
             android:textAlignment="center"/>
 
         <Button
             android:id="@+id/btn_register_confirm"
-            style="@style/AppTheme.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/register" />
+            android:text="@string/register"
+            style="@style/AppTheme.NormalButton" />
 
     </LinearLayout>
 </FrameLayout>
