@@ -31,19 +31,19 @@ import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.EntryRecyclerViewAdapter;
 
-public class EntryFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class EntryListFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
     private TextView _tvDescription;
     private TextView _tvDate;
     private RecyclerView mRecyclerView;
-    private List<Entry> entries= new ArrayList<>();
+    private List<Entry> _entries = new ArrayList<>();
     private SearchView _svEntries;
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
 
-    public EntryFragment() {
+    public EntryListFragment() {
 
     }
 
@@ -57,35 +57,44 @@ public class EntryFragment extends Fragment implements SearchView.OnQueryTextLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_entry_list, container, false);
+        _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
+        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
 
+        setupReferences(view);
+        setupView();
+        setupRecyclerView(view);
+
+        return view;
+    }
+
+    private void setupReferences(View view) {
         _tvError = view.findViewById(R.id.tv_entry_error);
         _tvDescription = view.findViewById(R.id.entry_list_journal_description);
         _tvDate = view.findViewById(R.id.entry_list_journal_date);
         _svEntries = view.findViewById(R.id.sv_entries);
         _svEntries.setOnQueryTextListener(this);
-        _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
+    }
 
-        _tvDescription.setText(_currentJournal.get_description());
-        _tvDate.setText("created on "+HelperMethods.formatDate(_currentJournal.get_startDate()));
-
+    private void setupView() {
         if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
             _tvError.setVisibility(View.INVISIBLE);
         } else {
             _tvError.setVisibility(View.VISIBLE);
         }
 
+        _tvDescription.setText(_currentJournal.get_description());
+        _tvDate.setText(getString(R.string.created_on) + HelperMethods.formatDate(_currentJournal.get_startDate()));
+    }
+
+    private void setupRecyclerView(View view) {
         mRecyclerView = view.findViewById(R.id.rv_entries);
-        entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
-        _adapter = new EntryRecyclerViewAdapter(mListener, _currentJournal);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        _adapter = new EntryRecyclerViewAdapter(mListener, _entries);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(_adapter);
         RecyclerView recyclerView = view.findViewById(R.id.rv_entries);
 
         recyclerView.setAdapter(_adapter);
-
-        return view;
     }
 
     @Override
@@ -107,7 +116,7 @@ public class EntryFragment extends Fragment implements SearchView.OnQueryTextLis
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        getActivity().getMenuInflater().inflate(R.menu.entry_menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.entry_list_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -145,8 +154,8 @@ public class EntryFragment extends Fragment implements SearchView.OnQueryTextLis
     }
 
     public void updateList(){
-        entries.clear();
-        entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
+        _entries.clear();
+        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
         _adapter.notifyDataSetChanged();
     }
 
@@ -164,7 +173,7 @@ public class EntryFragment extends Fragment implements SearchView.OnQueryTextLis
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         JournalManager.getInstance().closeJournal(_currentJournal);
-                        mListener.displayFragment(FragmentEnum.JournalFragment, null);
+                        mListener.displayFragment(FragmentEnum.JournalListFragment, null);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
@@ -183,7 +192,9 @@ public class EntryFragment extends Fragment implements SearchView.OnQueryTextLis
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        _adapter.updateEntries(newText);
+        _entries.clear();
+        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal, newText));
+        _adapter.notifyDataSetChanged();
         return false;
     }
 }

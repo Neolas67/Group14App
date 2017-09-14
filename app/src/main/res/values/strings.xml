@@ -28,9 +28,11 @@
     <string name="journal_created_successfully">Journal created successfully!</string>
     <string name="status">Status</string>
     <string name="created_date">Created Date</string>
-    <string name="bundle_journal_key">Journal</string>
+    <string name="bundle_journal_key">KEY_JOURNAL</string>
+    <string name="bundle_entry_key">KEY_ENTRY</string>
     <string name="dialog_close_journal_prompt">Once a journal is closed, it cannot be edited. Are you sure you want to close this journal?</string>
     <string name="title_journals">Journals</string>
     <string name="no_entries_exist_yet">No entries in this journal. </string>
     <string name="password_max_length">8</string>
+    <string name="created_on">Created on </string>
 </resources>

@@ -1,5 +1,6 @@
 package au.edu.uts.redylog.redylog.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
@@ -9,7 +10,7 @@ import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
  * Created by Hayden on 23-Aug-17.
  */
 
-public class Entry {
+public class Entry implements Serializable {
 
     long _entryId;
     long _journalId;
@@ -114,5 +115,18 @@ public class Entry {
 
     public void set_longitude(double _longitude) {
         this._longitude = _longitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Entry [_entryId = " + _entryId
+                + ", _journalId = " + _journalId
+                + ", _title = " + _title
+                + ", _createdDate = " + _createdDate
+                + ", _contents = " + _contents
+                + ", _status = " + _status
+                + ", _latitude = " + _latitude
+                + ", _longitude = " + _longitude
+                + "]";
     }
 }

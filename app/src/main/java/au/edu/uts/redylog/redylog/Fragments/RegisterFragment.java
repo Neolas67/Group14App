@@ -110,7 +110,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(), "Registration successful.", Toast.LENGTH_SHORT).show();
 
                 if (mListener != null) {
-                    mListener.displayFragment(FragmentEnum.JournalFragment, null);
+                    mListener.displayFragment(FragmentEnum.JournalListFragment, null);
                 }
             }
         }

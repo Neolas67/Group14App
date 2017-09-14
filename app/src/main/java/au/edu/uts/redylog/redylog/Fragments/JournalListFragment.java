@@ -2,6 +2,7 @@ package au.edu.uts.redylog.redylog.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,16 +26,17 @@ import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.JournalRecyclerViewAdapter;
 
-public class JournalFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class JournalListFragment extends Fragment implements SearchView.OnQueryTextListener, FloatingActionButton.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
     private SearchView _svJournals;
+    private FloatingActionButton _fabJournal;
     private RecyclerView mRecyclerView;
-    private List<Journal> journals = new ArrayList<>();
+    private List<Journal> _journals = new ArrayList<>();
     private JournalRecyclerViewAdapter _adapter;
 
-    public JournalFragment() {
+    public JournalListFragment() {
 
     }
 
@@ -49,19 +51,40 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal_list, container, false);
 
-        _tvError = view.findViewById(R.id.tv_journal_error);
-        _svJournals = view.findViewById(R.id.sv_journals);
-        _svJournals.setOnQueryTextListener(this);
-        mRecyclerView = view.findViewById(R.id.rv_journals);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        _adapter = new JournalRecyclerViewAdapter(mListener,journals);
-        mRecyclerView.setAdapter(_adapter);
-        updateList();
+        setupReferences(view);
+        setupModel();
+        setupRecyclerView(view);
 
         return view;
     }
+
+    private void setupReferences(View view) {
+        _tvError = view.findViewById(R.id.tv_journal_error);
+
+        _fabJournal = view.findViewById(R.id.fab_journal_list);
+        _fabJournal.setOnClickListener(this);
+
+        _svJournals = view.findViewById(R.id.sv_journals);
+        _svJournals.setOnQueryTextListener(this);
+    }
+
+    private void setupModel() {
+        if (JournalManager.getInstance().get_journals().size() > 0) {
+            _tvError.setVisibility(View.INVISIBLE);
+        } else {
+            _tvError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setupRecyclerView(View view) {
+        mRecyclerView = view.findViewById(R.id.rv_journals);
+        _journals.addAll(JournalManager.getInstance().get_journals());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        _adapter = new JournalRecyclerViewAdapter(mListener, _journals);
+        mRecyclerView.setAdapter(_adapter);
+    }
+
 
     @Override
     public void onResume() {
@@ -80,13 +103,9 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void updateList(){
-        journals.clear();
-        if (JournalManager.getInstance().get_journals().size() > 0) {
-            _tvError.setVisibility(View.INVISIBLE);
-        } else {
-            _tvError.setVisibility(View.VISIBLE);
-        }
-        journals.addAll(JournalManager.getInstance().get_journals());
+        _journals.clear();
+        _journals.addAll(JournalManager.getInstance().get_journals());
+        setupModel();
         _adapter.notifyDataSetChanged();
     }
     @Override
@@ -126,7 +145,13 @@ public class JournalFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        _adapter.updateJournals(newText);
+        _journals.clear();
+        _journals.addAll(JournalManager.getInstance().get_journals(newText));
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        displayAddJournalDialog();
     }
 }

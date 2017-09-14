@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
-import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
@@ -24,12 +22,6 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
     public JournalRecyclerViewAdapter(OnFragmentInteractionListener listener,List<Journal> values) {
         mValues = values;
         mListener = listener;
-    }
-
-    public void updateJournals(String query) {
-        mValues.clear();
-        mValues.addAll(JournalManager.getInstance().get_journals(query));
-        notifyDataSetChanged();
     }
 
     @Override
@@ -51,7 +43,7 @@ public class JournalRecyclerViewAdapter extends RecyclerView.Adapter<JournalRecy
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.displayFragment(FragmentEnum.EntryFragment, holder.mItem);
+                    mListener.displayFragment(FragmentEnum.EntryListFragment, holder.mItem);
                 }
             }
         });

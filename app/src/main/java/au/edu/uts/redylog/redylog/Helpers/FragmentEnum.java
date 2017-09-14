@@ -7,6 +7,7 @@ package au.edu.uts.redylog.redylog.Helpers;
 public enum FragmentEnum {
     RegisterFragment,
     LoginFragment,
-    JournalFragment,
-    EntryFragment
+    JournalListFragment,
+    EntryListFragment,
+    ViewEntryFragment
 }
