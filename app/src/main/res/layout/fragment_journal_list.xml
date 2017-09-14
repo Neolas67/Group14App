@@ -4,22 +4,34 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/sv_journals"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.RecyclerView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rv_journals"
-        android:name="au.edu.uts.redylog.redylog.JournalFragment"
-        android:layout_below="@id/sv_journals"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        tools:context="au.edu.uts.redylog.redylog.Fragments.JournalListFragment"
-        tools:listitem="@layout/item_journal" />
+        android:orientation="vertical">
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/sv_journals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray" />
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/rv_journals"
+            android:name="au.edu.uts.redylog.redylog.JournalFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context="au.edu.uts.redylog.redylog.Fragments.JournalListFragment"
+            tools:listitem="@layout/item_journal" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_journal_error"
@@ -42,7 +54,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/fab_margin"
-        app:fabSize="normal"
-        />
+        app:fabSize="normal" />
 
 </RelativeLayout>
