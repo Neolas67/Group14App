@@ -156,6 +156,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     public void updateList(){
         _entries.clear();
         _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
+        setupView();
         _adapter.notifyDataSetChanged();
     }
 
