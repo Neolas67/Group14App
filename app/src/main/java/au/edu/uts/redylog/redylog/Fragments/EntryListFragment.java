@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,7 +32,7 @@ import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.EntryRecyclerViewAdapter;
 
-public class EntryListFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class EntryListFragment extends Fragment implements SearchView.OnQueryTextListener, FloatingActionButton.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
     private TextView _tvError;
@@ -40,6 +41,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     private RecyclerView mRecyclerView;
     private List<Entry> _entries = new ArrayList<>();
     private SearchView _svEntries;
+    private FloatingActionButton _fabEntry;
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
 
@@ -73,6 +75,9 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         _tvDate = view.findViewById(R.id.entry_list_journal_date);
         _svEntries = view.findViewById(R.id.sv_entries);
         _svEntries.setOnQueryTextListener(this);
+
+        _fabEntry = view.findViewById(R.id.fab_entry_list);
+        _fabEntry.setOnClickListener(this);
     }
 
     private void setupView() {
@@ -197,5 +202,10 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal, newText));
         _adapter.notifyDataSetChanged();
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        displayAddEntryDialog();
     }
 }
