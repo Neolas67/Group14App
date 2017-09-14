@@ -11,47 +11,37 @@
         android:layout_gravity="center">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/welcome"
-            style="@style/TextAppearance.Headline"/>
+            style="@style/TextAppearance.Headline" />
 
         <EditText
             android:id="@+id/et_register_firstname"
             android:inputType="textPersonName"
             android:hint="@string/first_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/form_top_padding"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            style="@style/AppTheme.TextField" />
 
         <EditText
             android:id="@+id/et_register_surname"
             android:inputType="textPersonName"
             android:hint="@string/surname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/form_top_padding"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            style="@style/AppTheme.TextField" />
 
         <EditText
             android:id="@+id/et_register_email"
             android:inputType="textEmailAddress"
             android:hint="@string/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/form_top_padding"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            style="@style/AppTheme.TextField" />
 
         <EditText
             android:id="@+id/et_register_password"
             android:inputType="textPassword"
             android:hint="@string/password"
             android:maxLength="@string/password_max_length"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/form_top_padding"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            style="@style/AppTheme.TextField" />
 
         <Button
             android:id="@+id/btn_register_confirm"

@@ -32,9 +32,32 @@
         <item name="android:backgroundTint">@color/colorSecondary</item>
     </style>
 
+    <style name="AppTheme.FloatingActionButton" parent="@style/Widget.Design.FloatingActionButton">
+        <item name="backgroundTint">@color/colorSecondary</item>
+        <item name="android:src">@mipmap/ic_plus</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginBottom">@dimen/fab_margin</item>
+    </style>
+
+    <style name="AppTheme.TextField" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/form_top_padding</item>
+    </style>
+
+    <style name="AppTheme.RecycleViewContainer" parent="@style/Widget.AppCompat.ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <style name="TextAppearance.Headline" parent="@style/TextAppearance.AppCompat.Display3">
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>

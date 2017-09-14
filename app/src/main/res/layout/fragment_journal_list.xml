@@ -29,7 +29,8 @@
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
             tools:context="au.edu.uts.redylog.redylog.Fragments.JournalListFragment"
-            tools:listitem="@layout/item_journal" />
+            tools:listitem="@layout/item_journal"
+            style="@style/AppTheme.RecycleViewContainer" />
 
     </LinearLayout>
 
@@ -46,14 +47,8 @@
         android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton
+        style="@style/AppTheme.FloatingActionButton"
         android:id="@+id/fab_journal_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorSecondary"
-        android:src="@mipmap/ic_plus"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/fab_margin"
         app:fabSize="normal" />
 
 </RelativeLayout>
