@@ -3,7 +3,12 @@ package au.edu.uts.redylog.redylog.Helpers;
 import android.text.TextUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+
+import au.edu.uts.redylog.redylog.Models.Journal;
 
 /**
  * Created by Hayden on 23-Aug-17.
@@ -48,11 +53,9 @@ public class HelperMethods {
 
     }
 
-
-
-
     public static String formatDate(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return sdf.format(date);
     }
+
 }

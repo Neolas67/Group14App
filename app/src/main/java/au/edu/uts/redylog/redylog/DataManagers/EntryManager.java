@@ -4,6 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,7 +68,15 @@ public class EntryManager {
             }
         }
 
+        EntryComparator entryComparator = new EntryComparator();
+        Collections.sort(filteredList, entryComparator);
         return filteredList;
+    }
+
+    public class EntryComparator implements Comparator<Entry> {
+        public int compare(Entry entry1, Entry entry2) {
+            return entry2.get_createdDate().compareTo(entry1.get_createdDate());
+        }
     }
 
     public List<Entry> get_entries(Journal journal) {
