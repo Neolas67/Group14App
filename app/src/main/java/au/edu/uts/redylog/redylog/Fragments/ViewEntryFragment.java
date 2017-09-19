@@ -11,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
+import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 
 public class ViewEntryFragment extends Fragment {
@@ -22,6 +24,10 @@ public class ViewEntryFragment extends Fragment {
 
     public ViewEntryFragment() {
 
+    }
+
+    public Journal getJournal() {
+        return JournalManager.getInstance().get_journal(_entry.get_journalId());
     }
 
     @Override

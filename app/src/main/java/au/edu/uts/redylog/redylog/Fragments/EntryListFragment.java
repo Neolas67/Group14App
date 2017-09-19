@@ -42,6 +42,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     private List<Entry> _entries = new ArrayList<>();
     private SearchView _svEntries;
     private FloatingActionButton _fabEntry;
+
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
 

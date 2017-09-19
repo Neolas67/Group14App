@@ -45,6 +45,14 @@ public class JournalManager {
         _journals.add(journal);
     }
 
+    public Journal get_journal(long id) {
+        for (Journal j: _journals) {
+            if (j.get_journalId() == id) { return j; }
+        }
+
+        return null;
+    }
+
     public List<Journal> get_journals(String query) {
         if (_journals.size() == 0) {
             User user = UserManager.getInstance().get_currentUser();
