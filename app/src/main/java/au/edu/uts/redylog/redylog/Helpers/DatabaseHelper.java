@@ -197,17 +197,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return journalList;
     }
 
-    public void updateJournalStatus(Journal journal) {
+    public void updateJournal(Journal journal) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(JOURNAL_STATUS, journal.get_status().toString());
+        values.put(JOURNAL_TITLE, journal.get_title().toString());
+        values.put(JOURNAL_DESCRIPTION, journal.get_description().toString());
 
         db.update(
                 TABLE_JOURNALS,
                 values,
-                JOURNAL_ID + " = " + journal.get_journalId()
-                , null);
+                JOURNAL_ID + " = " + journal.get_journalId(),
+                null);
     }
 
     // Entry Queries
@@ -273,6 +275,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return entryList;
+    }
+
+    public void updateEntry(Entry entry) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ENTRY_TITLE, entry.get_title().toString());
+        values.put(ENTRY_CONTENTS, entry.get_contents().toString());
+
+        db.update(
+                TABLE_ENTRIES,
+                values,
+                ENTRY_ID + " = " + entry.get_entryId(),
+                null);
     }
 
     // History Queries

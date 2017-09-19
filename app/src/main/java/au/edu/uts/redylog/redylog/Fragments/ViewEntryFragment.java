@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
+import au.edu.uts.redylog.redylog.DialogFragments.EditEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
@@ -24,14 +25,14 @@ public class ViewEntryFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private TextView _tvDate;
     private TextView _tvContent;
-    private Entry _entry;
+    private Entry _currentEntry;
 
     public ViewEntryFragment() {
 
     }
 
     public Journal getJournal() {
-        return JournalManager.getInstance().get_journal(_entry.get_journalId());
+        return JournalManager.getInstance().get_journal(_currentEntry.get_journalId());
     }
 
     @Override
@@ -45,10 +46,10 @@ public class ViewEntryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_entry, container, false);
 
-        _entry = (Entry) getArguments().getSerializable(getString(R.string.bundle_entry_key));
+        _currentEntry = (Entry) getArguments().getSerializable(getString(R.string.bundle_entry_key));
 
         setupReferences(view);
-        setupView(view);
+        updateData();
 
         return view;
     }
@@ -56,11 +57,6 @@ public class ViewEntryFragment extends Fragment {
     private void setupReferences(View view){
         _tvContent = view.findViewById(R.id.view_entry_content);
         _tvDate = view.findViewById(R.id.view_entry_date);
-    }
-
-    private void setupView(View view){
-        _tvContent.setText(_entry.get_contents());
-        _tvDate.setText(HelperMethods.formatDate(_entry.get_createdDate()));
     }
 
     @Override
@@ -82,7 +78,7 @@ public class ViewEntryFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        //getActivity().getMenuInflater().inflate(R.menu.journal_menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.entry_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -90,11 +86,25 @@ public class ViewEntryFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-//        if (id == R.id.action_add_journal) {
-//            displayAddJournalDialog();
-//        }
+        if (id == R.id.action_edit_entry) {
+            displayEditEntryDialog();
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void displayEditEntryDialog() {
+        EditEntryDialogFragment dialogFragment = new EditEntryDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(getString(R.string.bundle_entry_key), _currentEntry);
+        dialogFragment.setArguments(args);
+        dialogFragment.setTargetFragment(this,1);
+        dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
+    public void updateData() {
+        _tvContent.setText(_currentEntry.get_contents());
+        _tvDate.setText(HelperMethods.formatDate(_currentEntry.get_createdDate()));
+    }
 }

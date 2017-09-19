@@ -3,14 +3,12 @@ package au.edu.uts.redylog.redylog.DataManagers;
 import android.content.Context;
 import android.text.TextUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
-import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.Models.User;
@@ -88,7 +86,11 @@ public class JournalManager {
 
     public void closeJournal(Journal journal) {
         journal.set_status(StatusEnum.Closed);
-        _db.updateJournalStatus(journal);
+        _db.updateJournal(journal);
+    }
+
+    public void updateJournal(Journal journal) {
+        _db.updateJournal(journal);
     }
 
 }
