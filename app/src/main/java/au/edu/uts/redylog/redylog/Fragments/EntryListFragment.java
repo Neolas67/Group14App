@@ -89,7 +89,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         }
 
         _tvDescription.setText(_currentJournal.get_description());
-        _tvDate.setText(getString(R.string.created_on) + HelperMethods.formatDate(_currentJournal.get_startDate()));
+        _tvDate.setText(HelperMethods.formatDate(_currentJournal.get_startDate()));
     }
 
     private void setupRecyclerView(View view) {
@@ -139,9 +139,6 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
             case R.id.action_close_journal:
                 displayCloseJournal();
                 break;
-            case R.id.action_view_journal:
-                displayViewJournalDetails();
-                break;
             case R.id.action_delete_journal:
                 displayDeleteJournal();
                 break;
@@ -167,10 +164,6 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     }
 
     private void displaySearchEntryDialog(){
-
-    }
-
-    private void displayViewJournalDetails(){
 
     }
 

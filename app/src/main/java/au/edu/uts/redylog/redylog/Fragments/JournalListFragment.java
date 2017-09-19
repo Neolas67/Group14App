@@ -147,6 +147,7 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
     public boolean onQueryTextChange(String newText) {
         _journals.clear();
         _journals.addAll(JournalManager.getInstance().get_journals(newText));
+        _adapter.notifyDataSetChanged();
         return false;
     }
 
