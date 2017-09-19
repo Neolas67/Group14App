@@ -18,13 +18,27 @@
             android:layout_marginBottom="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceSearchResultSubtitle"/>
 
-        <TextView
-            android:text="@string/created_date"
-            android:id="@+id/entry_list_journal_date"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:layout_marginBottom="@dimen/text_margin" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/created_on"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_marginBottom="@dimen/text_margin" />
+
+            <TextView
+                android:id="@+id/entry_list_journal_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginBottom="@dimen/text_margin" />
+
+        </LinearLayout>
 
         <android.support.v7.widget.SearchView
             android:id="@+id/sv_entries"

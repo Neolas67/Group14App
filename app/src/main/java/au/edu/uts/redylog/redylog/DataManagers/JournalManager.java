@@ -5,9 +5,12 @@ import android.text.TextUtils;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.Models.User;
@@ -42,6 +45,14 @@ public class JournalManager {
         _journals.add(journal);
     }
 
+    public Journal get_journal(long id) {
+        for (Journal j: _journals) {
+            if (j.get_journalId() == id) { return j; }
+        }
+
+        return null;
+    }
+
     public List<Journal> get_journals(String query) {
         if (_journals.size() == 0) {
             User user = UserManager.getInstance().get_currentUser();
@@ -60,7 +71,15 @@ public class JournalManager {
             }
         }
 
+        JournalComparator journalComparator = new JournalComparator();
+        Collections.sort(filteredList, journalComparator);
         return filteredList;
+    }
+
+    public class JournalComparator implements Comparator<Journal> {
+        public int compare(Journal journal1, Journal journal2) {
+            return journal2.get_startDate().compareTo(journal1.get_startDate());
+        }
     }
 
     public List<Journal> get_journals() {

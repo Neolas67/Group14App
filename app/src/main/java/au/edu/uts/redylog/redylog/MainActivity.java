@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
@@ -27,16 +28,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     private FragmentManager _fragmentManager;
     private Fragment _activeFragment;
-    //test
     private Toolbar _toolbar;
 
-    private int _currentFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        _toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(_toolbar);
+        setupToolbar();
 
         _fragmentManager = getSupportFragmentManager();
         UserManager.init(getApplicationContext());
@@ -48,6 +46,19 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         } else {
             displayFragment(FragmentEnum.RegisterFragment, null);
         }
+    }
+
+    private void setupToolbar() {
+        _toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(_toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        _toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -82,30 +93,25 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         switch (fragmentEnum) {
             case RegisterFragment:
                 _activeFragment = new RegisterFragment();
-                _currentFragment = 0;
                 break;
             case LoginFragment:
                 _activeFragment = new LoginFragment();
-                _currentFragment = 1;
                 break;
             case JournalListFragment:
                 _activeFragment = new JournalListFragment();
                 _toolbar.setTitle(R.string.title_journals);
-                _currentFragment = 2;
                 break;
             case EntryListFragment:
                 _activeFragment = new EntryListFragment();
                 Journal journal = (Journal)data;
                 _toolbar.setTitle(journal.get_title());
                 args.putSerializable(getString(R.string.bundle_journal_key), journal);
-                _currentFragment = 3;
                 break;
             case ViewEntryFragment:
                 _activeFragment = new ViewEntryFragment();
                 Entry entry = (Entry)data;
                 _toolbar.setTitle(entry.get_title());
                 args.putSerializable(getString(R.string.bundle_entry_key), entry);
-                _currentFragment = 4;
         }
 
         _activeFragment.setArguments(args);
@@ -115,12 +121,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     @Override
     public void onBackPressed() {
-        if (_currentFragment == 3) {
+
+        if (_activeFragment instanceof EntryListFragment) {
             displayFragment(FragmentEnum.JournalListFragment, null);
-        } else if (_currentFragment == 4) {
-            displayFragment(FragmentEnum.EntryListFragment, null);
+        } else if (_activeFragment instanceof ViewEntryFragment) {
+            Journal journal = ((ViewEntryFragment)_activeFragment).getJournal();
+            displayFragment(FragmentEnum.EntryListFragment, journal);
         } else {
-            super.onBackPressed();
+            this.finish();
         }
 
     }

@@ -14,11 +14,6 @@
         android:title="@string/action_search_entries"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_view_journal"
-        android:orderInCategory="300"
-        android:title="@string/action_view_journal"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_close_journal"
         android:orderInCategory="400"
         android:title="@string/action_close_journal"
