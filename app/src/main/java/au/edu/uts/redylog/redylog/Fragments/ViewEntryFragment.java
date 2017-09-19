@@ -10,8 +10,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
@@ -20,6 +22,8 @@ import au.edu.uts.redylog.redylog.R;
 public class ViewEntryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private TextView _tvDate;
+    private TextView _tvContent;
     private Entry _entry;
 
     public ViewEntryFragment() {
@@ -43,7 +47,20 @@ public class ViewEntryFragment extends Fragment {
 
         _entry = (Entry) getArguments().getSerializable(getString(R.string.bundle_entry_key));
 
+        setupReferences(view);
+        setupView(view);
+
         return view;
+    }
+
+    private void setupReferences(View view){
+        _tvContent = view.findViewById(R.id.view_entry_content);
+        _tvDate = view.findViewById(R.id.view_entry_date);
+    }
+
+    private void setupView(View view){
+        _tvContent.setText(_entry.get_contents());
+        _tvDate.setText(HelperMethods.formatDate(_entry.get_createdDate()));
     }
 
     @Override
