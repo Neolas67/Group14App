@@ -30,6 +30,7 @@
     <string name="created_date">Created Date</string>
     <string name="bundle_journal_key">KEY_JOURNAL</string>
     <string name="bundle_entry_key">KEY_ENTRY</string>
+    <string name="bundle_filter_key">KEY_FILTER</string>
     <string name="dialog_close_journal_prompt">Once a journal is closed, it cannot be edited. Are you sure you want to close this journal?</string>
     <string name="title_journals">Journals</string>
     <string name="no_entries_exist_yet">No entries in this journal. </string>
@@ -39,6 +40,9 @@
     <string name="entry_edited_confirmed">Entry successfully edited!</string>
     <string name="journal_edited_confirmed">Journal successfully edited!</string>
     <string name="edit_journal">Edit Journal</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="search_filters">Search Filters</string>
     <string name="on">on</string>
     <string name="date">Date</string>
 </resources>

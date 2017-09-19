@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,7 +22,9 @@ import java.util.List;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateJournalDialogFragment;
+import au.edu.uts.redylog.redylog.DialogFragments.SearchDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Helpers.SearchFilter;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
 import au.edu.uts.redylog.redylog.RecyclerViewAdapters.JournalRecyclerViewAdapter;
@@ -33,8 +36,11 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
     private SearchView _svJournals;
     private FloatingActionButton _fabJournal;
     private RecyclerView mRecyclerView;
+    private ImageButton _ibFilter;
+
     private List<Journal> _journals = new ArrayList<>();
     private JournalRecyclerViewAdapter _adapter;
+    private SearchFilter _searchFilter = new SearchFilter();
 
     public JournalListFragment() {
 
@@ -60,11 +66,12 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
 
     private void setupReferences(View view) {
         _tvError = view.findViewById(R.id.tv_journal_error);
-
         _fabJournal = view.findViewById(R.id.fab_journal_list);
-        _fabJournal.setOnClickListener(this);
-
         _svJournals = view.findViewById(R.id.sv_journals);
+        _ibFilter = view.findViewById(R.id.ib_journal_list_filter);
+
+        _ibFilter.setOnClickListener(this);
+        _fabJournal.setOnClickListener(this);
         _svJournals.setOnQueryTextListener(this);
     }
 
@@ -138,6 +145,16 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
         dialogFragment.show(getFragmentManager(), "dialog");
     }
 
+    private void displayFilterDialog() {
+        SearchDialogFragment dialogFragment = new SearchDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(getString(R.string.bundle_filter_key), _searchFilter);
+        dialogFragment.setArguments(args);
+        dialogFragment.setTargetFragment(this,1);
+        dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
@@ -153,6 +170,11 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
 
     @Override
     public void onClick(View view) {
-        displayAddJournalDialog();
+        if (view == _fabJournal) {
+            displayAddJournalDialog();
+        } else {
+            displayFilterDialog();
+        }
+
     }
 }
