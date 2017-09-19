@@ -39,4 +39,6 @@
     <string name="entry_edited_confirmed">Entry successfully edited!</string>
     <string name="journal_edited_confirmed">Journal successfully edited!</string>
     <string name="edit_journal">Edit Journal</string>
+    <string name="on">on</string>
+    <string name="date">Date</string>
 </resources>

@@ -13,7 +13,7 @@
 
         <TextView
             android:text="@string/welcome"
-            style="@style/TextAppearance.Headline" />
+            style="@style/AppTheme.Headline" />
 
         <EditText
             android:id="@+id/et_login_Password"

@@ -12,7 +12,7 @@
 
         <TextView
             android:text="@string/welcome"
-            style="@style/TextAppearance.Headline" />
+            style="@style/AppTheme.Headline" />
 
         <EditText
             android:id="@+id/et_register_firstname"

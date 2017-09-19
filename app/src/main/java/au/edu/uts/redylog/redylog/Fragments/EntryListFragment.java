@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import au.edu.uts.redylog.redylog.DialogFragments.EditJournalDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
@@ -40,6 +42,9 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     private TextView _tvError;
     private TextView _tvDescription;
     private TextView _tvDate;
+    private LinearLayout _llStatus;
+    private TextView _tvStatus;
+    private TextView _tvEndDate;
     private RecyclerView mRecyclerView;
     private List<Entry> _entries = new ArrayList<>();
     private SearchView _svEntries;
@@ -73,9 +78,12 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     }
 
     private void setupReferences(View view) {
+        _llStatus = view.findViewById(R.id.entry_list_journal_status_date);
         _tvError = view.findViewById(R.id.tv_entry_error);
         _tvDescription = view.findViewById(R.id.entry_list_journal_description);
         _tvDate = view.findViewById(R.id.entry_list_journal_date);
+        _tvStatus = view.findViewById(R.id.entry_list_journal_status);
+        _tvEndDate = view.findViewById(R.id.entry_list_journal_end_date);
         _svEntries = view.findViewById(R.id.sv_entries);
         _svEntries.setOnQueryTextListener(this);
 
@@ -88,6 +96,13 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
             _tvError.setVisibility(View.INVISIBLE);
         } else {
             _tvError.setVisibility(View.VISIBLE);
+        }
+
+        if (_currentJournal.get_status() == StatusEnum.Open){
+            _llStatus.setVisibility(View.INVISIBLE);
+        } else {
+            _tvStatus.setText(_currentJournal.get_status().toString());
+            _tvEndDate.setText(HelperMethods.formatDate(_currentJournal.get_endDate()));
         }
 
         _tvDescription.setText(_currentJournal.get_description());

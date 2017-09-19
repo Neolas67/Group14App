@@ -36,7 +36,7 @@
             android:layout_marginBottom="@dimen/text_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Display1"/>
+            style="@style/AppTheme.Content"/>
 
         <View
             android:layout_width="match_parent"
