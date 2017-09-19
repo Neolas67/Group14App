@@ -47,6 +47,16 @@ public class EntryManager {
         _entries.add(entry);
     }
 
+    public void addHistory(History history) {
+        _db.addHistory(history);
+        _history.add(history);
+    }
+
+    public void updateEntry(Entry entry) {
+        _db.updateEntry(entry);
+    }
+
+
     public List<Entry> get_entries(Journal journal, String query) {
         if (_entries.size() == 0) {
             _entries.addAll(_db.getAllEntries());
