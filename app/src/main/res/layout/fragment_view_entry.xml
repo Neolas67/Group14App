@@ -38,6 +38,22 @@
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Display1"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray" />
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/rv_versions"
+            android:name="au.edu.uts.redylog.redylog.EntryFragment"
+            app:layoutManager="LinearLayoutManager"
+            tools:context="au.edu.uts.redylog.redylog.Fragments.EntryListFragment"
+            tools:listitem="@layout/item_entry"
+            style="@style/AppTheme.RecycleViewContainer" />
+
     </LinearLayout>
 
 </FrameLayout>
