@@ -197,11 +197,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return journalList;
     }
 
-    public void updateJournalStatus(Journal journal) {
+    public void updateJournal(Journal journal) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(JOURNAL_STATUS, journal.get_status().toString());
+        values.put(JOURNAL_TITLE, journal.get_title().toString());
+        values.put(JOURNAL_DESCRIPTION, journal.get_description().toString());
 
         db.update(
                 TABLE_JOURNALS,

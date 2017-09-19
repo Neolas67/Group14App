@@ -19,6 +19,11 @@
         android:title="@string/action_close_journal"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_edit_journal"
+        android:orderInCategory="400"
+        android:title="@string/edit_journal"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_delete_journal"
         android:orderInCategory="500"
         android:title="@string/action_delete_journal"

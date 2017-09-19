@@ -37,4 +37,6 @@
     <string name="created_on">Created on </string>
     <string name="edit_entry">Edit Entry</string>
     <string name="entry_edited_confirmed">Entry successfully edited!</string>
+    <string name="journal_edited_confirmed">Journal successfully edited!</string>
+    <string name="edit_journal">Edit Journal</string>
 </resources>

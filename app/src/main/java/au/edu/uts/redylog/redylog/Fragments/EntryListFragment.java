@@ -24,6 +24,8 @@ import java.util.List;
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateEntryDialogFragment;
+import au.edu.uts.redylog.redylog.DialogFragments.EditEntryDialogFragment;
+import au.edu.uts.redylog.redylog.DialogFragments.EditJournalDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
@@ -139,6 +141,9 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
             case R.id.action_close_journal:
                 displayCloseJournal();
                 break;
+            case R.id.action_edit_journal:
+                displayEditDialog();
+                break;
             case R.id.action_delete_journal:
                 displayDeleteJournal();
                 break;
@@ -148,6 +153,16 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
     private void displayAddEntryDialog() {
         CreateEntryDialogFragment dialogFragment = new CreateEntryDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(getString(R.string.bundle_journal_key), _currentJournal);
+        dialogFragment.setArguments(args);
+        dialogFragment.setTargetFragment(this,1);
+        dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
+    private void displayEditDialog() {
+        EditJournalDialogFragment dialogFragment = new EditJournalDialogFragment();
 
         Bundle args = new Bundle();
         args.putSerializable(getString(R.string.bundle_journal_key), _currentJournal);
