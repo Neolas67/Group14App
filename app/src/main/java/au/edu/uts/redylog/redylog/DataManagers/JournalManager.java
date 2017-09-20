@@ -84,8 +84,10 @@ public class JournalManager {
                     continue;
                 }
 
-                if (status != null && status != StatusEnum.None && !j.get_status().equals(status)) {
-                    continue;
+                if (status == null || status == StatusEnum.None) {
+                    if (j.get_status() == StatusEnum.Deleted) { continue; }
+                } else {
+                    if (j.get_status() != status) { continue; }
                 }
 
                 filteredList.add(j);
@@ -116,6 +118,12 @@ public class JournalManager {
     public void reopenJournal(Journal journal) {
         journal.set_status(StatusEnum.Open);
         journal.set_endDate(null);
+        _db.updateJournal(journal);
+    }
+
+    public void deleteJournal(Journal journal) {
+        journal.set_status(StatusEnum.Deleted);
+        journal.set_endDate(new Date());
         _db.updateJournal(journal);
     }
 
