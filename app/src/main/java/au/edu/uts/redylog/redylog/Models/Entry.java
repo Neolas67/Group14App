@@ -17,11 +17,11 @@ public class Entry implements Serializable {
     String _title;
     Date _createdDate;
     String _contents;
-    int _status;
+    StatusEnum _status;
     double _latitude;
     double _longitude;
 
-    public Entry(long _entryId, long _journalId, String _title, Date _createdDate, String _contents, int _status, double _latitude, double _longitude) {
+    public Entry(long _entryId, long _journalId, String _title, Date _createdDate, String _contents, StatusEnum _status, double _latitude, double _longitude) {
         this._entryId = _entryId;
         this._journalId = _journalId;
         this._title = _title;
@@ -32,7 +32,7 @@ public class Entry implements Serializable {
         this._longitude = _longitude;
     }
 
-    public Entry(long _journalId, String _title, Date _createdDate, String _contents, int _status, double _latitude, double _longitude) {
+    public Entry(long _journalId, String _title, Date _createdDate, String _contents, StatusEnum _status, double _latitude, double _longitude) {
         this._journalId = _journalId;
         this._title = _title;
         this._createdDate = _createdDate;
@@ -47,7 +47,7 @@ public class Entry implements Serializable {
         this._title = _title;
         this._createdDate = new Date();
         this._contents = _contents;
-        this._status = StatusEnum.Open.ordinal();
+        this._status = StatusEnum.Open;
         this._latitude = 0;
         this._longitude = 0;
     }
@@ -93,11 +93,11 @@ public class Entry implements Serializable {
         this._contents = _contents;
     }
 
-    public int get_status() {
+    public StatusEnum get_status() {
         return _status;
     }
 
-    public void set_status(int _status) {
+    public void set_status(StatusEnum _status) {
         this._status = _status;
     }
 

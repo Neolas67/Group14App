@@ -17,17 +17,24 @@
 
             <TextView
                 android:text="@string/created_on"
+                android:layout_marginRight="@dimen/text_space"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="@string/created_date"
+                android:text="@string/date"
                 android:id="@+id/view_entry_date"
-                android:layout_marginLeft="@dimen/text_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+        <TextView
+            android:text="@string/status"
+            android:id="@+id/view_entry_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin" />
 
         <TextView
             android:text="@string/content"

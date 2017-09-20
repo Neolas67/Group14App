@@ -10,12 +10,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.DialogFragments.EditEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
@@ -25,6 +27,7 @@ public class ViewEntryFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private TextView _tvDate;
     private TextView _tvContent;
+    private TextView _tvStatus;
     private Entry _currentEntry;
 
     public ViewEntryFragment() {
@@ -57,6 +60,7 @@ public class ViewEntryFragment extends Fragment {
     private void setupReferences(View view){
         _tvContent = view.findViewById(R.id.view_entry_content);
         _tvDate = view.findViewById(R.id.view_entry_date);
+        _tvStatus = view.findViewById(R.id.view_entry_status);
     }
 
     @Override
@@ -104,6 +108,13 @@ public class ViewEntryFragment extends Fragment {
     }
 
     public void updateData() {
+
+        if (_currentEntry.get_status() == StatusEnum.Open) {
+            _tvStatus.setVisibility(View.INVISIBLE);
+        } else {
+            _tvStatus.setText(_currentEntry.get_status().toString());
+        }
+
         _tvContent.setText(_currentEntry.get_contents());
         _tvDate.setText(HelperMethods.formatDate(_currentEntry.get_createdDate()));
     }

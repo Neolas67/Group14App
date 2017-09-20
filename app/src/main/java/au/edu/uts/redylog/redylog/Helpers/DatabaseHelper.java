@@ -235,7 +235,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ENTRY_TITLE, entry.get_title());
         values.put(ENTRY_CREATEDDATE, HelperMethods.dateToLong(entry.get_createdDate()));
         values.put(ENTRY_CONTENTS, entry.get_contents());
-        values.put(ENTRY_STATUS, entry.get_status());
+        values.put(ENTRY_STATUS, entry.get_status().toString());
         values.put(ENTRY_LATITUDE, entry.get_latitude());
         values.put(ENTRY_LONGITUDE, entry.get_longitude());
 
@@ -266,7 +266,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getString(2),
                         HelperMethods.longToDate(cursor.getLong(3)),
                         cursor.getString(4),
-                        cursor.getInt(5),
+                        StatusEnum.valueOf(cursor.getString(5)),
                         cursor.getDouble(6),
                         cursor.getDouble(7)
                 );
