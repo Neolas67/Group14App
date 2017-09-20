@@ -8,9 +8,9 @@ import java.util.List;
  */
 
 public enum StatusEnum {
-    None,
-    Open,
-    Closed,
-    Hidden,
-    Deleted
+    None, //Used for searching
+    Open, //Default state of Journals & Entries
+    Closed, //Used ONLY for Journals
+    Hidden, //Used ONLY for Entries
+    Deleted //Used for both Journals & Entries
 }
