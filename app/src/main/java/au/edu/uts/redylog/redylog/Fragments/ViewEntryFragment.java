@@ -1,7 +1,9 @@
 package au.edu.uts.redylog.redylog.Fragments;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,8 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
+import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.DialogFragments.EditEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
@@ -84,6 +89,15 @@ public class ViewEntryFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         getActivity().getMenuInflater().inflate(R.menu.entry_menu, menu);
+
+        MenuItem menuDeleteEntry = menu.findItem(R.id.action_delete_entry);
+        MenuItem menuEditEntry = menu.findItem(R.id.action_edit_entry);
+
+        if (_currentEntry.get_status() == StatusEnum.Hidden || _currentEntry.get_status() == StatusEnum.Deleted) {
+            menuDeleteEntry.setVisible(false);
+            menuEditEntry.setVisible(false);
+        }
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -93,6 +107,8 @@ public class ViewEntryFragment extends Fragment {
 
         if (id == R.id.action_edit_entry) {
             displayEditEntryDialog();
+        } else if (id == R.id.action_delete_entry) {
+            displayDeleteEntryDialog();
         }
 
         return super.onOptionsItemSelected(item);
@@ -106,6 +122,23 @@ public class ViewEntryFragment extends Fragment {
         dialogFragment.setArguments(args);
         dialogFragment.setTargetFragment(this,1);
         dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
+    private void displayDeleteEntryDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_delete_entry_prompt)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        _currentEntry.set_status(StatusEnum.Deleted);
+                        EntryManager.getInstance().updateEntry(_currentEntry);
+                        Journal journal = JournalManager.getInstance().get_journal(_currentEntry.get_journalId());
+                        mListener.displayFragment(FragmentEnum.EntryListFragment, journal);
+                        Toast.makeText(getContext(), R.string.entry_deleted_confirmed, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+                .show();
     }
 
     public void updateData() {
