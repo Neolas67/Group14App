@@ -42,6 +42,8 @@
     <string name="action_reopen_journal">Reopen Journal</string>
     <string name="action_delete_journal">Delete Journal</string>
     <string name="action_search_entries">Search Entries</string>
+    <string name="action_unhide_entry">Unhide Entry</string>
+    <string name="action_hide_entry">Hide Entry</string>
     <string name="clear_filters">Clear filters</string>
 
     <string name="login_fragment">LoginFragment</string>
@@ -54,5 +56,7 @@
 
     <string name="dialog_close_journal_prompt">Once a journal is closed, it cannot be edited. Are you sure you want to close this journal?</string>
     <string name="dialog_reopen_journal_prompt">Once a journal is reopened, it can be editied again. Are you sure you want to reopen this journal?</string>
+    <string name="dialog_hide_entry_prompt">Once an entry is hidden, it cannot be viewed without a search. Are you sure you want to hide this entry?</string>
+    <string name="dialog_unhide_entry_prompt">Once an entry is unhidden, it can be viewed again. Are you sure you want to unhide this entry?</string>
 
 </resources>

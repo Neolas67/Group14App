@@ -238,7 +238,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         JournalManager.getInstance().reopenJournal(_currentJournal);
-                        mListener.displayFragment(FragmentEnum.JournalListFragment, null);
+                        setupView();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

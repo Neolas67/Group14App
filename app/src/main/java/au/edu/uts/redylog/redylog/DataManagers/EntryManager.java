@@ -56,6 +56,11 @@ public class EntryManager {
         _history.add(history);
     }
 
+    public void hideEntry(Entry entry) {
+        entry.set_status(StatusEnum.Hidden);
+        _db.updateEntry(entry);
+    }
+
     public void updateEntry(Entry entry) {
         _db.updateEntry(entry);
     }

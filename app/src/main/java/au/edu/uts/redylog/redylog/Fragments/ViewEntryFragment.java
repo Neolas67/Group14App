@@ -1,7 +1,9 @@
 package au.edu.uts.redylog.redylog.Fragments;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
+import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.DialogFragments.EditEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
@@ -84,6 +88,19 @@ public class ViewEntryFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         getActivity().getMenuInflater().inflate(R.menu.entry_menu, menu);
+
+        switch (_currentEntry.get_status()) {
+            case Open:
+                menu.findItem(R.id.action_unhide_entry).setVisible(false);
+                break;
+            case Hidden:
+                menu.findItem(R.id.action_hide_entry).setVisible(false);
+            case Deleted:
+                menu.findItem(R.id.action_hide_entry).setVisible(false);
+                menu.findItem(R.id.action_unhide_entry).setVisible(false);
+                //hide delete entry
+        }
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -91,8 +108,15 @@ public class ViewEntryFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_edit_entry) {
-            displayEditEntryDialog();
+        switch (id) {
+            case R.id.action_edit_entry:
+                displayEditEntryDialog();
+                break;
+            case R.id.action_hide_entry:
+                displayHideEntry();
+                break;
+            case R.id.action_unhide_entry:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -106,6 +130,20 @@ public class ViewEntryFragment extends Fragment {
         dialogFragment.setArguments(args);
         dialogFragment.setTargetFragment(this,1);
         dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
+    private void displayHideEntry(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_hide_entry_prompt)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        EntryManager.getInstance().hideEntry(_currentEntry);
+                        mListener.displayFragment(FragmentEnum.EntryListFragment, getJournal());
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+                .show();
     }
 
     public void updateData() {

@@ -4,8 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="au.edu.uts.redylog.redylog.MainActivity">
     <item
-        android:id="@+id/action_edit_entry"
+        android:id="@+id/action_hide_entry"
         android:orderInCategory="100"
+        android:title="@string/action_hide_entry"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_unhide_entry"
+        android:orderInCategory="100"
+        android:title="@string/action_unhide_entry"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_edit_entry"
+        android:orderInCategory="200"
         android:title="@string/edit_entry"
         app:showAsAction="never" />
 </menu>
