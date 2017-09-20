@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -225,6 +226,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
                     public void onClick(DialogInterface dialog, int id) {
                         JournalManager.getInstance().closeJournal(_currentJournal);
                         mListener.displayFragment(FragmentEnum.JournalListFragment, null);
+                        Toast.makeText(getContext(), R.string.journal_closed_confirmed, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
@@ -239,6 +241,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
                     public void onClick(DialogInterface dialog, int id) {
                         JournalManager.getInstance().reopenJournal(_currentJournal);
                         setupView();
+                        Toast.makeText(getContext(), R.string.journal_reopened_confirmed, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

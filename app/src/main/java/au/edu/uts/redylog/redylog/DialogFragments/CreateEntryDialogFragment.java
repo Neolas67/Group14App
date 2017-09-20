@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.Fragments.EntryListFragment;
@@ -52,6 +53,7 @@ public class CreateEntryDialogFragment extends DialogFragment implements DialogI
                 _currentJournal.get_journalId());
 
         EntryManager.getInstance().addEntry(entry);
+        Toast.makeText(getContext(), R.string.entry_created_confirmed, Toast.LENGTH_SHORT).show();
         prevFragment = (EntryListFragment) getTargetFragment();
         prevFragment.updateList();
     }
