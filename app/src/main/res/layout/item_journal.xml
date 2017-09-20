@@ -30,8 +30,6 @@
                     android:layout_marginBottom="@dimen/text_margin"
                     android:textAppearance="?attr/textAppearanceSearchResultTitle" />
 
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -41,7 +39,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:text="@string/created_date"
+                    android:text="@string/date"
                     android:id="@+id/item_journal_start_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

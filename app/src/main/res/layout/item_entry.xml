@@ -40,7 +40,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:text="@string/created_date"
+                    android:text="@string/date"
                     android:id="@+id/entry_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

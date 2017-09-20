@@ -69,6 +69,9 @@ public class EntryManager {
         List<Entry> filteredList = new ArrayList<>();
 
         for (Entry e: _entries) {
+
+            if (e.get_journalId() != journal.get_journalId()) { continue; }
+
             if (searchFilter == null) {
                 filteredList.add(e);
             } else {
@@ -89,9 +92,9 @@ public class EntryManager {
                     continue;
                 }
 
-                //if (status != null && !e.get_status().equals(status)) {
-                //    continue;
-                //}
+                if (status != null && status != StatusEnum.None && !e.get_status().equals(status)) {
+                    continue;
+                }
 
                 filteredList.add(e);
             }

@@ -8,27 +8,34 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import au.edu.uts.redylog.redylog.Fragments.EntryListFragment;
 import au.edu.uts.redylog.redylog.Fragments.JournalListFragment;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.SearchFilter;
+import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.R;
 
 /**
  * Created by neola on 29-Aug-17.
  */
 
-public class SearchDialogFragment extends DialogFragment implements DialogInterface.OnClickListener, DatePickerDialog.OnDateSetListener, View.OnClickListener {
+public class SearchDialogFragment extends DialogFragment implements DialogInterface.OnClickListener, DatePickerDialog.OnDateSetListener, View.OnClickListener, Spinner.OnItemSelectedListener {
 
     EditText etStartDate;
     EditText etEndDate;
     EditText etPromptingDate;
     SearchFilter _searchFilter;
+    Spinner spStatus;
     Fragment prevFragment;
 
     public SearchDialogFragment() {
@@ -47,11 +54,16 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
         return new AlertDialog.Builder(getActivity())
                 .setView(setupView())
                 .setPositiveButton(android.R.string.ok, this)
+                .setNegativeButton(R.string.clear_filters, this)
                 .create();
     }
 
     private View setupView() {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_search_dialog, null);
+
+        spStatus = view.findViewById(R.id.search_dialog_status);
+        spStatus.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, StatusEnum.values()));
+        spStatus.setOnItemSelectedListener(this);
 
         etStartDate = view.findViewById(R.id.search_dialog_startdate);
         etStartDate.setShowSoftInputOnFocus(false);
@@ -63,12 +75,20 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
 
         if (_searchFilter.get_startDate() != null) { etStartDate.setText(HelperMethods.formatDateNoTime(_searchFilter.get_startDate())); }
         if (_searchFilter.get_endDate() != null) { etEndDate.setText(HelperMethods.formatDateNoTime(_searchFilter.get_endDate())); }
+        if (_searchFilter.get_status() != null) { spStatus.setSelection(_searchFilter.get_status().ordinal()); }
 
         return view;
     }
 
     //Todo get the journal id from previous fragment
     public void onClick(DialogInterface dialog, int whichButton) {
+        if (whichButton == -2) {
+            _searchFilter.set_query(null);
+            _searchFilter.set_startDate(null);
+            _searchFilter.set_endDate(null);
+            _searchFilter.set_status(null);
+        }
+
         prevFragment = getTargetFragment();
 
         if (prevFragment instanceof EntryListFragment) {
@@ -120,6 +140,17 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
             _searchFilter.set_endDate(calendar.getTime());
             etEndDate.setText(HelperMethods.formatDateNoTime(calendar.getTime()));
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        StatusEnum status = (StatusEnum) adapterView.getItemAtPosition(i);
+        _searchFilter.set_status(status);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        _searchFilter.set_status(StatusEnum.None);
     }
 }
 

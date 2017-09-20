@@ -3,49 +3,56 @@
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="first_name">First Name</string>
     <string name="surname">Surname</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="register">Register</string>
-    <string name="welcome">Welcome!</string>
-    <string name="login">Login</string>
-    <string name="action_exit">Exit</string>
-    <string name="login_fragment">LoginFragment</string>
-    <string name="register_fragment">RegisterFragment</string>
-    <string name="action_add_journal">Add Journal</string>
-    <string name="create_journal">Create Journal</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
-    <string name="action_view_journal">View Journal Details</string>
+    <string name="content">Content</string>
+    <string name="status">Status</string>
+    <string name="date">Date</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome!</string>
+    <string name="created_on">Created on</string>
+    <string name="on">on</string>
+    <string name="create_journal">Create Journal</string>
+    <string name="edit_journal">Edit Journal</string>
+    <string name="create_entry">Create Entry</string>
+    <string name="edit_entry">Edit Entry</string>
+    <string name="search_filters">Search Filters</string>
+    <string name="title_journals">Journals</string>
+
+    <string name="no_journals_exist">You have no journals. </string>
+    <string name="no_entries_exist_yet">No entries in this journal. </string>
+
+    <string name="journal_created_successfully">Journal created successfully!</string>
+    <string name="entry_edited_confirmed">Entry successfully edited!</string>
+    <string name="journal_edited_confirmed">Journal successfully edited!</string>
+
+    <string name="action_exit">Exit</string>
+    <string name="action_add_journal">Add Journal</string>
     <string name="action_close_journal">Close Journal</string>
+    <string name="action_reopen_journal">Reopen Journal</string>
     <string name="action_delete_journal">Delete Journal</string>
     <string name="action_search_entries">Search Entries</string>
-    <string name="create_entry">Create Entry</string>
-    <string name="content">Content</string>
-    <string name="no_journals_exist">You have no journals. </string>
-    <string name="journal_created_successfully">Journal created successfully!</string>
-    <string name="status">Status</string>
-    <string name="created_date">Created Date</string>
+    <string name="clear_filters">Clear filters</string>
+
+    <string name="login_fragment">LoginFragment</string>
+    <string name="register_fragment">RegisterFragment</string>
     <string name="bundle_journal_key">KEY_JOURNAL</string>
     <string name="bundle_entry_key">KEY_ENTRY</string>
     <string name="bundle_filter_key">KEY_FILTER</string>
+    <string name="password_max_length">8</string>
+    <string name="search_query">Search Query</string>
+
     <string name="dialog_close_journal_prompt">Once a journal is closed, it cannot be edited. Are you sure you want to close this journal?</string>
     <string name="dialog_reopen_journal_prompt">Once a journal is reopened, it can be editied again. Are you sure you want to reopen this journal?</string>
-    <string name="title_journals">Journals</string>
-    <string name="no_entries_exist_yet">No entries in this journal. </string>
-    <string name="password_max_length">8</string>
-    <string name="created_on">Created on</string>
-    <string name="edit_entry">Edit Entry</string>
-    <string name="entry_edited_confirmed">Entry successfully edited!</string>
-    <string name="journal_edited_confirmed">Journal successfully edited!</string>
-    <string name="edit_journal">Edit Journal</string>
-    <string name="start_date">Start Date</string>
-    <string name="end_date">End Date</string>
-    <string name="search_filters">Search Filters</string>
-    <string name="on">on</string>
-    <string name="date">Date</string>
-    <string name="search_query">Search Query</string>
-    <string name="action_reopen_journal">Reopen Journal</string>
+
 </resources>
