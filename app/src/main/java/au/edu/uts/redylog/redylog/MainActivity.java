@@ -99,24 +99,26 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 break;
             case JournalListFragment:
                 _activeFragment = new JournalListFragment();
-                _toolbar.setTitle(R.string.title_journals);
                 break;
             case EntryListFragment:
                 _activeFragment = new EntryListFragment();
                 Journal journal = (Journal)data;
-                _toolbar.setTitle(journal.get_title());
                 args.putSerializable(getString(R.string.bundle_journal_key), journal);
                 break;
             case ViewEntryFragment:
                 _activeFragment = new ViewEntryFragment();
                 Entry entry = (Entry)data;
-                _toolbar.setTitle(entry.get_title());
                 args.putSerializable(getString(R.string.bundle_entry_key), entry);
         }
 
         _activeFragment.setArguments(args);
         fragmentTransaction.add(R.id.ll_fragment_holder, _activeFragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void updateTitle(String title) {
+        _toolbar.setTitle(title);
     }
 
     @Override

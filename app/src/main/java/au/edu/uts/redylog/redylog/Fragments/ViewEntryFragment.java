@@ -53,6 +53,8 @@ public class ViewEntryFragment extends Fragment {
         setupReferences(view);
         updateData();
 
+        mListener.updateTitle(_currentEntry.get_title());
+
         return view;
     }
 
@@ -107,7 +109,6 @@ public class ViewEntryFragment extends Fragment {
     }
 
     public void updateData() {
-
         if (_currentEntry.get_status() == StatusEnum.Open) {
             _tvStatus.setVisibility(View.GONE);
         } else {
@@ -116,5 +117,6 @@ public class ViewEntryFragment extends Fragment {
 
         _tvContent.setText(_currentEntry.get_contents());
         _tvDate.setText(HelperMethods.formatDate(_currentEntry.get_createdDate()));
+        mListener.updateTitle(_currentEntry.get_title());
     }
 }
