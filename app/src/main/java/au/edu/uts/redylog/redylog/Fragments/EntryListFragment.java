@@ -1,6 +1,7 @@
 package au.edu.uts.redylog.redylog.Fragments;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -148,6 +149,15 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         getActivity().getMenuInflater().inflate(R.menu.entry_list_menu, menu);
+
+        if (_currentJournal.get_status() == StatusEnum.Open) {
+            menu.findItem(R.id.action_reopen_journal).setVisible(false);
+        } else {
+            menu.findItem(R.id.action_close_journal).setVisible(false);
+            menu.findItem(R.id.action_edit_journal).setVisible(false);
+            menu.findItem(R.id.action_create_entry).setVisible(false);
+        }
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -158,11 +168,11 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
             case R.id.action_create_entry:
                 displayAddEntryDialog();
                 break;
-            case R.id.action_search_entries:
-                displaySearchEntryDialog();
-                break;
             case R.id.action_close_journal:
                 displayCloseJournal();
+                break;
+            case R.id.action_reopen_journal:
+                displayReopenJournal();
                 break;
             case R.id.action_edit_journal:
                 displayEditDialog();
@@ -207,16 +217,26 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         _adapter.notifyDataSetChanged();
     }
 
-    private void displaySearchEntryDialog(){
-
-    }
-
     private void displayCloseJournal(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.dialog_close_journal_prompt)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         JournalManager.getInstance().closeJournal(_currentJournal);
+                        mListener.displayFragment(FragmentEnum.JournalListFragment, null);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+                .show();
+    }
+
+    private void displayReopenJournal() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_reopen_journal_prompt)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        JournalManager.getInstance().reopenJournal(_currentJournal);
                         mListener.displayFragment(FragmentEnum.JournalListFragment, null);
                     }
                 })

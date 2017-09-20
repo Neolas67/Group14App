@@ -9,14 +9,14 @@
         android:title="@string/create_entry"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_search_entries"
-        android:orderInCategory="200"
-        android:title="@string/action_search_entries"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_close_journal"
         android:orderInCategory="400"
         android:title="@string/action_close_journal"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_reopen_journal"
+        android:orderInCategory="400"
+        android:title="@string/action_reopen_journal"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_edit_journal"

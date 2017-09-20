@@ -112,6 +112,12 @@ public class JournalManager {
         _db.updateJournal(journal);
     }
 
+    public void reopenJournal(Journal journal) {
+        journal.set_status(StatusEnum.Open);
+        journal.set_endDate(null);
+        _db.updateJournal(journal);
+    }
+
     public void updateJournal(Journal journal) {
         _db.updateJournal(journal);
     }
