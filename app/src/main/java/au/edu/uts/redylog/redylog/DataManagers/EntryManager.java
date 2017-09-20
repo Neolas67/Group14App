@@ -6,10 +6,14 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
+import au.edu.uts.redylog.redylog.Helpers.SearchFilter;
+import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.History;
 import au.edu.uts.redylog.redylog.Models.Journal;
@@ -57,24 +61,39 @@ public class EntryManager {
     }
 
 
-    public List<Entry> get_entries(Journal journal, String query) {
+    public List<Entry> get_entries(Journal journal, SearchFilter searchFilter) {
         if (_entries.size() == 0) {
             _entries.addAll(_db.getAllEntries());
         }
 
         List<Entry> filteredList = new ArrayList<>();
 
-        if (TextUtils.isEmpty(query)) {
-            for (Entry e: _entries) {
-                if (e.get_journalId() == journal.get_journalId())
-                    filteredList.add(e);
-            }
-        } else {
-            for (Entry e: _entries) {
-                if (e.get_journalId() == journal.get_journalId() &&
-                        (e.get_title().toLowerCase().contains(query.toLowerCase()) ||
-                                e.get_contents().toLowerCase().contains(query.toLowerCase())))
-                    filteredList.add(e);
+        for (Entry e: _entries) {
+            if (searchFilter == null) {
+                filteredList.add(e);
+            } else {
+                String query = searchFilter.get_query();
+                Date startDate = searchFilter.get_startDate();
+                Date endDate = searchFilter.get_endDate();
+                StatusEnum status = searchFilter.get_status();
+
+                if (!TextUtils.isEmpty(query) && !HelperMethods.searchString(e.get_contents(), query)) {
+                    continue;
+                }
+
+                if (startDate != null && e.get_createdDate().before(startDate)) {
+                    continue;
+                }
+
+                if (endDate != null && e.get_createdDate().after(endDate)) {
+                    continue;
+                }
+
+                //if (status != null && !e.get_status().equals(status)) {
+                //    continue;
+                //}
+
+                filteredList.add(e);
             }
         }
 

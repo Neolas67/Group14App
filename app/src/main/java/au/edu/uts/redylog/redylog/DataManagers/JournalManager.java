@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
+import au.edu.uts.redylog.redylog.Helpers.SearchFilter;
 import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.Models.User;
@@ -52,7 +54,7 @@ public class JournalManager {
         return null;
     }
 
-    public List<Journal> get_journals(String query) {
+    public List<Journal> get_journals(SearchFilter searchFilter) {
         if (_journals.size() == 0) {
             User user = UserManager.getInstance().get_currentUser();
             _journals.addAll(_db.getAllJournals(user.get_userId()));
@@ -60,13 +62,32 @@ public class JournalManager {
 
         List<Journal> filteredList = new ArrayList<>();
 
-        if (TextUtils.isEmpty(query)) {
-            filteredList.addAll(_journals);
-        } else {
-            for (Journal j : _journals) {
-                if (j.get_title().toLowerCase().contains(query.toLowerCase()) ||
-                        j.get_description().toLowerCase().contains(query.toLowerCase()))
-                    filteredList.add(j);
+        for (Journal j: _journals) {
+            if (searchFilter == null) {
+                filteredList.add(j);
+            } else {
+                String query = searchFilter.get_query();
+                Date startDate = searchFilter.get_startDate();
+                Date endDate = searchFilter.get_endDate();
+                StatusEnum status = searchFilter.get_status();
+
+                if (!TextUtils.isEmpty(query) && !HelperMethods.searchString(j.get_description(), query)) {
+                    continue;
+                }
+
+                if (startDate != null && j.get_startDate().before(startDate)) {
+                    continue;
+                }
+
+                if (endDate != null && j.get_endDate() != null && j.get_endDate().after(endDate)) {
+                    continue;
+                }
+
+                if (status != null && !j.get_status().equals(status)) {
+                    continue;
+                }
+
+                filteredList.add(j);
             }
         }
 

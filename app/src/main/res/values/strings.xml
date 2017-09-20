@@ -45,4 +45,5 @@
     <string name="search_filters">Search Filters</string>
     <string name="on">on</string>
     <string name="date">Date</string>
+    <string name="search_query">Search Query</string>
 </resources>
