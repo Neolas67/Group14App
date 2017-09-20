@@ -76,8 +76,8 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
 
         setupReferences(view);
-        setupView();
         setupRecyclerView(view);
+        setupView();
         updateList();
 
         mListener.updateTitle(_currentJournal.get_title());
@@ -105,8 +105,10 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
         if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
             _tvError.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
         } else {
             _tvError.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
         }
 
         if (_currentJournal.get_status() == StatusEnum.Open){
@@ -210,11 +212,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         _entries.clear();
         _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal, _searchFilter));
 
-        if (_entries.size() > 0) {
-            _tvError.setVisibility(View.INVISIBLE);
-        } else {
-            _tvError.setVisibility(View.VISIBLE);
-        }
+        setupView();
 
         mListener.updateTitle(_currentJournal.get_title());
         _adapter.notifyDataSetChanged();

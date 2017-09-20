@@ -90,6 +90,17 @@
             android:layout_alignParentBottom="true"
             android:background="@android:color/darker_gray" />
 
+        <TextView
+            android:id="@+id/tv_entry_error"
+            android:layout_centerInParent="true"
+            android:text="@string/no_entries_exist_yet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+            android:textSize="@dimen/error_size"
+            android:visibility="invisible"/>
+
         <android.support.v7.widget.RecyclerView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -101,18 +112,6 @@
             style="@style/AppTheme.RecycleViewContainer" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_entry_error"
-        android:layout_centerInParent="true"
-        android:text="@string/no_entries_exist_yet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-        android:textSize="@dimen/error_size"
-        android:visibility="invisible"/>
 
     <android.support.design.widget.FloatingActionButton
         style="@style/AppTheme.FloatingActionButton"
