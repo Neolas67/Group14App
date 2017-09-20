@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,6 +157,12 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
         if (_currentJournal.get_status() == StatusEnum.Open) {
             menu.findItem(R.id.action_reopen_journal).setVisible(false);
+        } else if (_currentJournal.get_status() == StatusEnum.Deleted) {
+            menu.findItem(R.id.action_create_entry).setVisible(false);
+            menu.findItem(R.id.action_close_journal).setVisible(false);
+            menu.findItem(R.id.action_reopen_journal).setVisible(false);
+            menu.findItem(R.id.action_edit_journal).setVisible(false);
+            menu.findItem(R.id.action_delete_journal).setVisible(false);
         } else {
             menu.findItem(R.id.action_close_journal).setVisible(false);
             menu.findItem(R.id.action_edit_journal).setVisible(false);
@@ -247,7 +254,18 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     }
 
     private void displayDeleteJournal(){
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_delete_journal_prompt)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        JournalManager.getInstance().deleteJournal(_currentJournal);
+                        mListener.displayFragment(FragmentEnum.JournalListFragment, null);
+                        Toast.makeText(getContext(), R.string.journal_deleted_confirmation, Toast.LENGTH_LONG);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+                .show();
     }
 
     private void displayFilterDialog() {

@@ -58,8 +58,10 @@
     <string name="dialog_reopen_journal_prompt">Once a journal is reopened, it can be editied again. Are you sure you want to reopen this journal?</string>
     <string name="dialog_hide_entry_prompt">Once an entry is hidden, it cannot be viewed without a search. Are you sure you want to hide this entry?</string>
     <string name="dialog_unhide_entry_prompt">Once an entry is unhidden, it can be viewed again. Are you sure you want to unhide this entry?</string>
+    <string name="dialog_delete_journal_prompt">Once a journal is deleted, it cannot be recovered. Are you sure you want to delete this journal?</string>
     <string name="dialog_delete_entry_prompt">Are you sure you want to delete this entry?</string>
     <string name="delete_entry">Delete Entry</string>
     <string name="entry_deleted_confirmed">Entry successfully deleted!</string>
+    <string name="journal_deleted_confirmation">Journal successfully deleted!</string>
 
 </resources>
