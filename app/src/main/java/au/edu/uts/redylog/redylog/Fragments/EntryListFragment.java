@@ -80,6 +80,8 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         setupRecyclerView(view);
         updateList();
 
+        mListener.updateTitle(_currentJournal.get_title());
+
         return view;
     }
 
@@ -214,6 +216,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
             _tvError.setVisibility(View.VISIBLE);
         }
 
+        mListener.updateTitle(_currentJournal.get_title());
         _adapter.notifyDataSetChanged();
     }
 

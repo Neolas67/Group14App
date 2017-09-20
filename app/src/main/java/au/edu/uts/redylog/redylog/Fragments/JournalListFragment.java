@@ -98,6 +98,8 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
             } else {
                 throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
             }
+
+            mListener.updateTitle(getString(R.string.title_journals));
     }
 
     public void updateList(){

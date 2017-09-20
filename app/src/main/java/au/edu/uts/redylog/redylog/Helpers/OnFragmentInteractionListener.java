@@ -6,4 +6,5 @@ package au.edu.uts.redylog.redylog.Helpers;
 
 public interface OnFragmentInteractionListener {
     void displayFragment(FragmentEnum fragmentEnum, Object data);
+    void updateTitle(String title);
 }
