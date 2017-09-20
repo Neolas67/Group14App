@@ -35,6 +35,9 @@
     <string name="journal_created_successfully">Journal created successfully!</string>
     <string name="entry_edited_confirmed">Entry successfully edited!</string>
     <string name="journal_edited_confirmed">Journal successfully edited!</string>
+    <string name="entry_deleted_confirmed">Entry successfully deleted!</string>
+    <string name="entry_hidden_confirmed">Entry successfully hidden!</string>
+    <string name="entry_unhidden_confirmed">Entry successfully unhidden!</string>
 
     <string name="action_exit">Exit</string>
     <string name="action_add_journal">Add Journal</string>
@@ -44,6 +47,7 @@
     <string name="action_search_entries">Search Entries</string>
     <string name="action_unhide_entry">Unhide Entry</string>
     <string name="action_hide_entry">Hide Entry</string>
+    <string name="delete_entry">Delete Entry</string>
     <string name="clear_filters">Clear filters</string>
 
     <string name="login_fragment">LoginFragment</string>
@@ -59,7 +63,5 @@
     <string name="dialog_hide_entry_prompt">Once an entry is hidden, it cannot be viewed without a search. Are you sure you want to hide this entry?</string>
     <string name="dialog_unhide_entry_prompt">Once an entry is unhidden, it can be viewed again. Are you sure you want to unhide this entry?</string>
     <string name="dialog_delete_entry_prompt">Are you sure you want to delete this entry?</string>
-    <string name="delete_entry">Delete Entry</string>
-    <string name="entry_deleted_confirmed">Entry successfully deleted!</string>
 
 </resources>

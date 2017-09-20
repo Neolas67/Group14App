@@ -145,6 +145,7 @@ public class ViewEntryFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         EntryManager.getInstance().hideEntry(_currentEntry);
                         mListener.displayFragment(FragmentEnum.EntryListFragment, getJournal());
+                        Toast.makeText(getContext(), R.string.entry_hidden_confirmed, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
