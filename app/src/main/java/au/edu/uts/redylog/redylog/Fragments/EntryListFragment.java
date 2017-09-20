@@ -93,13 +93,13 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
     private void setupView() {
         if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
-            _tvError.setVisibility(View.INVISIBLE);
+            _tvError.setVisibility(View.GONE);
         } else {
             _tvError.setVisibility(View.VISIBLE);
         }
 
         if (_currentJournal.get_status() == StatusEnum.Open){
-            _llStatus.setVisibility(View.INVISIBLE);
+            _llStatus.setVisibility(View.GONE);
         } else {
             _tvStatus.setText(_currentJournal.get_status().toString());
             _tvEndDate.setText(HelperMethods.formatDate(_currentJournal.get_endDate()));

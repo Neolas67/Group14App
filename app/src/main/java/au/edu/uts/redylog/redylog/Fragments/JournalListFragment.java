@@ -77,7 +77,7 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
 
     private void setupModel() {
         if (JournalManager.getInstance().get_journals().size() > 0) {
-            _tvError.setVisibility(View.INVISIBLE);
+            _tvError.setVisibility(View.GONE);
         } else {
             _tvError.setVisibility(View.VISIBLE);
         }

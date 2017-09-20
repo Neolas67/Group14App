@@ -35,7 +35,7 @@
     <string name="title_journals">Journals</string>
     <string name="no_entries_exist_yet">No entries in this journal. </string>
     <string name="password_max_length">8</string>
-    <string name="created_on">Created on </string>
+    <string name="created_on">Created on</string>
     <string name="edit_entry">Edit Entry</string>
     <string name="entry_edited_confirmed">Entry successfully edited!</string>
     <string name="journal_edited_confirmed">Journal successfully edited!</string>

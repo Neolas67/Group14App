@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
@@ -86,6 +87,7 @@ public class JournalManager {
 
     public void closeJournal(Journal journal) {
         journal.set_status(StatusEnum.Closed);
+        journal.set_endDate(new Date());
         _db.updateJournal(journal);
     }
 

@@ -110,7 +110,7 @@ public class ViewEntryFragment extends Fragment {
     public void updateData() {
 
         if (_currentEntry.get_status() == StatusEnum.Open) {
-            _tvStatus.setVisibility(View.INVISIBLE);
+            _tvStatus.setVisibility(View.GONE);
         } else {
             _tvStatus.setText(_currentEntry.get_status().toString());
         }
