@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class JournalManager {
 
     public static void init(Context context){
         _context = context;
-         ourInstance = new JournalManager();
+        ourInstance = new JournalManager();
     }
 
     public JournalManager() {
@@ -83,7 +84,7 @@ public class JournalManager {
                     continue;
                 }
 
-                if (status != null && !j.get_status().equals(status)) {
+                if (status != null && status != StatusEnum.None && !j.get_status().equals(status)) {
                     continue;
                 }
 
