@@ -40,10 +40,10 @@
     <string name="entry_edited_confirmed">Entry successfully edited!</string>
     <string name="entry_hidden_confirmed">Entry successfully hidden!</string>
     <string name="entry_deleted_confirmed">Entry successfully deleted!</string>
+    <string name="entry_unhidden_confirmed">Entry successfully unhidden!</string>
 
     <!--//not implemented yet-->
     <string name="journal_deleted_confirmed">Journal successfully deleted!</string>
-    <string name="entry_unhidden_confirmed">Entry successfully unhidden!</string>
 
     <string name="action_exit">Exit</string>
     <string name="action_add_journal">Add Journal</string>

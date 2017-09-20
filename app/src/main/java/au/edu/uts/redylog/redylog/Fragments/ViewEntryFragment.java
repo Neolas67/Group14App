@@ -119,6 +119,7 @@ public class ViewEntryFragment extends Fragment {
                 displayHideEntry();
                 break;
             case R.id.action_unhide_entry:
+                displayUnhideEntry();
                 break;
             case R.id.action_delete_entry:
                 displayDeleteEntryDialog();
@@ -146,6 +147,21 @@ public class ViewEntryFragment extends Fragment {
                         EntryManager.getInstance().hideEntry(_currentEntry);
                         mListener.displayFragment(FragmentEnum.EntryListFragment, getJournal());
                         Toast.makeText(getContext(), R.string.entry_hidden_confirmed, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+                .show();
+    }
+
+    private void displayUnhideEntry() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_unhide_entry_prompt)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        EntryManager.getInstance().unhideEntry(_currentEntry);
+                        mListener.displayFragment(FragmentEnum.EntryListFragment, getJournal());
+                        Toast.makeText(getContext(), R.string.entry_unhidden_confirmed, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

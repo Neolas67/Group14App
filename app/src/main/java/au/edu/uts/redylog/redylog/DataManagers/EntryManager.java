@@ -61,6 +61,11 @@ public class EntryManager {
         _db.updateEntry(entry);
     }
 
+    public void unhideEntry(Entry entry) {
+        entry.set_status(StatusEnum.Open);
+        _db.updateEntry(entry);
+    }
+
     public void updateEntry(Entry entry) {
         _db.updateEntry(entry);
     }
