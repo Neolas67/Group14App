@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,9 +28,11 @@ import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateEntryDialogFragment;
 import au.edu.uts.redylog.redylog.DialogFragments.EditEntryDialogFragment;
 import au.edu.uts.redylog.redylog.DialogFragments.EditJournalDialogFragment;
+import au.edu.uts.redylog.redylog.DialogFragments.SearchDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
+import au.edu.uts.redylog.redylog.Helpers.SearchFilter;
 import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.Journal;
@@ -49,9 +52,11 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     private List<Entry> _entries = new ArrayList<>();
     private SearchView _svEntries;
     private FloatingActionButton _fabEntry;
+    private ImageButton _ibFilter;
 
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
+    private SearchFilter _searchFilter = new SearchFilter();
 
     public EntryListFragment() {
 
@@ -68,11 +73,11 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_entry_list, container, false);
         _currentJournal = (Journal) getArguments().getSerializable(getString(R.string.bundle_journal_key));
-        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
 
         setupReferences(view);
         setupView();
         setupRecyclerView(view);
+        updateList();
 
         return view;
     }
@@ -85,19 +90,15 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         _tvStatus = view.findViewById(R.id.entry_list_journal_status);
         _tvEndDate = view.findViewById(R.id.entry_list_journal_end_date);
         _svEntries = view.findViewById(R.id.sv_entries);
-        _svEntries.setOnQueryTextListener(this);
-
+        _ibFilter = view.findViewById(R.id.ib_entry_list_filter);
         _fabEntry = view.findViewById(R.id.fab_entry_list);
+
+        _svEntries.setOnQueryTextListener(this);
+        _ibFilter.setOnClickListener(this);
         _fabEntry.setOnClickListener(this);
     }
 
     private void setupView() {
-        if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
-            _tvError.setVisibility(View.INVISIBLE);
-        } else {
-            _tvError.setVisibility(View.VISIBLE);
-        }
-
         if (_currentJournal.get_status() == StatusEnum.Open){
             _llStatus.setVisibility(View.INVISIBLE);
         } else {
@@ -188,8 +189,14 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
     public void updateList(){
         _entries.clear();
-        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal));
-        setupView();
+        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal, _searchFilter));
+
+        if (_entries.size() > 0) {
+            _tvError.setVisibility(View.INVISIBLE);
+        } else {
+            _tvError.setVisibility(View.VISIBLE);
+        }
+
         _adapter.notifyDataSetChanged();
     }
 
@@ -215,6 +222,16 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
     }
 
+    private void displayFilterDialog() {
+        SearchDialogFragment dialogFragment = new SearchDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(getString(R.string.bundle_filter_key), _searchFilter);
+        dialogFragment.setArguments(args);
+        dialogFragment.setTargetFragment(this,1);
+        dialogFragment.show(getFragmentManager(), "dialog");
+    }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
@@ -222,14 +239,19 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        _searchFilter.set_query(newText);
         _entries.clear();
-        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal, newText));
+        _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal, _searchFilter));
         _adapter.notifyDataSetChanged();
         return false;
     }
 
     @Override
     public void onClick(View view) {
-        displayAddEntryDialog();
+        if (view == _fabEntry) {
+            displayAddEntryDialog();
+        } else if (view == _ibFilter) {
+            displayFilterDialog();
+        }
     }
 }

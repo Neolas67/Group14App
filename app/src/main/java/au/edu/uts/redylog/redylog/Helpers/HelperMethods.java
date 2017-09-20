@@ -58,4 +58,13 @@ public class HelperMethods {
         return sdf.format(date);
     }
 
+    public static String formatDateNoTime(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(date);
+    }
+
+    public static boolean searchString(String baseString, String query) {
+        return TextUtils.isEmpty(query) || baseString.toLowerCase().contains(query.toLowerCase());
+    }
+
 }

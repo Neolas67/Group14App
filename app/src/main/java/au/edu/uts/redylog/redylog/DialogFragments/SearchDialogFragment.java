@@ -11,13 +11,12 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
+import au.edu.uts.redylog.redylog.Fragments.EntryListFragment;
+import au.edu.uts.redylog.redylog.Fragments.JournalListFragment;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.SearchFilter;
-import au.edu.uts.redylog.redylog.MainActivity;
 import au.edu.uts.redylog.redylog.R;
 
 /**
@@ -48,7 +47,6 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
         return new AlertDialog.Builder(getActivity())
                 .setView(setupView())
                 .setPositiveButton(android.R.string.ok, this)
-                .setNegativeButton(android.R.string.cancel, null)
                 .create();
     }
 
@@ -63,23 +61,43 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
         etEndDate.setShowSoftInputOnFocus(false);
         etEndDate.setOnClickListener(this);
 
+        if (_searchFilter.get_startDate() != null) { etStartDate.setText(HelperMethods.formatDateNoTime(_searchFilter.get_startDate())); }
+        if (_searchFilter.get_endDate() != null) { etEndDate.setText(HelperMethods.formatDateNoTime(_searchFilter.get_endDate())); }
+
         return view;
     }
 
     //Todo get the journal id from previous fragment
     public void onClick(DialogInterface dialog, int whichButton) {
-        //prevFragment = (EntryListFragment) getTargetFragment();
-        //prevFragment.updateList();
+        prevFragment = getTargetFragment();
+
+        if (prevFragment instanceof EntryListFragment) {
+            EntryListFragment entryListFragment = (EntryListFragment) prevFragment;
+            entryListFragment.updateList();
+        } else if (prevFragment instanceof JournalListFragment) {
+            JournalListFragment journalListFragment = (JournalListFragment) prevFragment;
+            journalListFragment.updateList();
+        }
     }
 
     @Override
     public void onClick(View view) {
 
-        Date date = new Date();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                getContext(), SearchDialogFragment.this, date.getYear(), date.getMonth(), date.getDay()
-        );
+        Calendar calendar = Calendar.getInstance();
+
+        if (view == etStartDate) {
+            if (_searchFilter.get_startDate() != null) { calendar.setTime(_searchFilter.get_startDate()); }
+        } else if (view == etEndDate) {
+            if (_searchFilter.get_endDate() != null) { calendar.setTime(_searchFilter.get_endDate()); }
+        }
+
+        int year = calendar.get(calendar.YEAR);
+        int month = calendar.get(calendar.MONTH);
+        int day = calendar.get(calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
         datePickerDialog.setOnDateSetListener(this);
+        datePickerDialog.updateDate(year, month, day);
 
         etPromptingDate = (EditText) view;
         datePickerDialog.show();
@@ -90,13 +108,17 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         if (etPromptingDate == etStartDate) {
             _searchFilter.set_startDate(calendar.getTime());
-            etStartDate.setText(HelperMethods.formatDate(calendar.getTime()));
+            etStartDate.setText(HelperMethods.formatDateNoTime(calendar.getTime()));
         } else if (etPromptingDate == etEndDate) {
             _searchFilter.set_endDate(calendar.getTime());
-            etEndDate.setText(HelperMethods.formatDate(calendar.getTime()));
+            etEndDate.setText(HelperMethods.formatDateNoTime(calendar.getTime()));
         }
     }
 }

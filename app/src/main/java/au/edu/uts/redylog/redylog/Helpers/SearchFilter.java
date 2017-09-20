@@ -9,9 +9,18 @@ import java.util.Date;
 
 public class SearchFilter implements Serializable {
 
+    String _query;
     Date _startDate;
     Date _endDate;
     StatusEnum _status;
+
+    public String get_query() {
+        return _query;
+    }
+
+    public void set_query(String _query) {
+        this._query = _query;
+    }
 
     public Date get_startDate() {
         return _startDate;

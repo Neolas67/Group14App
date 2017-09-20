@@ -58,8 +58,8 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
         View view = inflater.inflate(R.layout.fragment_journal_list, container, false);
 
         setupReferences(view);
-        setupModel();
         setupRecyclerView(view);
+        updateList();
 
         return view;
     }
@@ -75,17 +75,8 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
         _svJournals.setOnQueryTextListener(this);
     }
 
-    private void setupModel() {
-        if (JournalManager.getInstance().get_journals().size() > 0) {
-            _tvError.setVisibility(View.INVISIBLE);
-        } else {
-            _tvError.setVisibility(View.VISIBLE);
-        }
-    }
-
     private void setupRecyclerView(View view) {
         mRecyclerView = view.findViewById(R.id.rv_journals);
-        _journals.addAll(JournalManager.getInstance().get_journals());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         _adapter = new JournalRecyclerViewAdapter(mListener, _journals);
@@ -111,10 +102,17 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
 
     public void updateList(){
         _journals.clear();
-        _journals.addAll(JournalManager.getInstance().get_journals());
-        setupModel();
+        _journals.addAll(JournalManager.getInstance().get_journals(_searchFilter));
+
+        if (_journals.size() > 0) {
+            _tvError.setVisibility(View.INVISIBLE);
+        } else {
+            _tvError.setVisibility(View.VISIBLE);
+        }
+
         _adapter.notifyDataSetChanged();
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -162,8 +160,9 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        _searchFilter.set_query(newText);
         _journals.clear();
-        _journals.addAll(JournalManager.getInstance().get_journals(newText));
+        _journals.addAll(JournalManager.getInstance().get_journals(_searchFilter));
         _adapter.notifyDataSetChanged();
         return false;
     }
@@ -172,7 +171,7 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
     public void onClick(View view) {
         if (view == _fabJournal) {
             displayAddJournalDialog();
-        } else {
+        } else if (view == _ibFilter) {
             displayFilterDialog();
         }
 
