@@ -283,6 +283,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(ENTRY_TITLE, entry.get_title().toString());
         values.put(ENTRY_CONTENTS, entry.get_contents().toString());
+        values.put(ENTRY_STATUS, entry.get_status().toString());
 
         db.update(
                 TABLE_ENTRIES,

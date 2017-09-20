@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
@@ -95,10 +96,13 @@ public class ViewEntryFragment extends Fragment {
                 break;
             case Hidden:
                 menu.findItem(R.id.action_hide_entry).setVisible(false);
+                break;
             case Deleted:
                 menu.findItem(R.id.action_hide_entry).setVisible(false);
                 menu.findItem(R.id.action_unhide_entry).setVisible(false);
-                //hide delete entry
+                menu.findItem(R.id.action_delete_entry).setVisible(false);
+                menu.findItem(R.id.action_edit_entry).setVisible(false);
+                break;
         }
 
         super.onCreateOptionsMenu(menu, inflater);
@@ -107,7 +111,6 @@ public class ViewEntryFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
             case R.id.action_edit_entry:
                 displayEditEntryDialog();
@@ -116,6 +119,9 @@ public class ViewEntryFragment extends Fragment {
                 displayHideEntry();
                 break;
             case R.id.action_unhide_entry:
+                break;
+            case R.id.action_delete_entry:
+                displayDeleteEntryDialog();
                 break;
         }
 
@@ -139,6 +145,23 @@ public class ViewEntryFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         EntryManager.getInstance().hideEntry(_currentEntry);
                         mListener.displayFragment(FragmentEnum.EntryListFragment, getJournal());
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create()
+                .show();
+    }
+
+    private void displayDeleteEntryDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_delete_entry_prompt)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        _currentEntry.set_status(StatusEnum.Deleted);
+                        EntryManager.getInstance().updateEntry(_currentEntry);
+                        Journal journal = JournalManager.getInstance().get_journal(_currentEntry.get_journalId());
+                        mListener.displayFragment(FragmentEnum.EntryListFragment, journal);
+                        Toast.makeText(getContext(), R.string.entry_deleted_confirmed, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

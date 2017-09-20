@@ -65,7 +65,6 @@ public class EntryManager {
         _db.updateEntry(entry);
     }
 
-
     public List<Entry> get_entries(Journal journal, SearchFilter searchFilter) {
         if (_entries.size() == 0) {
             _entries.addAll(_db.getAllEntries());
@@ -97,8 +96,11 @@ public class EntryManager {
                     continue;
                 }
 
-                if (status != null && status != StatusEnum.None && !e.get_status().equals(status)) {
-                    continue;
+                //Deleted and Hidden entries should not be shown unless they are explicitly searched for
+                if (status == null || status == StatusEnum.None) {
+                    if (e.get_status() == StatusEnum.Deleted || e.get_status() == StatusEnum.Hidden) { continue; }
+                } else  {
+                    if (e.get_status() != status) { continue; }
                 }
 
                 filteredList.add(e);
