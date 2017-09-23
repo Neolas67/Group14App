@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Models.User;
 
 /**
@@ -45,13 +46,20 @@ public class UserManager {
 
     public boolean login(String password) {
         for (User user : _users) {
-            if (user.get_password().equals(password)) {
+            if (passwordMatches(user, password)) {
                 _currentUser = user;
                 return true;
             }
         }
 
         return false;
+    }
+
+    private boolean passwordMatches(User user, String password) {
+        if (user.get_password() == null) { return false; }
+        String decryptedPassword = HelperMethods.decryptMsg(user.get_password());
+
+        return decryptedPassword.equals(password);
     }
 
     public boolean userExists() {

@@ -1,12 +1,21 @@
 package au.edu.uts.redylog.redylog.Helpers;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import au.edu.uts.redylog.redylog.Models.Journal;
 
@@ -16,11 +25,11 @@ import au.edu.uts.redylog.redylog.Models.Journal;
 
 public class HelperMethods {
 
-    public  static  long dateToLong(Date date) {
+    public static long dateToLong(Date date) {
         return date != null ? date.getTime() : 0;
     }
 
-    public  static  Date longToDate(long ticks) {
+    public static Date longToDate(long ticks) {
         return new Date(ticks);
     }
 
@@ -65,6 +74,35 @@ public class HelperMethods {
 
     public static boolean searchString(String baseString, String query) {
         return TextUtils.isEmpty(query) || baseString.toLowerCase().contains(query.toLowerCase());
+    }
+
+    private static SecretKey generateKey()
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+        return new SecretKeySpec("p9a4s2s7w4o8r5d8".getBytes(), "AES");
+    }
+
+    public static byte[] encryptMsg(String message) {
+        try {
+            Cipher cipher = null;
+            cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, generateKey());
+            return cipher.doFinal(message.getBytes("UTF-8"));
+        } catch (Exception ex) {
+            Log.e("HAYDENERROR", "encryptMsg", ex);
+            return null;
+        }
+    }
+
+    public static String decryptMsg(byte[] cipherText) {
+        try {
+            Cipher cipher = null;
+            cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, generateKey());
+            return new String(cipher.doFinal(cipherText), "UTF-8");
+        } catch (Exception ex) {
+            Log.e("HAYDENERROR", "decryptMsg", ex);
+            return null;
+        }
     }
 
 }

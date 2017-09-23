@@ -4,63 +4,85 @@
     android:layout_height="match_parent"
     tools:context="au.edu.uts.redylog.redylog.Fragments.ViewEntryFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="@string/created_on"
+                    android:layout_marginRight="@dimen/text_space"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/date"
+                    android:id="@+id/view_entry_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <TextView
-                android:text="@string/created_on"
-                android:layout_marginRight="@dimen/text_space"
+                android:text="@string/status"
+                android:id="@+id/view_entry_status"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_margin" />
 
             <TextView
-                android:text="@string/date"
-                android:id="@+id/view_entry_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text="@string/content"
+                android:id="@+id/view_entry_content"
+                android:layout_marginTop="@dimen/text_margin"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AppTheme.Content"
+                android:textSize="@dimen/content_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/history"
+                android:textSize="@dimen/subtitle_size"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/form_top_padding"
+                android:layout_marginBottom="@dimen/text_margin"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/darker_gray" />
+
+            <android.support.v7.widget.RecyclerView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/rv_versions"
+                android:name="au.edu.uts.redylog.redylog.EntryFragment"
+                app:layoutManager="LinearLayoutManager"
+                tools:context="au.edu.uts.redylog.redylog.Fragments.EntryListFragment"
+                tools:listitem="@layout/item_entry"
+                style="@style/AppTheme.RecycleViewContainer" />
 
         </LinearLayout>
 
-        <TextView
-            android:text="@string/status"
-            android:id="@+id/view_entry_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin" />
-
-        <TextView
-            android:text="@string/content"
-            android:id="@+id/view_entry_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:layout_marginBottom="@dimen/text_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/AppTheme.Content"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/darker_gray" />
-
-        <android.support.v7.widget.RecyclerView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/rv_versions"
-            android:name="au.edu.uts.redylog.redylog.EntryFragment"
-            app:layoutManager="LinearLayoutManager"
-            tools:context="au.edu.uts.redylog.redylog.Fragments.EntryListFragment"
-            tools:listitem="@layout/item_entry"
-            style="@style/AppTheme.RecycleViewContainer" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

@@ -21,7 +21,7 @@ import au.edu.uts.redylog.redylog.Models.History;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "redyLog";
 
     // Table Definitions
@@ -92,7 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + USER_FIRSTNAME + " TEXT, "
                 + USER_SURNAME + " TEXT, "
                 + USER_EMAIL + " TEXT, "
-                + USER_PASSWORD + " TEXT"
+                + USER_PASSWORD + " BLOB"
                 + ")";
         sqLiteDatabase.execSQL(CREATE_USER_TABLE);
     }
@@ -124,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        cursor.getString(4)
+                        cursor.getBlob(4)
                 );
                 userList.add(user);
             } while (cursor.moveToNext());
@@ -318,8 +318,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public List<History> getAllHistory() {
+        return this.getHistory(null);
+    }
+
     public List<History> getHistory(Entry entry) {
-        String selectQuery = "SELECT * FROM " + TABLE_HISTORY + " WHERE " + HISTORY_ENTRYID + " = " + entry.get_entryId();
+        String selectQuery = "SELECT * FROM " + TABLE_HISTORY;
+        if (entry != null) { selectQuery += " WHERE " + HISTORY_ENTRYID + " = " + entry.get_entryId(); }
 
         List<History> historyList = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();

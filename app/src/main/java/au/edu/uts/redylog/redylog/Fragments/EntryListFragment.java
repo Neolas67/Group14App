@@ -129,9 +129,6 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(_adapter);
-        RecyclerView recyclerView = view.findViewById(R.id.rv_entries);
-
-        recyclerView.setAdapter(_adapter);
     }
 
     @Override

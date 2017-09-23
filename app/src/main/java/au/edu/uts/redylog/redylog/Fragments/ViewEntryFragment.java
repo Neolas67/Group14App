@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +18,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
@@ -23,8 +29,10 @@ import au.edu.uts.redylog.redylog.DialogFragments.EditEntryDialogFragment;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
 import au.edu.uts.redylog.redylog.Models.Entry;
+import au.edu.uts.redylog.redylog.Models.History;
 import au.edu.uts.redylog.redylog.Models.Journal;
 import au.edu.uts.redylog.redylog.R;
+import au.edu.uts.redylog.redylog.RecyclerViewAdapters.HistoryRecyclerViewAdapter;
 
 public class ViewEntryFragment extends Fragment {
 
@@ -32,6 +40,10 @@ public class ViewEntryFragment extends Fragment {
     private TextView _tvDate;
     private TextView _tvContent;
     private TextView _tvStatus;
+    private RecyclerView mRecyclerView;
+
+    private List<History> _history = new ArrayList<>();
+    private HistoryRecyclerViewAdapter _adapter;
     private Entry _currentEntry;
 
     public ViewEntryFragment() {
@@ -56,6 +68,7 @@ public class ViewEntryFragment extends Fragment {
         _currentEntry = (Entry) getArguments().getSerializable(getString(R.string.bundle_entry_key));
 
         setupReferences(view);
+        setupRecyclerView(view);
         updateData();
 
         mListener.updateTitle(_currentEntry.get_title());
@@ -67,6 +80,16 @@ public class ViewEntryFragment extends Fragment {
         _tvContent = view.findViewById(R.id.view_entry_content);
         _tvDate = view.findViewById(R.id.view_entry_date);
         _tvStatus = view.findViewById(R.id.view_entry_status);
+    }
+
+    private void setupRecyclerView(View view) {
+        mRecyclerView = view.findViewById(R.id.rv_versions);
+        _adapter = new HistoryRecyclerViewAdapter(mListener, _history);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(_adapter);
+
+        _history.addAll(EntryManager.getInstance().get_history(_currentEntry));
     }
 
     @Override

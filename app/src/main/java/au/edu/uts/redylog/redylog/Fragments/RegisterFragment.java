@@ -10,6 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 import au.edu.uts.redylog.redylog.DataManagers.UserManager;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
@@ -99,19 +107,21 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 hasError = true;
             }
 
-            if (!hasError){
+            if (!hasError) {
                 User user = new User(
                         _etFirstName.getText().toString(),
                         _etSurname.getText().toString(),
                         _etEmail.getText().toString(),
                         _etPassword.getText().toString()
                 );
+
                 UserManager.getInstance().register(user);
                 Toast.makeText(getContext(), "Registration successful.", Toast.LENGTH_SHORT).show();
 
                 if (mListener != null) {
                     mListener.displayFragment(FragmentEnum.JournalListFragment, null);
                 }
+
             }
         }
     }

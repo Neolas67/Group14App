@@ -117,18 +117,37 @@ public class EntryManager {
         return filteredList;
     }
 
+    public List<Entry> get_entries(Journal journal) {
+        return get_entries(journal, null);
+    }
+
+    public List<History> get_history(Entry entry) {
+        if (_history.size() == 0) {
+            _history.addAll(_db.getAllHistory());
+        }
+
+        List<History> filteredList = new ArrayList<>();
+
+        for (History h: _history) {
+            if (h.get_entryId() == entry.get_entryId()) { filteredList.add(h); }
+        }
+
+        HistoryComparator historyComparator = new HistoryComparator();
+        Collections.sort(filteredList, historyComparator);
+        return filteredList;
+
+    }
+
     public class EntryComparator implements Comparator<Entry> {
         public int compare(Entry entry1, Entry entry2) {
             return entry2.get_createdDate().compareTo(entry1.get_createdDate());
         }
     }
 
-    public List<Entry> get_entries(Journal journal) {
-        return get_entries(journal, null);
+    public class HistoryComparator implements Comparator<History> {
+        public int compare(History history1, History history2) {
+            return history2.get_changedDate().compareTo(history1.get_changedDate());
+        }
     }
-
-//    public List<History> get_history(Entry entry) {
-//
-//    }
 
 }

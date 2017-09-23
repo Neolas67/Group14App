@@ -70,5 +70,6 @@
     <string name="dialog_unhide_entry_prompt">Once an entry is unhidden, it can be viewed again. Are you sure you want to unhide this entry?</string>
     <string name="dialog_delete_journal_prompt">Once a journal is deleted, it cannot be recovered. Are you sure you want to delete this journal?</string>
     <string name="dialog_delete_entry_prompt">Are you sure you want to delete this entry?</string>
+    <string name="history">History</string>
 
 </resources>
