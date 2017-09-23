@@ -88,8 +88,6 @@ public class ViewEntryFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(_adapter);
-
-        _history.addAll(EntryManager.getInstance().get_history(_currentEntry));
     }
 
     @Override
@@ -215,6 +213,10 @@ public class ViewEntryFragment extends Fragment {
         } else {
             _tvStatus.setText(_currentEntry.get_status().toString());
         }
+
+        _history.clear();
+        _history.addAll(EntryManager.getInstance().get_history(_currentEntry));
+        _adapter.notifyDataSetChanged();
 
         _tvContent.setText(_currentEntry.get_contents());
         _tvDate.setText(HelperMethods.formatDate(_currentEntry.get_createdDate()));
