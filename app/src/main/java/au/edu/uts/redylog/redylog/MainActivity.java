@@ -18,10 +18,12 @@ import au.edu.uts.redylog.redylog.Fragments.JournalListFragment;
 import au.edu.uts.redylog.redylog.Fragments.LoginFragment;
 import au.edu.uts.redylog.redylog.Fragments.RegisterFragment;
 import au.edu.uts.redylog.redylog.Fragments.ViewEntryFragment;
+import au.edu.uts.redylog.redylog.Fragments.ViewHistoryFragment;
 import au.edu.uts.redylog.redylog.Helpers.DatabaseHelper;
 import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
+import au.edu.uts.redylog.redylog.Models.History;
 import au.edu.uts.redylog.redylog.Models.Journal;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
@@ -109,6 +111,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
                 _activeFragment = new ViewEntryFragment();
                 Entry entry = (Entry)data;
                 args.putSerializable(getString(R.string.bundle_entry_key), entry);
+                break;
+            case ViewHistoryFragment:
+                _activeFragment = new ViewHistoryFragment();
+                History history = (History)data;
+                args.putSerializable(getString(R.string.bundle_history_key),history);
         }
 
         _activeFragment.setArguments(args);
@@ -129,7 +136,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         } else if (_activeFragment instanceof ViewEntryFragment) {
             Journal journal = ((ViewEntryFragment)_activeFragment).getJournal();
             displayFragment(FragmentEnum.EntryListFragment, journal);
-        } else {
+        } else if (_activeFragment instanceof ViewHistoryFragment){
+            Entry entry = ((ViewHistoryFragment)_activeFragment).getEntry();
+            displayFragment(FragmentEnum.ViewEntryFragment,entry);
+        }else {
             this.finish();
         }
 

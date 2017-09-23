@@ -20,6 +20,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome">Welcome!</string>
+    <string name="changed_on">Changed on</string>
     <string name="created_on">Created on</string>
     <string name="on">on</string>
     <string name="create_journal">Create Journal</string>
@@ -60,6 +61,7 @@
     <string name="register_fragment">RegisterFragment</string>
     <string name="bundle_journal_key">KEY_JOURNAL</string>
     <string name="bundle_entry_key">KEY_ENTRY</string>
+    <string name="bundle_history_key">KEY_HISTORY</string>
     <string name="bundle_filter_key">KEY_FILTER</string>
     <string name="password_max_length">8</string>
     <string name="search_query">Search Query</string>

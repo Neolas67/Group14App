@@ -9,5 +9,6 @@ public enum FragmentEnum {
     LoginFragment,
     JournalListFragment,
     EntryListFragment,
-    ViewEntryFragment
+    ViewEntryFragment,
+    ViewHistoryFragment
 }

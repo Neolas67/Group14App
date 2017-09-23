@@ -80,8 +80,9 @@ public class EditEntryDialogFragment extends DialogFragment implements DialogInt
         EntryManager.getInstance().updateEntry(_currentEntry);
 
         prevFragment = (ViewEntryFragment) getTargetFragment();
-        prevFragment.updateData();
 
+        prevFragment.get_history().add(history);
+        prevFragment.updateData();
         Toast.makeText(prevFragment.getContext(), R.string.entry_edited_confirmed, Toast.LENGTH_SHORT).show();
     }
 }

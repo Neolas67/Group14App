@@ -51,6 +51,18 @@ public class EntryManager {
         _entries.add(entry);
     }
 
+    public Entry getEntry(long entry_id){
+        if (_entries.size() == 0) {
+            _entries.addAll(_db.getAllEntries());
+        }
+        for (Entry entry : _entries){
+            if(entry.get_entryId()==entry_id){
+                return entry;
+            }
+        }
+        return null;
+    }
+
     public void addHistory(History history) {
         _db.addHistory(history);
         _history.add(history);
@@ -111,7 +123,6 @@ public class EntryManager {
                 filteredList.add(e);
             }
         }
-
         EntryComparator entryComparator = new EntryComparator();
         Collections.sort(filteredList, entryComparator);
         return filteredList;
@@ -131,7 +142,6 @@ public class EntryManager {
         for (History h: _history) {
             if (h.get_entryId() == entry.get_entryId()) { filteredList.add(h); }
         }
-
         HistoryComparator historyComparator = new HistoryComparator();
         Collections.sort(filteredList, historyComparator);
         return filteredList;

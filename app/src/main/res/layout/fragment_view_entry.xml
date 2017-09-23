@@ -42,7 +42,7 @@
 
             <TextView
                 android:text="@string/content"
-                android:id="@+id/view_entry_content"
+                android:id="@+id/view_history_content"
                 android:layout_marginTop="@dimen/text_margin"
                 android:layout_marginBottom="@dimen/text_margin"
                 android:layout_width="match_parent"

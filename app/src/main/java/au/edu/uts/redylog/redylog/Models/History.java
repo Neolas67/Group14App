@@ -1,12 +1,13 @@
 package au.edu.uts.redylog.redylog.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Hayden on 23-Aug-17.
  */
 
-public class History {
+public class History implements Serializable{
 
     long _historyId;
     long _entryId;
@@ -67,5 +68,15 @@ public class History {
 
     public void set_changedDate(Date _changedDate) {
         this._changedDate = _changedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "History [_historyId = " + _historyId
+                + ", _entryId = " + _entryId
+                + ", _title = " + _title
+                + ", _changedDate = " + _changedDate
+                + ", _content = " + _content
+                + "]";
     }
 }

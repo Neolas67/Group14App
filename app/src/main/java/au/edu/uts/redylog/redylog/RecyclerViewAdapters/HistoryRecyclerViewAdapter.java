@@ -42,7 +42,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.displayFragment(FragmentEnum.ViewEntryFragment, holder.mItem);
+                    mListener.displayFragment(FragmentEnum.ViewHistoryFragment, holder.mItem);
                 }
             }
         });
