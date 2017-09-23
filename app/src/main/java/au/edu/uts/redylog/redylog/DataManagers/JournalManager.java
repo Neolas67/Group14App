@@ -72,7 +72,8 @@ public class JournalManager {
                 Date endDate = searchFilter.get_endDate();
                 StatusEnum status = searchFilter.get_status();
 
-                if (!TextUtils.isEmpty(query) && !HelperMethods.searchString(j.get_description(), query)) {
+                if (!TextUtils.isEmpty(query) &&
+                        (!HelperMethods.searchString(j.get_description(), query) && !HelperMethods.searchString(j.get_title(), query))) {
                     continue;
                 }
 

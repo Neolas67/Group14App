@@ -101,7 +101,8 @@ public class EntryManager {
                 Date endDate = searchFilter.get_endDate();
                 StatusEnum status = searchFilter.get_status();
 
-                if (!TextUtils.isEmpty(query) && !HelperMethods.searchString(e.get_contents(), query)) {
+                if (!TextUtils.isEmpty(query) &&
+                        (!HelperMethods.searchString(e.get_contents(), query) && !HelperMethods.searchString(e.get_title(), query))) {
                     continue;
                 }
 
