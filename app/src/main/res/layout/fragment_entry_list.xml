@@ -5,108 +5,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/AppTheme.Wrapper"
         android:orientation="vertical">
 
-        <TextView
-            android:text="@string/description"
-            android:id="@+id/entry_list_journal_description"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            style="@style/AppTheme.ContentLong"/>
+            android:layout_height="@dimen/content_max_height">
+
+            <TextView
+                android:text="@string/description"
+                android:id="@+id/entry_list_journal_description"
+                style="@style/AppTheme.Content"/>
+
+        </ScrollView>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
+            style="@style/AppTheme.Wrapper"
             android:orientation="horizontal">
 
             <TextView
                 android:text="@string/created_on"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/text_space" />
+                android:layout_marginRight="@dimen/text_space"
+                style="@style/AppTheme.Status" />
 
             <TextView
                 android:text="@string/date"
                 android:id="@+id/entry_list_journal_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/AppTheme.Status"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/entry_list_journal_status_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            style="@style/AppTheme.Wrapper">
 
             <TextView
                 android:text="@string/status"
+                android:layout_marginTop="@dimen/text_margin"
                 android:id="@+id/entry_list_journal_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                style="@style/AppTheme.Status"/>
 
             <TextView
                 android:text="@string/on"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_space"
-                android:layout_marginRight="@dimen/text_space" />
+                android:layout_marginRight="@dimen/text_space"
+                style="@style/AppTheme.Status"/>
 
             <TextView
                 android:text="@string/date"
                 android:id="@+id/entry_list_journal_end_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                style="@style/AppTheme.Status"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/AppTheme.Wrapper"
             android:orientation="horizontal">
 
             <android.support.v7.widget.SearchView
                 android:id="@+id/sv_entries"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                style="@style/AppTheme.Wrapper"/>
 
             <ImageButton
                 android:id="@+id/ib_entry_list_filter"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/ic_filter"
-                android:background="@color/colorTransparent" />
+                style="@style/AppTheme.Filter"/>
 
         </LinearLayout>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/darker_gray" />
+            style="@style/AppTheme.Divider"/>
 
         <TextView
             android:id="@+id/tv_entry_error"
-            android:layout_centerInParent="true"
             android:text="@string/no_entries_exist_yet"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-            android:textSize="@dimen/error_size"
-            android:visibility="invisible"/>
+            style="@style/AppTheme.Error"/>
 
         <android.support.v7.widget.RecyclerView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/rv_entries"
             android:name="au.edu.uts.redylog.redylog.EntryFragment"
+            android:minHeight="600dp"
             app:layoutManager="LinearLayoutManager"
             tools:context="au.edu.uts.redylog.redylog.Fragments.EntryListFragment"
             tools:listitem="@layout/item_entry"

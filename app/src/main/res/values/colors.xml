@@ -9,5 +9,6 @@
     <color name="colorSecondaryDark">#870000</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorGrey">#808080</color>
     <color name="colorTransparent">#00000000</color>
 </resources>

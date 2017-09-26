@@ -5,36 +5,28 @@
     tools:context=".DialogFragments.CreateEntryDialogFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/AppTheme.Wrapper"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
             android:text="@string/search_filters"
-            android:textAlignment="center"
-            android:textSize="@dimen/title_size" />
+            style="@style/AppTheme.Header"/>
 
         <EditText
             android:id="@+id/search_dialog_startdate"
             android:hint="@string/start_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center" />
+            style="@style/AppTheme.TextField.Centered"/>
 
         <EditText
             android:id="@+id/search_dialog_enddate"
             android:hint="@string/end_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center" />
+            style="@style/AppTheme.TextField.Centered"/>
 
         <Spinner
             android:id="@+id/search_dialog_status"
+            android:layout_marginTop="@dimen/text_margin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

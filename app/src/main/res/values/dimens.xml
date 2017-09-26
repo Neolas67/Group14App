@@ -7,4 +7,7 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="error_size">20sp</dimen>
     <dimen name="text_space">3dp</dimen>
+    <dimen name="icon_size">50dp</dimen>
+    <dimen name="content_max_height">100dp</dimen>
+    <dimen name="history_min_height">450dp</dimen>
 </resources>

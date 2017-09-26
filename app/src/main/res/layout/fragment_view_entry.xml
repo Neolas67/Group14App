@@ -5,75 +5,53 @@
     tools:context="au.edu.uts.redylog.redylog.Fragments.ViewEntryFragment">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        style="@style/AppTheme.Screen">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/AppTheme.Screen"
             android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
+                style="@style/AppTheme.Wrapper"
                 android:orientation="horizontal">
 
                 <TextView
                     android:text="@string/created_on"
                     android:layout_marginRight="@dimen/text_space"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    style="@style/AppTheme.Status"/>
 
                 <TextView
                     android:text="@string/date"
                     android:id="@+id/view_entry_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    style="@style/AppTheme.Status"/>
 
             </LinearLayout>
 
             <TextView
                 android:text="@string/status"
                 android:id="@+id/view_entry_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin" />
+                style="@style/AppTheme.Status"/>
 
             <TextView
                 android:text="@string/content"
                 android:id="@+id/view_history_content"
-                android:layout_marginTop="@dimen/text_margin"
                 android:layout_marginBottom="@dimen/text_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/AppTheme.ContentLong" />
+                style="@style/AppTheme.Content" />
 
             <LinearLayout
+                style="@style/AppTheme.Wrapper"
                 android:id="@+id/view_entry_versions"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:color/darker_gray" />
+                    style="@style/AppTheme.Divider"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
                     android:text="@string/history"
-                    style="@style/TextAppearance.AppCompat.Display1"
-                    android:textAlignment="center" />
+                    style="@style/AppTheme.Header" />
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:color/darker_gray" />
+                    style="@style/AppTheme.Divider"/>
 
                 <android.support.v7.widget.RecyclerView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -83,7 +61,8 @@
                     app:layoutManager="LinearLayoutManager"
                     tools:context="au.edu.uts.redylog.redylog.Fragments.EntryListFragment"
                     tools:listitem="@layout/item_entry"
-                    style="@style/AppTheme.RecycleViewContainer" />
+                    style="@style/AppTheme.RecycleViewContainer"
+                    android:minHeight="@dimen/history_min_height"/>
 
             </LinearLayout>
 

@@ -5,40 +5,31 @@
     tools:context="au.edu.uts.redylog.redylog.Fragments.ViewHistoryFragment">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        style="@style/AppTheme.Screen">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            style="@style/AppTheme.Screen"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
+                style="@style/AppTheme.Wrapper"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.Status"
                     android:layout_marginRight="@dimen/text_space"
                     android:text="@string/changed_on" />
 
                 <TextView
+                    style="@style/AppTheme.Status"
                     android:id="@+id/view_history_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/date" />
 
             </LinearLayout>
 
             <TextView
+                style="@style/AppTheme.Content"
                 android:id="@+id/view_history_content"
-                style="@style/AppTheme.ContentLong"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
                 android:text="@string/content" />
 
         </LinearLayout>

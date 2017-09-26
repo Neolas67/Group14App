@@ -6,8 +6,7 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/AppTheme.Wrapper"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -18,15 +17,11 @@
         <EditText
             android:id="@+id/et_login_Password"
             android:hint="@string/password"
-            android:maxLength="@string/password_max_length"
-            android:textAlignment="center"
             android:inputType="textPassword"
-            style="@style/AppTheme.TextField" />
+            style="@style/AppTheme.TextField.Centered" />
 
         <Button
             android:id="@+id/btn_login_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/login"
             style="@style/AppTheme.NormalButton" />
 

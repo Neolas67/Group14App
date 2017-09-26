@@ -22,7 +22,7 @@
 
     <item
         android:id="@+id/action_delete_entry"
-        android:orderInCategory="100"
+        android:orderInCategory="300"
         android:title="@string/delete_entry"
         app:showAsAction="never" />
 

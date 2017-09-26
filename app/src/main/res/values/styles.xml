@@ -19,11 +19,13 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.NormalButton" parent="@android:style/Widget.Material.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorPrimaryHightlight</item>
         <item name="android:backgroundTint">@color/colorWhite</item>
     </style>
 
-    <style name="AppTheme.PrimaryButton" parent="@android:style/Widget.Material.Button">
+    <style name="AppTheme.PrimaryButton" parent="@style/AppTheme.NormalButton">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:backgroundTint">@color/colorPrimary</item>
     </style>
@@ -42,10 +44,34 @@
         <item name="android:layout_marginBottom">@dimen/fab_margin</item>
     </style>
 
+    <style name="AppTheme.Filter">
+        <item name="android:layout_width">@dimen/icon_size</item>
+        <item name="android:layout_height">@dimen/icon_size</item>
+        <item name="android:src">@mipmap/ic_filter</item>
+        <item name="android:background">@color/colorTransparent</item>
+    </style>
+
     <style name="AppTheme.TextField" parent="@style/Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingTop">@dimen/form_top_padding</item>
+    </style>
+
+    <style name="AppTheme.TextField.Title" parent="@style/AppTheme.TextField">
+        <item name="android:inputType">text</item>
+        <item name="android:maxLength">@string/title_max_length</item>
+    </style>
+
+    <style name="AppTheme.TextField.Centered" parent="@style/AppTheme.TextField">
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="AppTheme.TextField.Multiline" parent="@style/AppTheme.TextField">
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:lines">@string/multiline_max_lines</item>
+        <item name="android:minLines">@string/multiline_min_lines</item>
+        <item name="android:maxLines">@string/multiline_max_lines</item>
+        <item name="android:singleLine">false</item>
     </style>
 
     <style name="AppTheme.RecycleViewContainer" parent="@style/Widget.AppCompat.ListView">
@@ -54,18 +80,75 @@
     </style>
 
     <style name="AppTheme.Headline" parent="@style/TextAppearance.AppCompat.Display3">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="AppTheme.Header" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/text_margin</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/colorGrey</item>
+        <item name="android:textSize">@dimen/title_size</item>
+    </style>
+
+    <style name="AppTheme.Content" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/text_margin</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/content_size</item>
+    </style>
+
+    <style name="AppTheme.Status" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/text_margin</item>
+    </style>
+
+    <style name="AppTheme.Error" parent="@style/AppTheme.Status">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+    <style name="AppTheme.Cell.Title" parent="@style/AppTheme.Content">
+        <item name="android:layout_marginBottom">@dimen/text_margin</item>
+    </style>
+
+    <style name="AppTheme.Cell.Status" parent="@style/AppTheme.Status">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/text_margin</item>
+        <item name="android:textAlignment">textEnd</item>
+    </style>
+
+    <style name="AppTheme.Wrapper">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="AppTheme.Content" parent="@style/TextAppearance.AppCompat.Display1">
-        <item name="android:textColor">@color/colorBlack</item>
+    <style name="AppTheme.Screen">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="AppTheme.ContentLong" parent="@style/AppTheme.Content">
-        <item name="android:textSize">@dimen/content_size</item>
+    <style name="AppTheme.Half">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>\
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AppTheme.Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@color/colorGrey</item>
     </style>
 
 </resources>

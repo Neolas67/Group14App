@@ -5,10 +5,9 @@
     tools:context=".Fragments.RegisterFragment">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        style="@style/AppTheme.Wrapper"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
 
         <TextView
             android:text="@string/welcome"
@@ -18,35 +17,28 @@
             android:id="@+id/et_register_firstname"
             android:inputType="textPersonName"
             android:hint="@string/first_name"
-            android:textAlignment="center"
-            style="@style/AppTheme.TextField" />
+            style="@style/AppTheme.TextField.Centered" />
 
         <EditText
             android:id="@+id/et_register_surname"
             android:inputType="textPersonName"
             android:hint="@string/surname"
-            android:textAlignment="center"
-            style="@style/AppTheme.TextField" />
+            style="@style/AppTheme.TextField.Centered" />
 
         <EditText
             android:id="@+id/et_register_email"
             android:inputType="textEmailAddress"
             android:hint="@string/email"
-            android:textAlignment="center"
-            style="@style/AppTheme.TextField" />
+            style="@style/AppTheme.TextField.Centered" />
 
         <EditText
             android:id="@+id/et_register_password"
             android:inputType="textPassword"
             android:hint="@string/password"
-            android:maxLength="@string/password_max_length"
-            android:textAlignment="center"
-            style="@style/AppTheme.TextField" />
+            style="@style/AppTheme.TextField.Centered" />
 
         <Button
             android:id="@+id/btn_register_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/register"
             style="@style/AppTheme.NormalButton" />
 

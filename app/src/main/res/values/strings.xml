@@ -62,8 +62,10 @@
     <string name="bundle_entry_key">KEY_ENTRY</string>
     <string name="bundle_history_key">KEY_HISTORY</string>
     <string name="bundle_filter_key">KEY_FILTER</string>
-    <string name="password_max_length">8</string>
     <string name="search_query">Search Query</string>
+    <string name="title_max_length">30</string>
+    <string name="multiline_max_lines">6</string>
+    <string name="multiline_min_lines">2</string>
 
     <string name="dialog_close_journal_prompt">Once a journal is closed, it cannot be edited. Are you sure you want to close this journal?</string>
     <string name="dialog_reopen_journal_prompt">Once a journal is reopened, it can be editied again. Are you sure you want to reopen this journal?</string>
