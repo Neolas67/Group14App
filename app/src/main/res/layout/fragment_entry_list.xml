@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_margin"
-            style="@style/AppTheme.Content"/>
+            style="@style/AppTheme.ContentLong"/>
 
         <LinearLayout
             android:layout_width="match_parent"

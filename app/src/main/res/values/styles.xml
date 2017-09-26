@@ -64,4 +64,8 @@
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 
+    <style name="AppTheme.ContentLong" parent="@style/AppTheme.Content">
+        <item name="android:textSize">@dimen/content_size</item>
+    </style>
+
 </resources>

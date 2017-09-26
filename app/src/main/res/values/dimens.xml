@@ -2,7 +2,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="title_size">26sp</dimen>
     <dimen name="subtitle_size">20sp</dimen>
-    <dimen name="content_size">16sp</dimen>
+    <dimen name="content_size">20sp</dimen>
     <dimen name="form_top_padding">20sp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="error_size">20sp</dimen>

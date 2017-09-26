@@ -35,19 +35,11 @@
 
             <TextView
                 android:id="@+id/view_history_content"
-                style="@style/AppTheme.Content"
+                style="@style/AppTheme.ContentLong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/text_margin"
                 android:layout_marginTop="@dimen/text_margin"
-                android:text="@string/content"
-                android:textSize="@dimen/content_size" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@android:color/darker_gray" />
+                android:text="@string/content" />
 
         </LinearLayout>
 

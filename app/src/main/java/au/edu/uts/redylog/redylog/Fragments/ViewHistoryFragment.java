@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import au.edu.uts.redylog.redylog.DataManagers.EntryManager;
+import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Models.Entry;
 import au.edu.uts.redylog.redylog.Models.History;
@@ -59,7 +60,7 @@ public class ViewHistoryFragment extends Fragment {
         _tvContent = view.findViewById(R.id.view_history_content);
         _tvContent.setText(_currentHistory.get_content());
         _tvDate = view.findViewById(R.id.view_history_date);
-        _tvDate.setText(_currentHistory.get_changedDate().toString());
+        _tvDate.setText(HelperMethods.formatDate(_currentHistory.get_changedDate()));
     }
 
     @Override

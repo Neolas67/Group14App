@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class ViewEntryFragment extends Fragment {
     private TextView _tvContent;
     private TextView _tvStatus;
     private RecyclerView mRecyclerView;
-
+    private LinearLayout _llversion;
     private List<History> _history = new ArrayList<>();
     private HistoryRecyclerViewAdapter _adapter;
     private Entry _currentEntry;
@@ -80,6 +81,7 @@ public class ViewEntryFragment extends Fragment {
         _tvContent = view.findViewById(R.id.view_history_content);
         _tvDate = view.findViewById(R.id.view_entry_date);
         _tvStatus = view.findViewById(R.id.view_entry_status);
+        _llversion = view.findViewById(R.id.view_entry_versions);
     }
 
     private void setupRecyclerView(View view) {
@@ -221,6 +223,11 @@ public class ViewEntryFragment extends Fragment {
         }
         _history.clear();
         _history.addAll(EntryManager.getInstance().get_history(_currentEntry));
+        if (_history.isEmpty()) {
+            _llversion.setVisibility(View.GONE);
+        } else {
+            _llversion.setVisibility(View.VISIBLE);
+        }
         _adapter.notifyDataSetChanged();
         _tvContent.setText(_currentEntry.get_contents());
         _tvDate.setText(HelperMethods.formatDate(_currentEntry.get_createdDate()));
