@@ -20,6 +20,7 @@ import java.util.List;
 
 import au.edu.uts.redylog.redylog.Fragments.EntryListFragment;
 import au.edu.uts.redylog.redylog.Fragments.JournalListFragment;
+import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.HelperMethods;
 import au.edu.uts.redylog.redylog.Helpers.SearchFilter;
 import au.edu.uts.redylog.redylog.Helpers.StatusEnum;
@@ -62,7 +63,7 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_search_dialog, null);
 
         spStatus = view.findViewById(R.id.search_dialog_status);
-        spStatus.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, StatusEnum.values()));
+        spStatus.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, _searchFilter.getStatusEnums()));
         spStatus.setOnItemSelectedListener(this);
 
         etStartDate = view.findViewById(R.id.search_dialog_startdate);
@@ -80,7 +81,6 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
         return view;
     }
 
-    //Todo get the journal id from previous fragment
     public void onClick(DialogInterface dialog, int whichButton) {
         if (whichButton == -2) {
             _searchFilter.set_query(null);
@@ -128,15 +128,19 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
 
         if (etPromptingDate == etStartDate) {
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
             _searchFilter.set_startDate(calendar.getTime());
             etStartDate.setText(HelperMethods.formatDateNoTime(calendar.getTime()));
         } else if (etPromptingDate == etEndDate) {
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 59);
+            calendar.set(Calendar.SECOND, 59);
+            calendar.set(Calendar.MILLISECOND, 999);
             _searchFilter.set_endDate(calendar.getTime());
             etEndDate.setText(HelperMethods.formatDateNoTime(calendar.getTime()));
         }

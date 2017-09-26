@@ -1,7 +1,9 @@
 package au.edu.uts.redylog.redylog.Helpers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Hayden on 19-Sep-17.
@@ -9,10 +11,28 @@ import java.util.Date;
 
 public class SearchFilter implements Serializable {
 
+    FragmentEnum _searchType;
     String _query;
     Date _startDate;
     Date _endDate;
     StatusEnum _status;
+
+    //Empty constructor for serialization
+    public SearchFilter() {
+
+    }
+
+    public SearchFilter(FragmentEnum searchType) {
+        _searchType = searchType;
+    }
+
+    public FragmentEnum get_searchType() {
+        return _searchType;
+    }
+
+    public void set_searchType(FragmentEnum _searchType) {
+        this._searchType = _searchType;
+    }
 
     public String get_query() {
         return _query;
@@ -46,9 +66,20 @@ public class SearchFilter implements Serializable {
         this._status = _status;
     }
 
+    public List<StatusEnum> getStatusEnums() {
+        if (_searchType == FragmentEnum.EntryListFragment) {
+            return StatusEnum.getEntryEnums();
+        } else if (_searchType == FragmentEnum.JournalListFragment) {
+            return StatusEnum.getJournalEnums();
+        } else {
+            return new ArrayList<StatusEnum>();
+        }
+    }
+
     @Override
     public String toString() {
-        return "SearchFilter [_startDate = " + _startDate
+        return "SearchFilter [" + "_searchType = " + _searchType
+                + ",_startDate = " + _startDate
                 + ", _endDate = " + _endDate
                 + ", _status = " + _status
                 + "]";
