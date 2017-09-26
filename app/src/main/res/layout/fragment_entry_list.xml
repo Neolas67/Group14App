@@ -9,11 +9,13 @@
         android:orientation="vertical">
 
         <ScrollView
+            android:layout_marginTop="@dimen/text_margin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/content_max_height">
 
             <TextView
                 android:text="@string/description"
+                android:layout_marginTop="0dp"
                 android:id="@+id/entry_list_journal_description"
                 style="@style/AppTheme.Content"/>
 
