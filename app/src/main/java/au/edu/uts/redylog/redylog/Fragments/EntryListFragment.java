@@ -60,7 +60,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
-    private SearchFilter _searchFilter = new SearchFilter();
+    private SearchFilter _searchFilter = new SearchFilter(FragmentEnum.EntryListFragment);
 
     public EntryListFragment() {
 

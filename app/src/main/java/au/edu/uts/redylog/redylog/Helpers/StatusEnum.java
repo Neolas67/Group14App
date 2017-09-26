@@ -12,5 +12,27 @@ public enum StatusEnum {
     Open, //Default state of Journals & Entries
     Closed, //Used ONLY for Journals
     Hidden, //Used ONLY for Entries
-    Deleted //Used for both Journals & Entries
+    Deleted; //Used for both Journals & Entries
+
+    public static List<StatusEnum> getJournalEnums() {
+        List<StatusEnum> enums = new ArrayList<>();
+
+        enums.add(StatusEnum.None);
+        enums.add(StatusEnum.Open);
+        enums.add(StatusEnum.Closed);
+        enums.add(StatusEnum.Deleted);
+
+        return enums;
+    }
+
+    public static List<StatusEnum> getEntryEnums() {
+        List<StatusEnum> enums = new ArrayList<>();
+
+        enums.add(StatusEnum.None);
+        enums.add(StatusEnum.Open);
+        enums.add(StatusEnum.Hidden);
+        enums.add(StatusEnum.Deleted);
+
+        return enums;
+    }
 }

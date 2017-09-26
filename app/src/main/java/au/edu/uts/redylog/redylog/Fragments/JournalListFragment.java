@@ -23,6 +23,7 @@ import java.util.List;
 import au.edu.uts.redylog.redylog.DataManagers.JournalManager;
 import au.edu.uts.redylog.redylog.DialogFragments.CreateJournalDialogFragment;
 import au.edu.uts.redylog.redylog.DialogFragments.SearchDialogFragment;
+import au.edu.uts.redylog.redylog.Helpers.FragmentEnum;
 import au.edu.uts.redylog.redylog.Helpers.OnFragmentInteractionListener;
 import au.edu.uts.redylog.redylog.Helpers.SearchFilter;
 import au.edu.uts.redylog.redylog.Models.Journal;
@@ -40,7 +41,7 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
 
     private List<Journal> _journals = new ArrayList<>();
     private JournalRecyclerViewAdapter _adapter;
-    private SearchFilter _searchFilter = new SearchFilter();
+    private SearchFilter _searchFilter = new SearchFilter(FragmentEnum.JournalListFragment);
 
     public JournalListFragment() {
 
