@@ -80,7 +80,8 @@
                 android:id="@+id/ib_entry_list_filter"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@mipmap/ic_filter"/>
+                android:src="@mipmap/ic_filter"
+                android:background="@color/colorTransparent" />
 
         </LinearLayout>
 
