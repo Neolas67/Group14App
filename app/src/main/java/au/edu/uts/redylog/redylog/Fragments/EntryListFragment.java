@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -55,6 +56,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     private SearchView _svEntries;
     private FloatingActionButton _fabEntry;
     private ImageButton _ibFilter;
+    private Menu _menu;
 
     private Journal _currentJournal;
     private EntryRecyclerViewAdapter _adapter;
@@ -151,22 +153,18 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         getActivity().getMenuInflater().inflate(R.menu.entry_list_menu, menu);
-
-        if (_currentJournal.get_status() == StatusEnum.Open) {
-            menu.findItem(R.id.action_reopen_journal).setVisible(false);
-        } else if (_currentJournal.get_status() == StatusEnum.Deleted) {
-            menu.findItem(R.id.action_create_entry).setVisible(false);
-            menu.findItem(R.id.action_close_journal).setVisible(false);
-            menu.findItem(R.id.action_reopen_journal).setVisible(false);
-            menu.findItem(R.id.action_edit_journal).setVisible(false);
-            menu.findItem(R.id.action_delete_journal).setVisible(false);
-        } else {
-            menu.findItem(R.id.action_close_journal).setVisible(false);
-            menu.findItem(R.id.action_edit_journal).setVisible(false);
-            menu.findItem(R.id.action_create_entry).setVisible(false);
-        }
-
+        _menu = menu;
         super.onCreateOptionsMenu(menu, inflater);
+        adjustMenuVisiblity();
+    }
+
+    private void adjustMenuVisiblity() {
+        StatusEnum e = _currentJournal.get_status();
+        _menu.findItem(R.id.action_create_entry).setVisible(e == StatusEnum.Open);
+        _menu.findItem(R.id.action_close_journal).setVisible(e == StatusEnum.Open);
+        _menu.findItem(R.id.action_reopen_journal).setVisible(e == StatusEnum.Closed);
+        _menu.findItem(R.id.action_edit_journal).setVisible(e == StatusEnum.Open);
+        _menu.findItem(R.id.action_delete_journal).setVisible(e == StatusEnum.Open || e == StatusEnum.Closed);
     }
 
     @Override
@@ -244,6 +242,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
                     public void onClick(DialogInterface dialog, int id) {
                         JournalManager.getInstance().reopenJournal(_currentJournal);
                         setupView();
+                        adjustMenuVisiblity();
                         Toast.makeText(getContext(), R.string.journal_reopened_confirmed, Toast.LENGTH_SHORT).show();
                     }
                 })
