@@ -70,13 +70,14 @@ public class EditEntryDialogFragment extends DialogFragment implements DialogInt
                 _currentEntry.get_entryId(),
                 _currentEntry.get_title(),
                 _currentEntry.get_contents(),
-                new Date()
+                _currentEntry.get_createdDate()
         );
 
         EntryManager.getInstance().addHistory(history);
 
         _currentEntry.set_title(etTitle.getText().toString());
         _currentEntry.set_contents(etContent.getText().toString());
+        _currentEntry.set_createdDate(new Date());
         EntryManager.getInstance().updateEntry(_currentEntry);
 
         prevFragment = (ViewEntryFragment) getTargetFragment();
