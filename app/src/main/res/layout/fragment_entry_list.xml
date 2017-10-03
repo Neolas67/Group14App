@@ -50,6 +50,7 @@
 
             <TextView
                 android:text="@string/on"
+                android:layout_marginLeft="@dimen/text_space"
                 android:layout_marginRight="@dimen/text_space"
                 style="@style/AppTheme.Status"/>
 
