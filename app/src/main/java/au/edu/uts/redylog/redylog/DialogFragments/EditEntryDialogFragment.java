@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -66,24 +67,29 @@ public class EditEntryDialogFragment extends DialogFragment implements DialogInt
         EditText etTitle = ((AlertDialog) dialog).findViewById(R.id.et_edit_entry_title);
         EditText etContent = ((AlertDialog) dialog).findViewById(R.id.et_edit_entry_content);
 
-        History history = new History(
-                _currentEntry.get_entryId(),
-                _currentEntry.get_title(),
-                _currentEntry.get_contents(),
-                new Date()
-        );
+        if (TextUtils.isEmpty(etTitle.getText().toString())) {
+            Toast.makeText(getActivity(), "Entry title cannot be empty - failed to edit entry.", Toast.LENGTH_SHORT).show();
+        } else {
+            History history = new History(
+                    _currentEntry.get_entryId(),
+                    _currentEntry.get_title(),
+                    _currentEntry.get_contents(),
+                    new Date()
+            );
 
-        EntryManager.getInstance().addHistory(history);
+            EntryManager.getInstance().addHistory(history);
 
-        _currentEntry.set_title(etTitle.getText().toString());
-        _currentEntry.set_contents(etContent.getText().toString());
-        EntryManager.getInstance().updateEntry(_currentEntry);
+            _currentEntry.set_title(etTitle.getText().toString());
+            _currentEntry.set_contents(etContent.getText().toString());
+            EntryManager.getInstance().updateEntry(_currentEntry);
 
-        prevFragment = (ViewEntryFragment) getTargetFragment();
+            prevFragment = (ViewEntryFragment) getTargetFragment();
 
-        prevFragment.get_history().add(history);
-        prevFragment.updateData();
-        Toast.makeText(prevFragment.getContext(), R.string.entry_edited_confirmed, Toast.LENGTH_SHORT).show();
+            prevFragment.get_history().add(history);
+            prevFragment.updateData();
+            Toast.makeText(prevFragment.getContext(), R.string.entry_edited_confirmed, Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
 

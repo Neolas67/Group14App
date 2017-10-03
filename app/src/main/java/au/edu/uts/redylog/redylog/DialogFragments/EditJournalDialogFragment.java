@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -66,14 +67,18 @@ public class EditJournalDialogFragment extends DialogFragment implements DialogI
         EditText etTitle = ((AlertDialog) dialog).findViewById(R.id.et_edit_journal_title);
         EditText etContent = ((AlertDialog) dialog).findViewById(R.id.et_edit_journal_content);
 
-        _currentJournal.set_title(etTitle.getText().toString());
-        _currentJournal.set_description(etContent.getText().toString());
-        JournalManager.getInstance().updateJournal(_currentJournal);
+        if (TextUtils.isEmpty(etTitle.getText().toString())) {
+            Toast.makeText(getActivity(), "Journal title cannot be empty - failed to edit journal.", Toast.LENGTH_SHORT).show();
+        } else {
+            _currentJournal.set_title(etTitle.getText().toString());
+            _currentJournal.set_description(etContent.getText().toString());
+            JournalManager.getInstance().updateJournal(_currentJournal);
 
-        prevFragment = (EntryListFragment) getTargetFragment();
-        prevFragment.updateList();
+            prevFragment = (EntryListFragment) getTargetFragment();
+            prevFragment.updateList();
 
-        Toast.makeText(prevFragment.getContext(), R.string.journal_edited_confirmed, Toast.LENGTH_SHORT).show();
+            Toast.makeText(prevFragment.getContext(), R.string.journal_edited_confirmed, Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

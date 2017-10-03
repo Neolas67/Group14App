@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -47,15 +48,20 @@ public class CreateEntryDialogFragment extends DialogFragment implements DialogI
         EditText etTitle = ((AlertDialog) dialog).findViewById(R.id.et_create_entry_title);
         EditText etContent = ((AlertDialog) dialog).findViewById(R.id.et_create_entry_content);
 
-        Entry entry = new Entry(
-                etTitle.getText().toString(),
-                etContent.getText().toString(),
-                _currentJournal.get_journalId());
+        if (TextUtils.isEmpty(etTitle.getText().toString())) {
+            Toast.makeText(getActivity(), "Entry title cannot be empty - failed to create entry.", Toast.LENGTH_SHORT).show();
+        } else
+        {
+            Entry entry = new Entry(
+                    etTitle.getText().toString(),
+                    etContent.getText().toString(),
+                    _currentJournal.get_journalId());
 
-        EntryManager.getInstance().addEntry(entry);
-        Toast.makeText(getContext(), R.string.entry_created_confirmed, Toast.LENGTH_SHORT).show();
-        prevFragment = (EntryListFragment) getTargetFragment();
-        prevFragment.updateList();
+            EntryManager.getInstance().addEntry(entry);
+            Toast.makeText(getContext(), R.string.entry_created_confirmed, Toast.LENGTH_SHORT).show();
+            prevFragment = (EntryListFragment) getTargetFragment();
+            prevFragment.updateList();
+        }
     }
 }
 

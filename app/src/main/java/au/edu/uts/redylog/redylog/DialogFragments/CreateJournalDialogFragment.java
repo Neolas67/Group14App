@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,7 +20,6 @@ public class CreateJournalDialogFragment extends DialogFragment implements Dialo
     public CreateJournalDialogFragment() {
 
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,10 @@ public class CreateJournalDialogFragment extends DialogFragment implements Dialo
         EditText etTitle = ((AlertDialog) dialog).findViewById(R.id.et_create_journal_title);
         EditText etDescription = ((AlertDialog) dialog).findViewById(R.id.et_create_journal_description);
 
-        if (JournalManager.getInstance().journalExists(etTitle.getText().toString())) {
+        if (TextUtils.isEmpty(etTitle.getText().toString())) {
+            Toast.makeText(getActivity(), "Journal title cannot be empty - failed to create journal.", Toast.LENGTH_LONG).show();
+        }
+        else if (JournalManager.getInstance().journalExists(etTitle.getText().toString())) {
             Toast.makeText(getActivity(), "Journal title already in use - failed to create journal.", Toast.LENGTH_LONG).show();
         } else {
             Journal journal = new Journal(etTitle.getText().toString(), etDescription.getText().toString());
