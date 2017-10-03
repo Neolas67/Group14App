@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "au.edu.uts.redylog.redylog"
+        applicationId "au.edu.uts.redylog"
         minSdkVersion 24
         targetSdkVersion 26
         versionCode 1
