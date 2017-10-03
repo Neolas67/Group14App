@@ -46,7 +46,7 @@ public class CreateJournalDialogFragment extends DialogFragment implements Dialo
             JournalManager.getInstance().addJournal(journal);
             Toast.makeText(getContext(), R.string.journal_created_successfully, Toast.LENGTH_SHORT).show();
             JournalListFragment prevFragment = (JournalListFragment) getTargetFragment();
-            prevFragment.updateList();
+            prevFragment.displayJournal(journal);
         }
     }
 

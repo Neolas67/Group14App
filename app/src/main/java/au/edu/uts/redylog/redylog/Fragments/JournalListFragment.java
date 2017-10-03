@@ -177,6 +177,10 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
         return false;
     }
 
+    public void displayJournal(Journal journal) {
+        mListener.displayFragment(FragmentEnum.EntryListFragment, journal);
+    }
+
     @Override
     public void onClick(View view) {
         if (view == _fabJournal) {
