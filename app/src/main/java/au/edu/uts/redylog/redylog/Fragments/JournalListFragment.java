@@ -107,13 +107,17 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
         _journals.clear();
         _journals.addAll(JournalManager.getInstance().get_journals(_searchFilter));
 
+        setupView();
+
+        _adapter.notifyDataSetChanged();
+    }
+
+    public void setupView() {
         if (_journals.size() > 0) {
             _tvError.setVisibility(View.INVISIBLE);
         } else {
             _tvError.setVisibility(View.VISIBLE);
         }
-
-        _adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -167,6 +171,9 @@ public class JournalListFragment extends Fragment implements SearchView.OnQueryT
         _journals.clear();
         _journals.addAll(JournalManager.getInstance().get_journals(_searchFilter));
         _adapter.notifyDataSetChanged();
+
+        setupView();
+
         return false;
     }
 
