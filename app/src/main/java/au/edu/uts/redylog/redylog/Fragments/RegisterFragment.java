@@ -3,6 +3,7 @@ package au.edu.uts.redylog.redylog.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,22 +89,26 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             boolean hasError = false;
 
             if (!HelperMethods.validName(_etFirstName.getText().toString())) {
-                _etFirstName.setError("Please enter a valid first name.");
+                _etFirstName.setError(getString(R.string.invalid_name));
                 hasError = true;
             }
 
             if (!HelperMethods.validName(_etSurname.getText().toString())) {
-                _etSurname.setError("Please enter a valid surname.");
+                _etSurname.setError(getString(R.string.invalid_surname));
                 hasError = true;
             }
 
             if (!HelperMethods.validEmail(_etEmail.getText().toString())) {
-                _etEmail.setError("Please enter a valid email.");
+                _etEmail.setError(getString(R.string.invalid_email));
                 hasError = true;
             }
 
-            if (!HelperMethods.validPassword(_etPassword.getText().toString())) {
-                _etPassword.setError("Please enter a valid password.");
+            if (TextUtils.isEmpty(_etPassword.getText().toString())) {
+                _etPassword.setError(getString(R.string.empty_password));
+                hasError = true;
+            }
+            else if (!HelperMethods.validPassword(_etPassword.getText().toString())) {
+                _etPassword.setError(getString(R.string.invalid_password));
                 hasError = true;
             }
 
@@ -116,7 +121,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 );
 
                 UserManager.getInstance().register(user);
-                Toast.makeText(getContext(), "Registration successful.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.registration_successful, Toast.LENGTH_SHORT).show();
 
                 if (mListener != null) {
                     mListener.displayFragment(FragmentEnum.JournalListFragment, null);

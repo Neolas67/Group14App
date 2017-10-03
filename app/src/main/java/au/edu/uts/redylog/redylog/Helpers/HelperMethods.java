@@ -45,10 +45,10 @@ public class HelperMethods {
     }
 
     public static boolean validPassword(String password) {
-        return password.matches("^[A-Za-z]{4,8}$");
+        //return password.matches("^[A-Za-z]{4,8}$");
         /* Match characters and symbols in the list, a-z & A-Z, and it Length at least 4 characters and maximum length of 8*/
 
-        //return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");//
+        return password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
         /*Minimum eight characters, at least one letter and one number:*/
 
         //return password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$");//
