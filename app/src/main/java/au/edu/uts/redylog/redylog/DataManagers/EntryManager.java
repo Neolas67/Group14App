@@ -118,7 +118,7 @@ public class EntryManager {
                 if (status == null || status == StatusEnum.None) {
                     if (e.get_status() == StatusEnum.Deleted || e.get_status() == StatusEnum.Hidden) { continue; }
                 } else  {
-                    if (e.get_status() != status) { continue; }
+                    if (e.get_status() != status && status != StatusEnum.All) { continue; }
                 }
 
                 filteredList.add(e);

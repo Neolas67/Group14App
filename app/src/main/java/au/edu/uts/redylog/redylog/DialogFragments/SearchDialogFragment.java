@@ -38,6 +38,7 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
     SearchFilter _searchFilter;
     Spinner spStatus;
     Fragment prevFragment;
+    List<StatusEnum> enums;
 
     public SearchDialogFragment() {
 
@@ -63,7 +64,8 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_search_dialog, null);
 
         spStatus = view.findViewById(R.id.search_dialog_status);
-        spStatus.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, _searchFilter.getStatusEnums()));
+        enums = _searchFilter.getStatusEnums();
+        spStatus.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, enums));
         spStatus.setOnItemSelectedListener(this);
 
         etStartDate = view.findViewById(R.id.search_dialog_startdate);
@@ -76,7 +78,14 @@ public class SearchDialogFragment extends DialogFragment implements DialogInterf
 
         if (_searchFilter.get_startDate() != null) { etStartDate.setText(HelperMethods.formatDateNoTime(_searchFilter.get_startDate())); }
         if (_searchFilter.get_endDate() != null) { etEndDate.setText(HelperMethods.formatDateNoTime(_searchFilter.get_endDate())); }
-        if (_searchFilter.get_status() != null) { spStatus.setSelection(_searchFilter.get_status().ordinal()); }
+        if (_searchFilter.get_status() != null) {
+            for (int i = 0; i < enums.size(); i++) {
+                if (enums.get(i) == _searchFilter.get_status()) {
+                    spStatus.setSelection(i);
+                    break;
+                }
+            }
+        }
 
         return view;
     }

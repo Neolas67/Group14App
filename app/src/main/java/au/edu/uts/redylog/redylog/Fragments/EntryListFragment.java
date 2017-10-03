@@ -106,7 +106,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
 
     private void setupView() {
 
-        if (EntryManager.getInstance().get_entries(_currentJournal).size() > 0) {
+        if (_entries.size() > 0) {
             _tvError.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
         } else {
@@ -287,6 +287,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         _entries.clear();
         _entries.addAll(EntryManager.getInstance().get_entries(_currentJournal, _searchFilter));
         _adapter.notifyDataSetChanged();
+        setupView();
         return false;
     }
 

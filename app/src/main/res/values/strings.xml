@@ -31,8 +31,8 @@
     <string name="search_filters">Search Filters</string>
     <string name="title_journals">Journals</string>
 
-    <string name="no_journals_exist">You have no journals. </string>
-    <string name="no_entries_exist_yet">No entries in this journal. </string>
+    <string name="no_journals_exist">No journals to display.</string>
+    <string name="no_entries_exist_yet">No entries to display.</string>
 
     <string name="journal_created_successfully">Journal successfully created!</string>
     <string name="journal_edited_confirmed">Journal successfully edited!</string>

@@ -86,9 +86,11 @@ public class JournalManager {
                 }
 
                 if (status == null || status == StatusEnum.None) {
-                    if (j.get_status() == StatusEnum.Deleted) { continue; }
+                    if (j.get_status() == StatusEnum.Deleted) {
+                        continue;
+                    }
                 } else {
-                    if (j.get_status() != status) { continue; }
+                    if (j.get_status() != status && status != StatusEnum.All) { continue; }
                 }
 
                 filteredList.add(j);
@@ -108,6 +110,16 @@ public class JournalManager {
 
     public List<Journal> get_journals() {
         return get_journals(null);
+    }
+
+    public boolean journalExists(String title) {
+        for (Journal j: get_journals()) {
+            if (j.get_title().toLowerCase().equals(title.toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void closeJournal(Journal journal) {

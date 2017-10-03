@@ -39,11 +39,15 @@ public class CreateJournalDialogFragment extends DialogFragment implements Dialo
         EditText etTitle = ((AlertDialog) dialog).findViewById(R.id.et_create_journal_title);
         EditText etDescription = ((AlertDialog) dialog).findViewById(R.id.et_create_journal_description);
 
-        Journal journal = new Journal(etTitle.getText().toString(), etDescription.getText().toString());
-        JournalManager.getInstance().addJournal(journal);
-        Toast.makeText(getContext(), R.string.journal_created_successfully, Toast.LENGTH_SHORT).show();
-        JournalListFragment prevFragment = (JournalListFragment) getTargetFragment();
-        prevFragment.updateList();
+        if (JournalManager.getInstance().journalExists(etTitle.getText().toString())) {
+            Toast.makeText(getActivity(), "Journal title already in use - failed to create journal.", Toast.LENGTH_LONG).show();
+        } else {
+            Journal journal = new Journal(etTitle.getText().toString(), etDescription.getText().toString());
+            JournalManager.getInstance().addJournal(journal);
+            Toast.makeText(getContext(), R.string.journal_created_successfully, Toast.LENGTH_SHORT).show();
+            JournalListFragment prevFragment = (JournalListFragment) getTargetFragment();
+            prevFragment.updateList();
+        }
     }
 
 }
