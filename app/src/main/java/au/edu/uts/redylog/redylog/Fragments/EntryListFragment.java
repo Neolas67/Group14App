@@ -165,6 +165,7 @@ public class EntryListFragment extends Fragment implements SearchView.OnQueryTex
         _menu.findItem(R.id.action_reopen_journal).setVisible(e == StatusEnum.Closed);
         _menu.findItem(R.id.action_edit_journal).setVisible(e == StatusEnum.Open);
         _menu.findItem(R.id.action_delete_journal).setVisible(e == StatusEnum.Open || e == StatusEnum.Closed);
+        _fabEntry.setVisibility(e == StatusEnum.Open?View.VISIBLE:View.GONE);
     }
 
     @Override
